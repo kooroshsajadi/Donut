@@ -1,1 +1,24 @@
-<p>login works!</p>
+<!-- LOGIN BOX -->
+<div class="login-content box box-banner">
+    <div class="grid-row">
+      <div class="col-12 form-group">
+        <label>نام کاربری</label>
+        <input type="text" class="form-control" name="username"  autofocus />
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="col-12 form-group">
+        <label>رمز عبور</label>
+        <div class="password">
+          <input type="{{showPassword ? '' : 'password'}}" class="form-control" name="password"/>
+          <i class="zmdi zmdi-eye" (click)="showPassword = true" *ngIf="!showPassword"></i>
+          <i class="zmdi zmdi-eye-off" (click)="showPassword = false" *ngIf="showPassword"></i>
+        </div>
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="col-12 button-ctnr">
+        <button type="submit" mat-raised-button color="primary">ورود</button>
+      </div>
+    </div>
+  </div>
