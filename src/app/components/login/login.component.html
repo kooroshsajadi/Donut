@@ -13,9 +13,9 @@
         <div class="password">
             <div class="input-group-prepend">
               <span id="password-eye" style="position: absolute;padding-top: 7px;padding-left: 5px;">
-                <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </span>
-              <input matInput [type]="hide ? 'password' : 'text'" class="form-control" name="password" placeholder="رمز عبور" aria-describedby="password-eye" [(ngModel)]="password">    
+              <input matInput [type]="hidePassword ? 'password' : 'text'" class="form-control" name="password" placeholder="رمز عبور" aria-describedby="password-eye" [(ngModel)]="password">    
             </div>
         </div>
         <br/>
