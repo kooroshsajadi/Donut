@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +7,7 @@ import {MatButtonModule} from '@angular/material/button';
 })
 export class LoginComponent implements OnInit {
 
-  showPassword = false;
+  hide = true;
 
   constructor() { }
 
