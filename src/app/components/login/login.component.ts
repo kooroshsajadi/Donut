@@ -28,12 +28,16 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private onLoginButtonClick() {
+  onLoginButtonClick() {
+    debugger
     this.commonService.OpportunityId = this.commonService.getParameterByName();
     this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
       (success) => {
+        console.log("true")
       },
-      (error) => {}
+      (error) => {
+        console.log("false")
+      }
     )
   }
 
