@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ConfigService {
 
-  serverAddress = "http://192.168.20.73:8970/api/AuthDonat/LoginKasra"
+  serverAddress = "http://192.168.20.73:8970/api/AuthDonat"
  
   constructor(public http: HttpClient) { }
 
