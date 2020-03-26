@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard.service';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -30,10 +31,11 @@ const appRoutes: Routes = [
     //   { path: 'report', loadChildren: './report/report.module#ReportModule' },
     // ]
   },
-  { path: 'Tasks', component: ShowTasksComponent },
+  { path: 'Tasks',
+  component: ShowTasksComponent,
+  canActivate:[AuthGuardService] },
 
 ];
-
 
 @NgModule({
   declarations: [

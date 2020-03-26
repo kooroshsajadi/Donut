@@ -1,9 +1,27 @@
 <!-- LOGIN BOX -->
-<div class="login-content box box-banner jumbotron" style="align-content: center;">
+<div class="row d-flex justify-content-center">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <form>
+      <div class="form-group">
+        <label for="text">نام کاربری</label>
+        <input type="username" id="username" class="form-control" name="username" ngModel required />
+      </div>
+      <div class="form-group">
+        <label for="password">روز عبور</label>
+        <input type="password" id="password" class="form-control" name="password" ngModel required />
+      </div>
+      <div style="float: left;">
+        <button class="btn btn-primary" (click)="onLoginButtonClick()">ورود</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- شسیشیشسیشی -->
+<!-- <div class="login-content box box-banner jumbotron" style="align-content: center;">
     <div class="grid-row">
       <div class="col-5 form-group" style="display: inline-block;">
         <label>نام کاربری</label>
-        <input matInput type="text" class="form-control" name="username"  autofocus placeholder="نام کاربری" [(ngModel)]="username">
+        <input matInput type="text" class="form-control" id="username" name="username" autofocus placeholder="نام کاربری" [(ngModel)]="username">
       </div>
     </div>
     <div class="grid-row">
@@ -15,7 +33,7 @@
               <span id="password-eye" style="position: absolute;padding-top: 7px;padding-left: 5px;">
                 <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               </span>
-              <input matInput [type]="hidePassword ? 'password' : 'text'" class="form-control" name="password" placeholder="رمز عبور" aria-describedby="password-eye" [(ngModel)]="password">    
+              <input matInput [type]="hidePassword ? 'password' : 'text'" class="form-control" id="password" name="password" placeholder="رمز عبور" aria-describedby="password-eye" [(ngModel)]="password">    
             </div>
         </div>
         <br/>
@@ -23,11 +41,17 @@
           <button type="submit" mat-raised-button color="primary" style="float: left;transform: translate(-20%, 0%);" (click)="onLoginButtonClick()">ورود</button>
         </div>
       </div>
-    </div>
+    </div> -->
+
+
     <!-- <div class="grid-row">
       <div class="col-12 button-ctnr" style="display: inline-block;">
         <button type="submit" mat-raised-button color="primary" style="float: left;">ورود</button>
       </div>
     </div> -->
-  </div>
-  <router-outlet></router-outlet>
+
+
+
+  <!-- </div>
+  <router-outlet></router-outlet> -->
+  
