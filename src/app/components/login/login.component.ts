@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { CommonService } from 'src/app/services/common.service';
 
@@ -15,7 +15,8 @@ export class LoginComponent implements OnInit {
   password: string = ""
   OpportunityId: any;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private router: Router,
+    private route: ActivatedRoute,
     private sendRequest: LoginService,
     private commonService: CommonService) { }
 
@@ -29,6 +30,8 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginButtonClick() {
+    debugger
+    this.router.navigate(['/Tasks'])
     debugger
     this.commonService.OpportunityId = this.commonService.getParameterByName();
     this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(

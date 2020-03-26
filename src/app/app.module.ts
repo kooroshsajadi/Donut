@@ -12,13 +12,40 @@ import { MatInputModule} from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
+import { RouterModule, Routes } from '@angular/router';
+
+// const appRoutes: Routes = [
+//   { path: 'Tasks', component: ShowTasksComponent }
+// ];
+
+
+const appRoutes: Routes = [
+  {
+    path: '', component: LoginComponent,
+     
+    // canActivateChild: [LoginGuard],
+    // children: [
+    //   { path: 'formula', loadChildren: './formula/formula.module#FormulaModule' },
+    //   { path: 'report', loadChildren: './report/report.module#ReportModule' },
+    // ]
+  },
+  { path: 'Tasks', component: ShowTasksComponent },
+
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ShowTasksComponent
   ],
   imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    ),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
