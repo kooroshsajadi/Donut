@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    ShowTasksComponent
+    ShowTasksComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     RouterModule.forRoot(

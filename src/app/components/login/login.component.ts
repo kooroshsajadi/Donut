@@ -14,7 +14,9 @@ export class LoginComponent implements OnInit {
   hidePassword = true
   username: string = ""
   password: string = ""
-  OpportunityId: any;
+  OpportunityId: any
+  error: string = null
+  //isLoading = false;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -34,13 +36,17 @@ export class LoginComponent implements OnInit {
     debugger
     this.router.navigate(['/Tasks'])
     debugger
+    //this.isLoading = true
     this.commonService.OpportunityId = this.commonService.getParameterByName();
     this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
       (success) => {
         console.log("true")
+        //this.isLoading = false
       },
       (error) => {
         console.log("false")
+        this.error = "خطایی رخ داد!"
+        //this.isLoading = false
       }
     )
   }
@@ -50,6 +56,18 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    debugger
+    this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
+      (success) => {
+        console.log(success.message)
+        this.router.navigate(['/Tasks'])
+      },
+      (error) => {
+        console.log(error.message)
+        this.error = error.message
+        //this.isLoading = false
+      }
+    )
     form.reset()
   }
 }
