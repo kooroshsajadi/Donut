@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { CommonService } from 'src/app/services/common.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -46,5 +47,9 @@ export class LoginComponent implements OnInit {
 
   private generateLoginBody(): string {
     return "{'UserName':'" + this.username + "','Password':'" + this.password + "'}"
+  }
+
+  onSubmit(form: NgForm) {
+    form.reset()
   }
 }

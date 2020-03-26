@@ -1,7 +1,7 @@
 <!-- LOGIN BOX -->
 <div class="row d-flex justify-content-center">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <form #loginForm="ngForm">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
       <div class="form-group">
         <label for="text">نام کاربری</label>
         <input type="username" id="username" class="form-control" name="username" ngModel required />
