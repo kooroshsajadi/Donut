@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   password: string = ""
   OpportunityId: any
   error: string = null
-  //isLoading = false;
+  isLoading = false;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -36,17 +36,17 @@ export class LoginComponent implements OnInit {
     debugger
     this.router.navigate(['/Tasks'])
     debugger
-    //this.isLoading = true
+    this.isLoading = true
     this.commonService.OpportunityId = this.commonService.getParameterByName();
     this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
       (success) => {
         console.log("true")
-        //this.isLoading = false
+        this.isLoading = false
       },
       (error) => {
         console.log("false")
         this.error = "خطایی رخ داد!"
-        //this.isLoading = false
+        this.isLoading = false
       }
     )
   }
@@ -56,16 +56,19 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
-    debugger
+    this.isLoading = true
+    this.commonService.OpportunityId = this.commonService.getParameterByName();
     this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
       (success) => {
         console.log(success.message)
+        this.isLoading = false
         this.router.navigate(['/Tasks'])
+        
       },
       (error) => {
         console.log(error.message)
         this.error = error.message
-        //this.isLoading = false
+        this.isLoading = false
       }
     )
     form.reset()
