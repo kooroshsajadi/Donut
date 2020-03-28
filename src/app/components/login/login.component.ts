@@ -68,10 +68,14 @@ export class LoginComponent implements OnInit {
     this.sendRequest.sendLoginInfo(username, password).subscribe(
       (success) => {
         debugger
-        console.log(success.message)
+        if(success.validate) {
+          console.log(success.message)
+          this.router.navigate(['/Tasks'])
+        }
+        else {
+          this.error = success.message
+        }
         this.isLoading = false
-        this.router.navigate(['/Tasks'])
-        
       },
       (error) => {
         console.log(error.message)
