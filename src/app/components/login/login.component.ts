@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
     debugger
     this.isLoading = true
     this.commonService.OpportunityId = this.commonService.getParameterByName();
-    this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
+    // this.generateLoginBody()
+    this.sendRequest.sendLoginInfo(this.username, this.password).subscribe(
       (success) => {
         console.log("true")
         this.isLoading = false
@@ -56,9 +57,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form: NgForm) {
+    if(!form.valid) {
+      return
+    }
+    const username = form.value.username
+    const password = form.value.password
     this.isLoading = true
     this.commonService.OpportunityId = this.commonService.getParameterByName();
-    this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
+    // this.generateLoginBody()
+    this.sendRequest.sendLoginInfo(username, password).subscribe(
       (success) => {
         debugger
         console.log(success.message)
