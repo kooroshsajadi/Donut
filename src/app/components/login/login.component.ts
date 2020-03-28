@@ -11,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  hidePassword = true
+  //hidePassword = true
   username: string = ""
   password: string = ""
   OpportunityId: any
@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
     this.commonService.OpportunityId = this.commonService.getParameterByName();
     this.sendRequest.sendLoginInfo(this.generateLoginBody()).subscribe(
       (success) => {
+        debugger
         console.log(success.message)
         this.isLoading = false
         this.router.navigate(['/Tasks'])
