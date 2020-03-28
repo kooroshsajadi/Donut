@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 export class AuthGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, router: RouterStateSnapshot): 
   boolean | Promise<boolean> | Observable<boolean> {
-    return false
+    // TODO - Handle the return value
+    return true
   }
   constructor() { }
 }
