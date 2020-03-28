@@ -12,8 +12,8 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   //hidePassword = true
-  username: string = ""
-  password: string = ""
+  //username: string = ""
+  //password: string = ""
   OpportunityId: any
   error: string = null
   isLoading = false;
@@ -32,29 +32,27 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLoginButtonClick() {
-    debugger
-    this.router.navigate(['/Tasks'])
-    debugger
-    this.isLoading = true
-    this.commonService.OpportunityId = this.commonService.getParameterByName();
-    // this.generateLoginBody()
-    this.sendRequest.sendLoginInfo(this.username, this.password).subscribe(
-      (success) => {
-        console.log("true")
-        this.isLoading = false
-      },
-      (error) => {
-        console.log("false")
-        this.error = "خطایی رخ داد!"
-        this.isLoading = false
-      }
-    )
-  }
+  // onLoginButtonClick() {
+  //   this.router.navigate(['/Tasks'])
+  //   this.isLoading = true
+  //   this.commonService.OpportunityId = this.commonService.getParameterByName();
+  //   // this.generateLoginBody()
+  //   this.sendRequest.sendLoginInfo(this.username, this.password).subscribe(
+  //     (success) => {
+  //       console.log("true")
+  //       this.isLoading = false
+  //     },
+  //     (error) => {
+  //       console.log("false")
+  //       this.error = "خطایی رخ داد!"
+  //       this.isLoading = false
+  //     }
+  //   )
+  // }
 
-  private generateLoginBody(): string {
-    return "{'UserName':'" + this.username + "','Password':'" + this.password + "'}"
-  }
+  // private generateLoginBody(): string {
+  //   return "{'UserName':'" + this.username + "','Password':'" + this.password + "'}"
+  // }
 
   onSubmit(form: NgForm) {
     if(!form.valid) {
@@ -64,7 +62,6 @@ export class LoginComponent implements OnInit {
     const password = form.value.password
     this.isLoading = true
     this.commonService.OpportunityId = this.commonService.getParameterByName();
-    // this.generateLoginBody()
     this.sendRequest.sendLoginInfo(username, password).subscribe(
       (success) => {
         debugger
@@ -73,13 +70,14 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/Tasks'])
         }
         else {
-          this.error = success.message
+          console.log(success.message)
+          this.error = "رمز عبور اشتباه است"
         }
         this.isLoading = false
       },
-      (error) => {
-        console.log(error.message)
-        this.error = error.message
+      errorMessage => {
+        console.log(errorMessage)
+        this.error = "خطایی رخ داد"
         this.isLoading = false
       }
     )
