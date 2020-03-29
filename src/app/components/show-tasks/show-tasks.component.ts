@@ -22,6 +22,7 @@ export class ShowTasksComponent implements OnInit {
           this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
         }
       });
+      console.log(this.commonService.currentUserFullname)
     }
   
     onLoading() {

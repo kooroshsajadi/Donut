@@ -21,7 +21,6 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 //   { path: 'Tasks', component: ShowTasksComponent }
 // ];
 
-
 const appRoutes: Routes = [
   {
     path: '', component: LoginComponent,

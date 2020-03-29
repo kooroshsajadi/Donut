@@ -64,18 +64,26 @@ export class LoginComponent implements OnInit {
     this.commonService.OpportunityId = this.commonService.getParameterByName();
     this.sendRequest.sendLoginInfo(username, password).subscribe(
       (success) => {
-        debugger
         if(success.validate) {
           console.log(success.message)
+          var resData = JSON.parse(success.message)
+          this.commonService.currentUserFullname = resData.FullName
+          debugger
           this.router.navigate(['/Tasks'])
+          debugger
         }
         else {
+          debugger
           console.log(success.message)
+          debugger
           this.error = "رمز عبور اشتباه است"
+          debugger
         }
+        debugger
         this.isLoading = false
       },
       errorMessage => {
+        debugger
         console.log(errorMessage)
         this.error = "خطایی رخ داد"
         this.isLoading = false

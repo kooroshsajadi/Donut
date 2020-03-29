@@ -29,9 +29,8 @@ export class LoginService {
     const body = this.generateLoginBody(username, password)
     return this.configService.post('AuthDonat/LoginKasra', body)
     .pipe(catchError(this.handleError), tap(resData => {
-      debugger
-      this.handleAuthentication(resData["FullName"], resData["PresonCode"]);
-      debugger
+      var readableRes = JSON.parse(resData.message)
+      this.handleAuthentication(readableRes.FullName, readableRes.PresonCode);
     }));
   }
 
@@ -41,10 +40,7 @@ export class LoginService {
   }
 
   private handleAuthentication(fullname: string, personID: string) {
-    debugger
     const user = new User(fullname, personID);
-    debugger
     this.user.next(user);
-    debugger
   }
 }
