@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+$fa-font-path: "../node_modules/font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';
+
+html, body { height: 100%; }
+body {padding: 10px; margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+*{
+    font-family: 'iranSans'; 
+    text-align: right;
+}
+@font-face {
+    font-family: iranSans;
+    src: url(assets/fonts/iranSans/IRANSansRegular.ttf) format("opentype");
+  }
+label{
+    font-weight: bold;
+    font-size: medium;
+}
+.gridSubject{
+    background-image: linear-gradient(90deg, #003816 0%, #205506 100%);;
+    text-align: center;
+    color: white;
+    margin-bottom: 1%;
+}
+.contain{
+    margin: 1%;
+}
+.textOnTopOFTheGrid{
+    margin: 1%;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
