@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { CommonService } from 'src/app/services/common.service';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-show-tasks',
@@ -14,6 +15,8 @@ export class ShowTasksComponent implements OnInit {
     private route: ActivatedRoute,
     private sendRequest: LoginService,
     private commonService: CommonService) { }
+
+    model: NgbDateStruct;
 
     ngOnInit(): void {
       this.route.queryParams.subscribe(params => {
