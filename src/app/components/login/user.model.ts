@@ -1,5 +1,6 @@
-export class User {
-    constructor(public username: string, public id: string) {
-
-    }
+ export class User {
+    constructor(
+        private fullname: string,
+        private personID: string)
+        {}
 }
