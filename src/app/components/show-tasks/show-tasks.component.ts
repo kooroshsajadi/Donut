@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 import { CommonService } from 'src/app/services/common.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-show-tasks',
@@ -11,10 +12,16 @@ import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ShowTasksComponent implements OnInit {
 
+  displayedColumns: string[] = ['Owner', 'Customer', 'Project', 'Phase', 'SubPhase',
+                                'ActivitesDate', 'ActivitesTime', 'PlaceOfAction', 'Description',
+                                'IsMoreWork'];
+  
+  dataSource: MatTableDataSource<any>
+
   constructor(private router: Router,
     private route: ActivatedRoute,
     private sendRequest: LoginService,
-    private commonService: CommonService) { }
+    public commonService: CommonService) { }
 
     model: NgbDateStruct;
 

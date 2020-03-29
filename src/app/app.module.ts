@@ -16,6 +16,8 @@ import { ShowTasksComponent } from './components/show-tasks/show-tasks.component
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -59,7 +61,9 @@ const appRoutes: Routes = [
     MatInputModule,
     MatIconModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatTableModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

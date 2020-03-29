@@ -293,27 +293,107 @@
   <div class="spacer"></div>
 </div>
 <br/>
-<!-- <div dir="rtl"> -->
-  <!-- <p class="fullnameParagraph">{{ this.commonService.currentUserFullname }}</p> -->
-  <form class="form-inline" dir="rtl">
 
+  <form class="form-inline" style="float: right;">
     <div class="form-group">
-      <p class="fullnameParagraph">
-        {{ this.commonService.currentUserFullname }}
-      </p>
-      <div class="input-group border border-secondary">
-          
-        <input class="form-control" placeholder="yyyy-mm-dd"
-               name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group">
         <div class="input-group-append">
           <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
             <i class="fa fa-calendar" aria-hidden="true"></i>
           </button>
         </div>
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" style="margin-right: 5px;">
+        <label> : کورش سجادی</label>
       </div>
     </div>
   </form>
 
-  <hr/>
-<pre>Model: {{ model | json }}</pre>
-<!-- </div> -->
+<br/>
+<br/>
+<br/>
+
+<div class="table-responsive">
+  <table class="table table-striped" dir="rtl">
+    <!-- <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody> -->
+    <ng-container matColumnDef="Owner">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> مالک </th>
+      <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Customer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> مشتری </th>
+      <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Project">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> پروژه </th>
+      <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Phase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> فاز </th>
+      <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SubPhase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> زیر فاز </th>
+      <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ActivitesDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> تاریخ </th>
+      <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ActivitesTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> زمان </th>
+      <td mat-cell *matCellDef="let row"> {{row.ر}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="PlaceOfAction">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> محل </th>
+      <td mat-cell *matCellDef="let row"> {{row.ر}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> شرح </th>
+      <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="IsMoreWork">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> کار مازاد </th>
+      <td mat-cell *matCellDef="let row"> {{row.IsMoreWork}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+  </table>
+</div>
+
