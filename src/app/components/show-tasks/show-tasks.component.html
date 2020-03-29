@@ -312,8 +312,59 @@
 <br/>
 <br/>
 
-<div class="table-responsive">
-  <table class="table table-striped" dir="rtl">
+<div class="table-responsive" dir="rtl">
+  <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort>
+
+<ng-container matColumnDef="Owner">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> مالک </th>
+  <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Customer">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> مشتری </th>
+  <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Project">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> پروژه </th>
+  <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Phase">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> فاز </th>
+  <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
+</ng-container>
+
+<ng-container matColumnDef="SubPhase">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> زیر فاز </th>
+  <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
+</ng-container>
+
+<ng-container matColumnDef="ActivitesDate">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> تاریخ </th>
+  <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
+</ng-container>
+
+<ng-container matColumnDef="ActivitesTime">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> زمان </th>
+  <td mat-cell *matCellDef="let row"> {{row.ActivitesTime}} </td>
+</ng-container>
+
+<ng-container matColumnDef="PlaceOfAction">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> محل </th>
+  <td mat-cell *matCellDef="let row"> {{row.PlaceOfAction}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Description">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> شرح </th>
+  <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
+</ng-container>
+
+<ng-container matColumnDef="IsMoreWork">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> کار مازاد </th>
+  <td mat-cell *matCellDef="let row"> {{row.IsMoreWork}} </td>
+</ng-container>
+
     <!-- <thead>
       <tr>
         <th scope="col">#</th>
@@ -342,58 +393,61 @@
         <td>@twitter</td>
       </tr>
     </tbody> -->
-    <ng-container matColumnDef="Owner">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> مالک </th>
-      <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Customer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> مشتری </th>
-      <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Project">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> پروژه </th>
-      <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Phase">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> فاز </th>
-      <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="SubPhase">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> زیر فاز </th>
-      <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="ActivitesDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> تاریخ </th>
-      <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="ActivitesTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> زمان </th>
-      <td mat-cell *matCellDef="let row"> {{row.ر}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="PlaceOfAction">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> محل </th>
-      <td mat-cell *matCellDef="let row"> {{row.ر}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> شرح </th>
-      <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="IsMoreWork">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> کار مازاد </th>
-      <td mat-cell *matCellDef="let row"> {{row.IsMoreWork}} </td>
-    </ng-container>
+    
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
-  </table>
+</table>
 </div>
 
+
+
+<!-- <ng-container matColumnDef="Owner">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> مالک </th>
+  <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Customer">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> مشتری </th>
+  <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Project">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> پروژه </th>
+  <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Phase">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> فاز </th>
+  <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
+</ng-container>
+
+<ng-container matColumnDef="SubPhase">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> زیر فاز </th>
+  <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
+</ng-container>
+
+<ng-container matColumnDef="ActivitesDate">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> تاریخ </th>
+  <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
+</ng-container>
+
+<ng-container matColumnDef="ActivitesTime">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> زمان </th>
+  <td mat-cell *matCellDef="let row"> {{row.ActivitesTime}} </td>
+</ng-container>
+
+<ng-container matColumnDef="PlaceOfAction">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> محل </th>
+  <td mat-cell *matCellDef="let row"> {{row.PlaceOfAction}} </td>
+</ng-container>
+
+<ng-container matColumnDef="Description">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> شرح </th>
+  <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
+</ng-container>
+
+<ng-container matColumnDef="IsMoreWork">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> کار مازاد </th>
+  <td mat-cell *matCellDef="let row"> {{row.IsMoreWork}} </td>
+</ng-container> -->
