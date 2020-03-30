@@ -1,12 +1,3 @@
-<!-- <div dir="rtl">
-  <mat-form-field>
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-</div> -->
-
 <div class="toolbar" role="banner">
   <img class="logo" src="../assets/logos/logokasra.png" alt="شرکت مهندسی کسرا"
     itemprop="image" title="logokasra">
@@ -14,41 +5,28 @@
 </div>
 <br/>
 
-  <form class="form-inline" style="float: right;">
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-append">
-          <div dir="rtl">
-            <mat-form-field style="padding-right: 12px;font-size: medium;">
-              <mat-label style="color: deeppink;">تاریخی را انتخاب کنید</mat-label>
-              <input matInput [matDatepicker]="picker"
-                (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker touchUi #picker></mat-datepicker>
-            </mat-form-field>
-            <div *ngFor="let e of events">{{e}}</div>
-          </div>
+<form class="form-inline" style="float: right;">
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-append">
+        <div dir="rtl">
+          <mat-form-field style="padding-right: 12px;font-size: medium;">
+            <!-- <mat-label style="color: red;float: left;">تاریخی را انتخاب کنید</mat-label> -->
+            <!-- <i matprefix>کورش</i> -->
+            <input matInput [matDatepicker]="picker" [value]="date.value" (dateChange)="onDateChange()" disabled>
+            <mat-hint align="end">تاریخی انتخاب کنید ^</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <div *ngFor="let e of events">{{e}}</div>
         </div>
-        <!-- <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" style="margin-right: 5px;"> -->
-        <label> : دکتر سجادی</label>
       </div>
+      <label>  : سجادی</label>
     </div>
-  </form>
-  
-  
-  
-
-<br/>
-<br/>
-<br/>
-
-
-<div>
-  <div class="btn-group buttons" style="float: left;">
-    <button type="button" class="btn btn-danger">حذف</button>
-    <button type="button" class="btn btn-primary">ویرایش</button>    
-    <button type="button" class="btn btn-success">ایجاد</button>
   </div>
+</form>
+
+<div dir="rtl">
   <br>
   <br>
   <br>
@@ -108,5 +86,15 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
     </table>
+  </div>
+  <div>
+    <div class="btn-group buttons" style="float: right;">
+      <button type="button" class="btn btn-success">ایجاد</button>
+      <button type="button" class="btn btn-primary">ویرایش</button>    
+      <button type="button" class="btn btn-danger">حذف</button>
+    </div>
+    <div>
+      <mat-paginator [pageSizeOptions]="[5,10,25,100]" style="float: left;"></mat-paginator>
+    </div>
   </div>
 </div>

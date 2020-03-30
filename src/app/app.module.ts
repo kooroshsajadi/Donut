@@ -19,6 +19,7 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -65,7 +66,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatDatepickerModule,
     MatTableModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatPaginatorModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]

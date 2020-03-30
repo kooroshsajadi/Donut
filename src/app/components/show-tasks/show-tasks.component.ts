@@ -1,15 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
 import { CommonService } from 'src/app/services/common.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableDataSource } from '@angular/material/table';
 import { TasksShowService } from 'src/app/services/tasks-show.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { NgForm } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html',
@@ -28,6 +26,10 @@ export class ShowTasksComponent implements OnInit {
   serverRes: any[] = []
   currentDate: string
   events: string[] = [];
+  date = new FormControl(new Date());
+  //serializedDate = new FormControl((new Date()).toISOString());
+  //filteredOptions: Observable<string[]>
+  //myControl = new FormControl('')
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -43,13 +45,21 @@ export class ShowTasksComponent implements OnInit {
           this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
         }
       });
-      console.log(this.commonService.currentUserFullname)
-      // this.dataSource = new MatTableDataSource([])
+      // Costumizing the paginator.
+      this.paginator._intl.nextPageLabel = "بعدی"
+      this.paginator._intl.previousPageLabel = "قبلی"
+      this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
+      this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
+      { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
+      const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+      return `${startIndex + 1} – ${endIndex} از ${length}`; }
+
+      //Get the grid with the initial today date. 
+      this.generateTable();
     }
 
-    public generateTable(body: string) {
-      debugger
-      if(this.dataSource === undefined || this.dataSource.data === null || this.dataSource.data === [])
+    public generateTable() {
+      var body = this.generateGetActivityDataBody(this.date.value)
       this.tasksShowService.getActivityData(body).subscribe(
         (success) => {
           this.serverRes = JSON.parse(success.message)
@@ -60,20 +70,15 @@ export class ShowTasksComponent implements OnInit {
         },
         (error) => {}
       )
-      debugger
     }
 
-    addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-      //this.events.push(`${type}: ${event.value}`);
-      debugger
-      var body = this.generateGetActivityDataBody(event.value)
-      this.generateTable(body)
+    onDateChange() {
+      this.generateTable()
     }
 
     private generateGetActivityDataBody(date: Date): string {
-      debugger
       const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      const nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+      const nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
       var dateArray = date.toString().split(" ")
       var month = nums[months.indexOf(dateArray[1])]
       var body: string = "{'personId':'" + this.commonService.currentUserID + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
