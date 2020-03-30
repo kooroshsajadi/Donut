@@ -5,6 +5,7 @@ import { ConfigService } from './config.service';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject } from 'rxjs';
 import { User } from '../components/login/user.model';
+import { CommonService } from './common.service';
 
 interface LoginResponseData {
   "FullName": string
@@ -19,7 +20,8 @@ export class LoginService {
   user = new Subject<User>();
 
   constructor(private configService: ConfigService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private commonService: CommonService) { }
 
   private generateLoginBody(username: string, password: string): string {
     return "{'UserName':'" + username + "','Password':'" + password + "'}"
@@ -40,6 +42,8 @@ export class LoginService {
   }
 
   private handleAuthentication(fullname: string, personID: string) {
+    this.commonService.currentUserFullname = fullname
+    this.commonService.currentUserID = personID
     const user = new User(fullname, personID);
     this.user.next(user);
   }
