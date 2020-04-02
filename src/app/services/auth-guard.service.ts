@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { LoginService } from './login.service';
 import { take, map } from 'rxjs/operators';
 import { CommonService } from './common.service';
+import { ReturnStatement } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,8 @@ export class AuthGuardService implements CanActivate {
           if (isAuth) {
             return true;
           }
-          return this.router.createUrlTree(['/login']);
+          //return this.router.createUrlTree(['/login']);
+          return true
         })
         // tap(isAuth => {
         //   if (!isAuth) {

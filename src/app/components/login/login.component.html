@@ -3,66 +3,31 @@
     <img src="../../../assets/logos/logo2.jpg" class="img-fluid" alt="Responsive image">
     <br/>
     <br/>
-    <div *ngIf="isLoading" style="text-align: center;">
+    <div *ngIf="isLoading" class="spinner">
       <app-loading-spinner></app-loading-spinner>
     </div>
-    <!-- <div class="well"> -->
       <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" *ngIf="!isLoading">
         <div class="alert alert-danger" *ngIf="error">
           <p>{{ error }}</p>
         </div>
-        <div class="form-group">
+        <div class="input-group">
           <!-- <label for="text">نام کاربری</label> -->
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-user fa-lg" aria-hidden="true" style="width: 15px;"></i></span>            
+          </div>
           <input type="username" id="username" placeholder="نام کاربری" class="form-control" name="username" ngModel required/>
         </div>
-        <div class="form-group">
+
+        <div class="input-group" style="padding-top: 5px;">
           <!-- <label for="password">رمز عبور</label> -->
-          <input type="password" id="password" placeholder="رمز عبور" class="form-control" name="password" ngModel required />
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock fa-lg" aria-hidden="true" style="width: 15px;"></i></span>            
+          </div>
+          <input type="password" id="password" placeholder="رمز عبور" class="form-control" name="password" ngModel required minlength="4" />
         </div>
-        <div class="center">
+        <div class="center" style="padding-top: 10px;">
           <button class="btn btn-primary btn-block btn-background-color" [disabled]="!loginForm.valid">ورود</button>
         </div>
       </form>
-    <!-- </div> -->
-    
   </div>
 </div>
-<!-- شسیشیشسیشی -->
-<!-- <div class="login-content box box-banner jumbotron" style="align-content: center;">
-    <div class="grid-row">
-      <div class="col-5 form-group" style="display: inline-block;">
-        <label>نام کاربری</label>
-        <input matInput type="text" class="form-control" id="username" name="username" autofocus placeholder="نام کاربری" [(ngModel)]="username">
-      </div>
-    </div>
-    <div class="grid-row">
-      <br/>
-      <div class="col-5 form-group" style="display: inline-block;">
-        <label>رمز عبور</label>
-        <div class="password">
-            <div class="input-group-prepend">
-              <span id="password-eye" style="position: absolute;padding-top: 7px;padding-left: 5px;">
-                <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              </span>
-              <input matInput [type]="hidePassword ? 'password' : 'text'" class="form-control" id="password" name="password" placeholder="رمز عبور" aria-describedby="password-eye" [(ngModel)]="password">    
-            </div>
-        </div>
-        <br/>
-        <div class="col-12 button-ctnr" style="display: inline-block;">
-          <button type="submit" mat-raised-button color="primary" style="float: left;transform: translate(-20%, 0%);" (click)="onLoginButtonClick()">ورود</button>
-        </div>
-      </div>
-    </div> -->
-
-
-    <!-- <div class="grid-row">
-      <div class="col-12 button-ctnr" style="display: inline-block;">
-        <button type="submit" mat-raised-button color="primary" style="float: left;">ورود</button>
-      </div>
-    </div> -->
-
-
-
-  <!-- </div>
-  <router-outlet></router-outlet> -->
-  

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, Subject } from 'rxjs';
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { User } from '../components/login/user.model';
 
 export interface LoginResponseData {
@@ -15,7 +15,7 @@ export interface LoginResponseData {
 })
 export class LoginService {
 
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
 
   constructor(private configService: ConfigService) { }
 
