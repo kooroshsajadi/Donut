@@ -7,7 +7,6 @@ import { TasksShowService } from 'src/app/services/tasks-show.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html',
@@ -26,10 +25,9 @@ export class ShowTasksComponent implements OnInit {
   serverRes: any[] = []
   currentDate: string
   events: string[] = [];
+
+  // The initial value of the calendar is set to today.
   date = new FormControl(new Date());
-  //serializedDate = new FormControl((new Date()).toISOString());
-  //filteredOptions: Observable<string[]>
-  //myControl = new FormControl('')
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -45,6 +43,7 @@ export class ShowTasksComponent implements OnInit {
           this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
         }
       });
+
       // Costumizing the paginator.
       this.paginator._intl.nextPageLabel = "بعدی"
       this.paginator._intl.previousPageLabel = "قبلی"
@@ -54,7 +53,7 @@ export class ShowTasksComponent implements OnInit {
       const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
       return `${startIndex + 1} – ${endIndex} از ${length}`; }
 
-      //Get the grid with the initial today date. 
+      //Get the grid with the initial today date.
       this.generateTable();
     }
 
@@ -81,7 +80,15 @@ export class ShowTasksComponent implements OnInit {
       const nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
       var dateArray = date.toString().split(" ")
       var month = nums[months.indexOf(dateArray[1])]
-      var body: string = "{'personId':'" + this.commonService.currentUserID + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
+      var body: string = "{'personId':'" + localStorage.getItem('personCode') + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
       return body
+    }
+
+    // The two following methods get the user data which is stored in the local storage.
+    getFullname(): string {
+      return localStorage.getItem('fullname');
+    }
+    getPersonCode(): string {
+      return localStorage.getItem('personCode');
     }
 }

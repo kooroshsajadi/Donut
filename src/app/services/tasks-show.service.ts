@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -8,10 +7,9 @@ import { ConfigService } from './config.service';
 })
 export class TasksShowService {
 
-  constructor(private configService: ConfigService,
-    private http: HttpClient) { }
+  constructor(private configService: ConfigService) { }
 
-  public getActivityData(body: string):Observable<any>{
+  public getActivityData(body: string):Observable<any> {
     return this.configService.post('ActivitiyInfo/ActivityData', body);
   }
 }

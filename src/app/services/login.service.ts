@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, Subject } from 'rxjs';
 import { User } from '../components/login/user.model';
-import { CommonService } from './common.service';
 
 export interface LoginResponseData {
   FullName: string
@@ -43,7 +41,8 @@ export class LoginService {
   private handleAuthentication(fullname: string, personID: string) {
     const user = new User(fullname, personID);
     this.user.next(user);
-    localStorage.setItem('userData', JSON.stringify(user));
+    localStorage.setItem('fullname', JSON.stringify(user.fullname));
+    localStorage.setItem('personCode', JSON.stringify(user.personID));
     // this.commonService.currentUserFullname = fullname
     // this.commonService.currentUserID = personID
   }
