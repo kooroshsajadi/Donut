@@ -25,21 +25,21 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 //   { path: 'Tasks', component: ShowTasksComponent }
 // ];
 
-const appRoutes: Routes = [
-  {
-    path: '', component: LoginComponent,
+// const appRoutes: Routes = [
+//   {
+//     path: '', component: LoginComponent,
      
-    // canActivateChild: [LoginGuard],
-    // children: [
-    //   { path: 'formula', loadChildren: './formula/formula.module#FormulaModule' },
-    //   { path: 'report', loadChildren: './report/report.module#ReportModule' },
-    // ]
-  },
-  { path: 'Tasks',
-  component: ShowTasksComponent,
-  canActivate:[AuthGuardService] },
+//     // canActivateChild: [LoginGuard],
+//     // children: [
+//     //   { path: 'formula', loadChildren: './formula/formula.module#FormulaModule' },
+//     //   { path: 'report', loadChildren: './report/report.module#ReportModule' },
+//     // ]
+//   },
+//   { path: 'Tasks',
+//   component: ShowTasksComponent,
+//   canActivate:[AuthGuardService] },
 
-];
+// ];
 
 @NgModule({
   declarations: [
@@ -49,10 +49,10 @@ const appRoutes: Routes = [
     LoadingSpinnerComponent
   ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
+    // RouterModule.forRoot(
+    //   appRoutes,
+    //   { enableTracing: true } // <-- debugging purposes only
+    // ),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

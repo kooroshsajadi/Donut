@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { LoginService, LoginResponseData } from 'src/app/services/login.service';
 import { CommonService } from 'src/app/services/common.service';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -60,35 +61,39 @@ export class LoginComponent implements OnInit {
     }
     const username = form.value.username
     const password = form.value.password
+    let authObs: Observable<LoginResponseData>;
     this.isLoading = true
     this.commonService.OpportunityId = this.commonService.getParameterByName();
-    this.sendRequest.sendLoginInfo(username, password).subscribe(
-      (success) => {
-        if(success.validate) {
-          console.log(success.message)
-          var resData = JSON.parse(success.message)
-          this.commonService.currentUserFullname = resData.FullName
-          debugger
-          this.router.navigate(['/Tasks'])
-          debugger
-        }
-        else {
-          debugger
-          console.log(success.message)
-          debugger
-          this.error = "رمز عبور اشتباه است"
-          debugger
-        }
+    authObs = this.sendRequest.sendLoginInfo(username, password);
+    authObs.subscribe(
+      resData => {
+        // if(success.validate) {
+          // console.log(success.message)
+        console.log(resData);
+        this.isLoading = false;
+          // var resData = JSON.parse(success.message)
+          // this.commonService.currentUserFullname = resData.FullName
         debugger
-        this.isLoading = false
+        this.router.navigate(['/tasks-show'])
+        debugger
       },
+        // else {
+        //   debugger
+        //   console.log(success.message)
+        //   debugger
+        //   this.error = "رمز عبور اشتباه است"
+        //   debugger
+        // }
+        // debugger
+        // this.isLoading = false
+      // },
       errorMessage => {
         debugger
         console.log(errorMessage)
         this.error = "خطایی رخ داد"
         this.isLoading = false
       }
-    )
+    );
     form.reset()
   }
 }

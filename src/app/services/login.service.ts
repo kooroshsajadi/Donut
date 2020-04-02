@@ -7,9 +7,9 @@ import { throwError, Subject } from 'rxjs';
 import { User } from '../components/login/user.model';
 import { CommonService } from './common.service';
 
-interface LoginResponseData {
-  "FullName": string
-  "PresonCode": string
+export interface LoginResponseData {
+  FullName: string
+  PresonCode: string
 }
 
 @Injectable({
@@ -19,18 +19,17 @@ export class LoginService {
 
   user = new Subject<User>();
 
-  constructor(private configService: ConfigService,
-    private http: HttpClient,
-    private commonService: CommonService) { }
+  constructor(private configService: ConfigService) { }
 
   private generateLoginBody(username: string, password: string): string {
     return "{'UserName':'" + username + "','Password':'" + password + "'}"
   }
 
-  public sendLoginInfo(username: string, password: string):Observable<any>{
+  public sendLoginInfo(username: string, password: string) {
     const body = this.generateLoginBody(username, password)
     return this.configService.post('AuthDonat/LoginKasra', body)
     .pipe(catchError(this.handleError), tap(resData => {
+      debugger
       var readableRes = JSON.parse(resData.message)
       this.handleAuthentication(readableRes.FullName, readableRes.PresonCode);
     }));
@@ -42,9 +41,10 @@ export class LoginService {
   }
 
   private handleAuthentication(fullname: string, personID: string) {
-    this.commonService.currentUserFullname = fullname
-    this.commonService.currentUserID = personID
     const user = new User(fullname, personID);
     this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
+    // this.commonService.currentUserFullname = fullname
+    // this.commonService.currentUserID = personID
   }
 }
