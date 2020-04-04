@@ -12,22 +12,27 @@
 }
 
 .table {
-    table-layout:fixed;
+  width: 100%;
+  //table-layout:fixed;
 }
 
-.headerColumn {
-    font-weight: bold;
-    font-size: medium;
-}
-
-.buttons {
-  //padding-right: 5%;
-  //padding-top: 10px;
-  float: right;
+.table-buttons {
+  margin: 10px;
 }
 
 .my-button {
   margin-right: 20px;
+}
+
+td, th {
+  font-size: medium;
+  padding-top: 15px!important;
+  //text-align: center!important;
+}
+
+th{
+  border: 2px solid #dee2e6;
+  font-weight: bold;
 }
 
 // The following lines are the stylings that I have took from the previous projects.
