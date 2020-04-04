@@ -14,14 +14,15 @@
             <!-- <mat-label style="color: red;float: left;">تاریخی را انتخاب کنید</mat-label> -->
             <!-- <i matprefix>کورش</i> -->
             <input matInput [matDatepicker]="picker" [value]="date.value" (dateChange)="onDateChange()" disabled>
-            <mat-hint align="end">تاریخی انتخاب کنید ^</mat-hint>
+            <mat-hint align="end">تاریخی را انتخاب کنید ^</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
           </mat-form-field>
         </div>
       </div>
-      <label>  : {{ this.getFullname() }}</label>
+      
     </div>
+    <label>  : {{ this.getFullname() }}</label>
   </div>
 </form>
 
@@ -30,6 +31,13 @@
   <br>
   <br>
   <div class="table-responsive" dir="rtl">
+    <div class="btn-toolbar" style="float: left;">
+      <button type="button" class="btn btn-success">ایجاد</button>
+      <button type="button" class="btn btn-primary">ویرایش</button>    
+      <button type="button" class="btn btn-danger">حذف</button>
+    </div>
+    <br>
+    <br>
     <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort>
   
       <ng-container matColumnDef="Owner">
@@ -85,15 +93,12 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
     </table>
-  </div>
-  <div>
-    <div class="btn-group buttons" style="float: right;">
-      <button type="button" class="btn btn-success">ایجاد</button>
-      <button type="button" class="btn btn-primary">ویرایش</button>    
-      <button type="button" class="btn btn-danger">حذف</button>
-    </div>
     <div>
       <mat-paginator [pageSizeOptions]="[5,10,25,100]" style="float: left;"></mat-paginator>
     </div>
+  </div>
+  <div>
+    
+    
   </div>
 </div>
