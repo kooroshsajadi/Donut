@@ -93,13 +93,13 @@ export class ShowTasksComponent implements OnInit {
       
       // localStorage.getItem('personCode')
       // 941348
-      var body: string = "{'personId':'" + 941348 + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
+      var body: string = "{'personId':'" + localStorage.getItem('personCode') + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
       return body
     }
 
     // The two following methods get the user data which is stored in the local storage.
     getFullname(): string {
-      return localStorage.getItem('fullname').replace("\"", "");
+      return localStorage.getItem('fullname').replace("\"", "").replace("\"", "");
     }
     getPersonCode(): string {
       return localStorage.getItem('personCode');
