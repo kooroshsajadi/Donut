@@ -13,7 +13,7 @@
           <mat-form-field style="padding-right: 12px;font-size: medium;">
             <!-- <mat-label style="color: red;float: left;">تاریخی را انتخاب کنید</mat-label> -->
             <!-- <i matprefix>کورش</i> -->
-            <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="date.value" (dateChange)="onDateChange()" name="datePickerInput" disabled>
+            <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="selectedDate" (dateChange)="onDateChange()" name="datePickerInput" disabled>
             <mat-hint align="end">تاریخی را انتخاب کنید ^</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>

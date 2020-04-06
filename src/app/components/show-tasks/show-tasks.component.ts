@@ -25,6 +25,7 @@ export class ShowTasksComponent implements OnInit {
   serverRes: any[] = []
   currentDate: string
   events: string[] = [];
+  selectedDate: string;
 
   // The initial value of the calendar is set to today.
   date = new FormControl(new Date());
@@ -53,13 +54,16 @@ export class ShowTasksComponent implements OnInit {
       const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
       return `${startIndex + 1} – ${endIndex} از ${length}`; }
 
+      this.selectedDate = this.date.value;
+
       //Get the grid with the initial today date.
       this.generateTable();
     }
 
     public generateTable() {
       debugger
-      var body = this.generateGetActivityDataBody(this.date.value)
+      this.selectedDate
+      var body = this.generateGetActivityDataBody(this.selectedDate)
       console.log(body)
       this.tasksShowService.getActivityData(body).subscribe(
         (success) => {
@@ -80,7 +84,8 @@ export class ShowTasksComponent implements OnInit {
       this.generateTable()
     }
 
-    private generateGetActivityDataBody(date: Date): string {
+    private generateGetActivityDataBody(date: string): string {
+      debugger
       const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
       const nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
       var dateArray = date.toString().split(" ")
