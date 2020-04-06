@@ -27,7 +27,18 @@
 td, th {
   font-size: medium;
   padding-top: 15px!important;
+  //padding-left: 5px;
   //text-align: center!important;
+}
+
+.cellDataLeftPadding {
+ padding-left: 5px;
+}
+
+.my-mat-cell {
+  text-align: center;
+  justify-content: center;
+  vertical-align: middle;
 }
 
 th{

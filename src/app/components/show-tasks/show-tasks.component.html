@@ -79,7 +79,10 @@
   
       <ng-container matColumnDef="IsMoreWork">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> کار مازاد </th>
-        <td mat-cell *matCellDef="let row"> {{row.IsMoreWork}} </td>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [Checked]="row.IsMoreWork"></mat-checkbox>
+        </td>
+        <!-- {{row.IsMoreWork}} -->
       </ng-container>
       
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

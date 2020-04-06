@@ -13,8 +13,7 @@ import { MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './services/auth-guard.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
@@ -67,7 +66,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDatepickerModule,
     MatTableModule,
     MatNativeDateModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent]
