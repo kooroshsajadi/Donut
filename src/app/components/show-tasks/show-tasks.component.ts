@@ -58,16 +58,21 @@ export class ShowTasksComponent implements OnInit {
     }
 
     public generateTable() {
+      debugger
       var body = this.generateGetActivityDataBody(this.date.value)
+      console.log(body)
       this.tasksShowService.getActivityData(body).subscribe(
         (success) => {
+          debugger
           this.serverRes = JSON.parse(success.message)
+          debugger
           this.dataSource = new MatTableDataSource(this.serverRes)
           this.dataSource = new MatTableDataSource(this.serverRes)
           this.dataSource.paginator = this.paginator
           this.dataSource.sort = this.sort
+          debugger
         },
-        (error) => {}
+        (error) => {debugger}
       )
     }
 
@@ -80,6 +85,7 @@ export class ShowTasksComponent implements OnInit {
       const nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
       var dateArray = date.toString().split(" ")
       var month = nums[months.indexOf(dateArray[1])]
+      
       var body: string = "{'personId':'" + localStorage.getItem('personCode') + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
       return body
     }
