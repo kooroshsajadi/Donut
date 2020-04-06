@@ -5,98 +5,98 @@
 </div>
 <br/>
 
-<form class="form-inline" style="float: right;">
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-append">
-        <div dir="rtl">
-          <mat-form-field style="padding-right: 12px;font-size: medium;">
-            <!-- <mat-label style="color: red;float: left;">تاریخی را انتخاب کنید</mat-label> -->
-            <!-- <i matprefix>کورش</i> -->
-            <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="selectedDate" (dateChange)="onDateChange()" name="datePickerInput" disabled>
-            <mat-hint align="end">تاریخی را انتخاب کنید ^</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
-          </mat-form-field>
-        </div>
-      </div>
-      
-    </div>
-    <label>  : {{ this.getFullname() }}</label>
-  </div>
-</form>
-<br>
-<br>
-<br>
-<br>
-  <div class="table-responsive">
-    <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort dir="rtl">
+<div style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
 
-      <ng-container matColumnDef="Owner" >
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> مالک </th>
-        <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="Customer">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> مشتری </th>
-        <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="Project">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> پروژه </th>
-        <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="Phase">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> فاز </th>
-        <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="SubPhase">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> زیرفاز </th>
-        <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="ActivitesDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> تاریخ </th>
-        <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="ActivitesTime">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> زمان </th>
-        <td mat-cell *matCellDef="let row"> {{row.ActivitesTime}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="PlaceOfAction">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> محل </th>
-        <td mat-cell *matCellDef="let row"> {{row.PlaceOfAction}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="Description">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> شرح </th>
-        <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="IsMoreWork">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> کار مازاد </th>
-        <td mat-cell *matCellDef="let row">
-          <mat-checkbox [checked]="row.IsMoreWork"></mat-checkbox>
-        </td>
-        <!-- {{row.IsMoreWork}} -->
-      </ng-container>
-      
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
-    </table>
+  <div style="padding-top: 30px;">
+    <label>  : {{ getFullname() }}</label>
   </div>
+
+  <div dir="rtl">
+    <mat-form-field style="padding-right: 12px;font-size: medium;">
+      <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="selectedDate" (dateChange)="onDateChange()" name="datePickerInput" disabled>
+      <mat-hint align="end">تاریخی را انتخاب کنید ^</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+</div>
+
+<div class="table-responsive">
+  <div style="display: flex;flex-wrap: wrap;">
+    <div dir="rtl">
+      <button type="button" class="btn btn-success table-buttons">ایجاد</button>
+      <button type="button" class="btn btn-primary table-buttons">ویرایش</button>    
+      <button type="button" class="btn btn-danger table-buttons">حذف</button>
+    </div>
+  </div>
+  <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort dir="rtl">
+    <ng-container matColumnDef="Owner" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> مالک </th>
+      <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Customer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> مشتری </th>
+      <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Project">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> پروژه </th>
+      <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Phase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> فاز </th>
+      <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SubPhase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> زیرفاز </th>
+      <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ActivitesDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> تاریخ </th>
+      <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ActivitesTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> زمان </th>
+      <td mat-cell *matCellDef="let row"> {{row.ActivitesTime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="PlaceOfAction">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> محل </th>
+      <td mat-cell *matCellDef="let row"> {{row.PlaceOfAction}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> شرح </th>
+      <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="IsMoreWork">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> کار مازاد </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox [checked]="row.IsMoreWork"></mat-checkbox>
+      </td>
+      <!-- {{row.IsMoreWork}} -->
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+  </table>
+</div>
   
-  <div dir="rtl" style="display: block;display: flex;">
-    <div style="margin-left: auto;">
-        <button type="button" class="btn btn-success table-buttons">ایجاد</button>
-        <button type="button" class="btn btn-primary table-buttons">ویرایش</button>    
-        <button type="button" class="btn btn-danger table-buttons">حذف</button>
-    </div>
-    <div>
-      <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
-    </div>
+<div dir="rtl" style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
+  <div>
+    <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
+  </div>
+  <!-- <div style="margin-left: auto;">
+      <button type="button" class="btn btn-success table-buttons">ایجاد</button>
+      <button type="button" class="btn btn-primary table-buttons">ویرایش</button>    
+      <button type="button" class="btn btn-danger table-buttons">حذف</button>
+  </div> -->
+    
 </div>
