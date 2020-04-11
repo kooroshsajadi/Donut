@@ -8,7 +8,8 @@
 <div style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
 
   <div style="padding-top: 30px;">
-    <label>  : {{ getFullname() }}</label>
+    <!-- {{ getFullname() }} -->
+    <label>  : سهیلا ملکی</label>
   </div>
 
   <div dir="rtl">
@@ -31,6 +32,22 @@
     </div>
   </div>
   <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort dir="rtl">
+
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="Owner" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> مالک </th>
       <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>

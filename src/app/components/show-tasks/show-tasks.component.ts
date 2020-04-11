@@ -7,6 +7,7 @@ import { TasksShowService } from 'src/app/services/tasks-show.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
+import { SelectionModel } from '@angular/cdk/collections';
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html',
@@ -26,6 +27,7 @@ export class ShowTasksComponent implements OnInit {
   currentDate: string
   events: string[] = [];
   selectedDate: string;
+  selection = new SelectionModel<Element>(true, []);
 
   // The initial value of the calendar is set to today.
   date = new FormControl(new Date());
@@ -60,6 +62,31 @@ export class ShowTasksComponent implements OnInit {
       this.generateTable();
     }
 
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  removeSelectedRows() {
+
+    this.selection.selected.forEach(item => {
+      let index: number = this.data.findIndex(d => d === item);
+      console.log(this.data.findIndex(d => d === item));
+      this.data.splice(index,1)
+      this.dataSource = new MatTableDataSource<Element>(this.data);
+    });
+    this.selection = new SelectionModel<Element>(true, []);
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
     public generateTable() {
       debugger
       this.selectedDate
@@ -93,7 +120,7 @@ export class ShowTasksComponent implements OnInit {
       
       // localStorage.getItem('personCode')
       // 941348
-      var body: string = "{'personId':'" + localStorage.getItem('personCode') + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
+      var body: string = "{'personId':'" + 941348 + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
       return body
     }
 
