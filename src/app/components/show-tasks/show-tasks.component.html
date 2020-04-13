@@ -14,9 +14,9 @@
 
   <div dir="rtl">
     <mat-form-field style="padding-right: 12px;font-size: medium;">
-      <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="selectedDate" (dateChange)="onDateChange()" name="datePickerInput" disabled>
-      <mat-hint align="end">تاریخی را انتخاب کنید ^</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="selectedDate" (dateChange)="onDateChange()" name="datePickerInput" disabled style="font-weight: bold;">
+      <mat-hint align="end" style="color: deeppink;margin-left: 8px;font-size: medium;">انتخاب تاریخ ^</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker" style="color: blue;"></mat-datepicker-toggle>
       <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
     </mat-form-field>
   </div>

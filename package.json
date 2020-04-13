@@ -31,6 +31,7 @@
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
     "iransans-fontface": "^0.1.1",
+    "jalali-moment": "^3.3.3",
     "jquery": "^3.4.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

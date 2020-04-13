@@ -19,6 +19,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {  DateAdapter,  MAT_DATE_FORMATS,  MAT_DATE_LOCALE } from "@angular/material/core";
+import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './components/show-tasks/material.persian-date.adapter';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -69,7 +71,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     MatCheckboxModule
   ],
-  providers: [HttpClientModule],
+  providers: [
+    {provide: HttpClientModule},
+    { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
