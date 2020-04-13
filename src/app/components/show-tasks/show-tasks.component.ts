@@ -107,9 +107,10 @@ export class ShowTasksComponent implements OnInit {
       var dateArray = date.toString().split(" ")
       var month = nums[months.indexOf(dateArray[1])]
       
+      // TODO - Notice this part any time you want to push.
       // localStorage.getItem('personCode')
       // 941348
-      var body: string = "{'personId':'" + 941348 + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
+      var body: string = "{'personId':'" + localStorage.getItem('personCode') + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
       return body
     }
 

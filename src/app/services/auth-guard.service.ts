@@ -38,8 +38,9 @@ export class AuthGuardService implements CanActivate {
           if (isAuth) {
             return true;
           }
-          //return this.router.createUrlTree(['/login']);
-          return true;
+          // TODO - Notice this part any time you wanna push.
+          return this.router.createUrlTree(['/login']);
+          //return true;
         })
         // tap(isAuth => {
         //   if (!isAuth) {
