@@ -17,7 +17,7 @@ export class ShowTasksComponent implements OnInit {
 
   displayedColumns: string[] = ['Owner', 'Customer', 'Project', 'Phase', 'SubPhase',
                                 'ActivitesDate', 'ActivitesTime', 'PlaceOfAction', 'Description',
-                                'IsMoreWork'];
+                                'IsMoreWork', 'Delete'];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild(MatSort, { static: true }) sort: MatSort
@@ -88,6 +88,10 @@ export class ShowTasksComponent implements OnInit {
           debugger
           this.dataSource = new MatTableDataSource(this.serverRes)
           this.dataSource = new MatTableDataSource(this.serverRes)
+          this.dataSource.data.forEach(element => {
+            element.Owner = "kourosh sajjadi"
+            element.Owner
+          });
           this.dataSource.paginator = this.paginator
           this.dataSource.sort = this.sort
           debugger
@@ -110,7 +114,7 @@ export class ShowTasksComponent implements OnInit {
       // TODO - Notice this part any time you want to push.
       // localStorage.getItem('personCode')
       // 941348
-      var body: string = "{'personId':'" + localStorage.getItem('personCode') + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
+      var body: string = "{'personId':'" + 941348 + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
       return body
     }
 

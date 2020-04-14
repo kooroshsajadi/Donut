@@ -33,7 +33,7 @@
   </div>
   <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort dir="rtl">
 
-    <ng-container matColumnDef="select">
+    <!-- <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
         <mat-checkbox (change)="$event ? masterToggle() : null"
                       [checked]="selection.hasValue() && isAllSelected()"
@@ -46,7 +46,7 @@
                       [checked]="selection.isSelected(row)">
         </mat-checkbox>
       </mat-cell>
-    </ng-container>
+    </ng-container> -->
 
     <ng-container matColumnDef="Owner" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> مالک </th>
