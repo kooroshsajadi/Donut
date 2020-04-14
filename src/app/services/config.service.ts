@@ -7,7 +7,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ConfigService {
 
-  serverAddress = "http://192.168.20.73:8970/api"
+  serverAddress = "http://pack.kasraco.ir:8080/api"
+  // http://pack.kasraco.ir:8080
+  // 192.168.20.73:8970
  
   constructor(public http: HttpClient) { }
 
