@@ -26,27 +26,12 @@
 <div class="table-responsive">
   <div style="display: flex;flex-wrap: wrap;">
     <div dir="rtl">
-      <button type="button" class="btn btn-success table-buttons">ایجاد</button>
+      <button type="button" class="btn btn-success table-buttons" (click)="onCreateBtnClick()">ایجاد</button>
       <button type="button" class="btn btn-primary table-buttons">ویرایش</button>    
       <button type="button" class="btn btn-danger table-buttons">حذف</button>
     </div>
   </div>
   <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort dir="rtl">
-
-    <!-- <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </mat-cell>
-    </ng-container> -->
 
     <ng-container matColumnDef="Owner" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> مالک </th>

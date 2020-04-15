@@ -8,6 +8,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
+import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html',
@@ -35,7 +38,8 @@ export class ShowTasksComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private tasksShowService: TasksShowService,
-    public commonService: CommonService) { }
+    public commonService: CommonService,
+    public dialog: MatDialog) { }
 
     model: NgbDateStruct;
 
@@ -88,21 +92,6 @@ export class ShowTasksComponent implements OnInit {
           debugger
           this.dataSource = new MatTableDataSource(this.serverRes)
           this.dataSource = new MatTableDataSource(this.serverRes)
-          
-          // this.dataSource = new MatTableDataSource()
-          // this.dataSource.data.forEach(element => {
-          //   element.Owner = "kourosh sajjadi"
-          //   element.Customer = "a company"
-          //   element.project = "todo"
-          //   element.phase = "12"
-          //   element.SubPhase = "something"
-          //   element.ActivitesDate = "12th farvardin"
-          //   element.ActivitesTime = "7hrs"
-          //   element.PlaceOfAction = "Tehran"
-          //   element.Description = "This is a text just to test the table"
-          //   element.IsMoreWork = true
-            
-          // });
           this.dataSource.paginator = this.paginator
           this.dataSource.sort = this.sort
           debugger
@@ -138,5 +127,25 @@ export class ShowTasksComponent implements OnInit {
     }
     getPersonCode(): string {
       return localStorage.getItem('personCode');
+    }
+
+    openCreateDialog(content: string): void {
+      const dialogRef = this.dialog.open(CreateDialogComponent, {
+        data: {content: content}
+      });
+    }
+
+    openDeleteDialog(content: string): void {
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+        data: {content: content}
+      });
+    }
+
+    onCreateBtnClick() {
+      this.openCreateDialog("Hi")
+    }
+
+    onDeletionIconClick() {
+      this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
     }
 }

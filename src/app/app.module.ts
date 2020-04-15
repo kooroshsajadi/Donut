@@ -22,6 +22,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {  DateAdapter,  MAT_DATE_FORMATS,  MAT_DATE_LOCALE } from "@angular/material/core";
 import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './components/show-tasks/material.persian-date.adapter';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -49,7 +51,8 @@ import { CreateDialogComponent } from './components/create-dialog/create-dialog.
     LoginComponent,
     ShowTasksComponent,
     LoadingSpinnerComponent,
-    CreateDialogComponent
+    CreateDialogComponent,
+    DeleteDialogComponent
   ],
   imports: [
     // RouterModule.forRoot(
@@ -71,7 +74,8 @@ import { CreateDialogComponent } from './components/create-dialog/create-dialog.
     MatTableModule,
     MatNativeDateModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [
     {provide: HttpClientModule},
