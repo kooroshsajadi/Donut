@@ -131,7 +131,10 @@ export class ShowTasksComponent implements OnInit {
 
     // The two following methods get the user data which is stored in the local storage.
     getFullname(): string {
-      return localStorage.getItem('fullname').replace("\"", "").replace("\"", "");
+      if(localStorage.getItem('fullname') !== null)
+        return localStorage.getItem('fullname').replace("\"", "").replace("\"", "");
+      else
+        return ""
     }
     getPersonCode(): string {
       return localStorage.getItem('personCode');

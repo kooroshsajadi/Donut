@@ -21,6 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {  DateAdapter,  MAT_DATE_FORMATS,  MAT_DATE_LOCALE } from "@angular/material/core";
 import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './components/show-tasks/material.persian-date.adapter';
+import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -47,7 +48,8 @@ import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './components/s
     AppComponent,
     LoginComponent,
     ShowTasksComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    CreateDialogComponent
   ],
   imports: [
     // RouterModule.forRoot(
