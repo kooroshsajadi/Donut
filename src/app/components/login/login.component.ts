@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
           // var resData = JSON.parse(success.message)
           // this.commonService.currentUserFullname = resData.FullName
         debugger
-        this.router.navigate(['/tasks-show'])
+        this.router.navigate(['/tasks'])
         debugger
       },
         // else {
