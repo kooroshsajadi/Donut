@@ -31,6 +31,8 @@ export class ShowTasksComponent implements OnInit {
   events: string[] = [];
   selectedDate: string;
   selection = new SelectionModel<Element>(true, []);
+  //TODO - remove
+  options: string[] = ['One', 'Two', 'Three'];
 
   // The initial value of the calendar is set to today.
   date = new FormControl(new Date());

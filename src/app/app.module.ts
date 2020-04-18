@@ -10,7 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatInputModule} from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
+//import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -20,10 +20,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {  DateAdapter,  MAT_DATE_FORMATS,  MAT_DATE_LOCALE } from "@angular/material/core";
-import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './components/show-tasks/material.persian-date.adapter';
+//import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './components/show-tasks/material.persian-date.adapter';
+import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './shared/material.persian-date.adapter';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -75,7 +78,9 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     MatNativeDateModule,
     MatPaginatorModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule
   ],
   providers: [
     {provide: HttpClientModule},
