@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { Time } from '@angular/common';
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html',
@@ -31,8 +32,7 @@ export class ShowTasksComponent implements OnInit {
   events: string[] = [];
   selectedDate: string;
   selection = new SelectionModel<Element>(true, []);
-  //TODO - remove
-  options: string[] = ['One', 'Two', 'Three'];
+  totalTime: Time = {hours: 0, minutes: 0}
 
   // The initial value of the calendar is set to today.
   date = new FormControl(new Date());
@@ -94,6 +94,15 @@ export class ShowTasksComponent implements OnInit {
           debugger
           this.dataSource = new MatTableDataSource(this.serverRes)
           this.dataSource = new MatTableDataSource(this.serverRes)
+          this.totalTime.hours = 0
+          this.totalTime.minutes = 0
+          this.dataSource.data.forEach(row => {
+            this.totalTime.minutes += +row.ActivitesTime
+            debugger
+          })
+          this.totalTime.hours = this.totalTime.minutes / 60
+          this.totalTime.minutes = this.totalTime.minutes % 60
+          console.log(this.totalTime)
           this.dataSource.paginator = this.paginator
           this.dataSource.sort = this.sort
           debugger
@@ -116,7 +125,7 @@ export class ShowTasksComponent implements OnInit {
       // TODO - Notice this part any time you want to push.
       // localStorage.getItem('personCode')
       // 941348
-      var body: string = "{'personId':'" + localStorage.getItem('personCode') + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
+      var body: string = "{'personId':'" + localStorage.getItem('personCode').replace("\"", "").replace("\"", "") + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
       return body
     }
 

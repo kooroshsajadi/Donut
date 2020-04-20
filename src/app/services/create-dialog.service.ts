@@ -69,4 +69,12 @@ export class CreateDialogService {
   public searchPhase(body: string): Observable<any> {
     return this.configService.post('ContinuebyEstablishments/SearchPhase', body);
   }
+
+  public searchProject(body: string): Observable<any> {
+    return this.configService.post('ContinuebyEstablishments/SearchProject', body);
+  }
+
+  public searchSubphase(body: string): Observable<any> {
+    return this.configService.post('ContinuebyEstablishments/SearchSubPhase', body);
+  }
 }
