@@ -14,7 +14,9 @@ export class CreateDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private createDialogService: CreateDialogService) { }
+    private createDialogService: CreateDialogService) {
+      dialogRef.disableClose = true;
+     }
 
   modalityControl = new FormControl('')
   customerControl = new FormControl('')
