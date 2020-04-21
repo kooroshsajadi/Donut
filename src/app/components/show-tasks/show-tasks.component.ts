@@ -159,4 +159,8 @@ export class ShowTasksComponent implements OnInit {
     onDeleteCellClick() {
       this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
     }
+
+    deleteActivity() {
+      
+    }
 }
