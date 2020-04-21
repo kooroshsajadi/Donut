@@ -21,7 +21,7 @@
     </mat-form-field>
   </div>
 
-  <div style="margin-right: auto; padding-top: 25px;">
+  <div style="margin-right: auto; padding-top: 25px; padding-left: 5px;">
     <label>زمان کل :  {{totalTime.hours}}:{{totalTime.minutes}}</label>
   </div>
 
@@ -90,14 +90,14 @@
       <!-- {{row.IsMoreWork}} -->
     </ng-container>
 
-    <!-- <ng-container matColumnDef="Delete">
+    <ng-container matColumnDef="Delete">
       <th mat-header-cell *matHeaderCellDef>حذف</th>
       <td mat-cell *matCellDef="let row" class="centered-mat-cell">
-        <button dir="rtl" mat-icon-button>
+        <button dir="rtl" mat-icon-button (click)="onDeleteCellClick()">
           <img src="../../../assets/icons/delete-24px.svg">
         </button>
       </td>
-    </ng-container> -->
+    </ng-container>
     
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>

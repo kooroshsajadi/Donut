@@ -21,7 +21,7 @@ export class ShowTasksComponent implements OnInit {
 
   displayedColumns: string[] = ['Owner', 'Customer', 'Project', 'Phase', 'SubPhase',
                                 'ActivitesDate', 'ActivitesTime', 'PlaceOfAction', 'Description',
-                                'IsMoreWork'];
+                                'IsMoreWork', 'Delete'];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild(MatSort, { static: true }) sort: MatSort
@@ -125,7 +125,7 @@ export class ShowTasksComponent implements OnInit {
       // TODO - Notice this part any time you want to push.
       // localStorage.getItem('personCode')
       // 941348
-      var body: string = "{'personId':'" + localStorage.getItem('personCode').replace("\"", "").replace("\"", "") + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"
+      var body: string = "{'personId':'" + localStorage.getItem('personCode').replace("\"", "").replace("\"", "") + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"// ......
       return body
     }
 
@@ -156,7 +156,7 @@ export class ShowTasksComponent implements OnInit {
       this.openCreateDialog("Hi")
     }
 
-    onDeletionIconClick() {
+    onDeleteCellClick() {
       this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
     }
 }
