@@ -136,9 +136,9 @@ export class ShowTasksComponent implements OnInit {
       else
         return ""
     }
-    getPersonCode(): string {
-      return localStorage.getItem('personCode');
-    }
+    // getPersonCode(): string {
+    //   return localStorage.getItem('personCode');
+    // }
 
     openCreateDialog(content: string): void {
       const dialogRef = this.dialog.open(CreateDialogComponent, {
