@@ -11,6 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { DeleteDialogService } from '../../services/delete-dialog.service';
 import { Time } from '@angular/common';
 @Component({
   selector: 'app-show-tasks',
@@ -40,6 +41,7 @@ export class ShowTasksComponent implements OnInit {
   constructor(private router: Router,
     private route: ActivatedRoute,
     private tasksShowService: TasksShowService,
+    private deleteDialogService: DeleteDialogService,
     public commonService: CommonService,
     public dialog: MatDialog) { }
 
@@ -65,7 +67,7 @@ export class ShowTasksComponent implements OnInit {
       this.selectedDate = this.date.value;
 
       //Get the grid with the initial today date.
-      this.generateTable();
+      this.generateTable()
     }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -84,10 +86,7 @@ export class ShowTasksComponent implements OnInit {
 
     public generateTable() {
       debugger
-      this.selectedDate
-      var body = this.generateGetActivityDataBody(this.selectedDate)
-      console.log(body)
-      this.tasksShowService.getActivityData(body).subscribe(
+      this.tasksShowService.getActivityData(this.selectedDate).subscribe(
         (success) => {
           debugger
           this.serverRes = JSON.parse(success.message)
@@ -107,26 +106,12 @@ export class ShowTasksComponent implements OnInit {
           this.dataSource.sort = this.sort
           debugger
         },
-        (error) => {debugger}
+        (error) => {}
       )
     }
 
     onDateChange() {
       this.generateTable()
-    }
-
-    private generateGetActivityDataBody(date: string): string {
-      debugger
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-      const nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
-      var dateArray = date.toString().split(" ")
-      var month = nums[months.indexOf(dateArray[1])]
-      
-      // TODO - Notice this part any time you want to push.
-      // localStorage.getItem('personCode')
-      // 941348
-      var body: string = "{'personId':'" + localStorage.getItem('personCode').replace("\"", "").replace("\"", "") + "','SelectedDate':'" + dateArray[3] + "-" + month + "-" + dateArray[2] + "'}"// ......
-      return body
     }
 
     // The two following methods get the user data which is stored in the local storage.
@@ -156,11 +141,14 @@ export class ShowTasksComponent implements OnInit {
       this.openCreateDialog("Hi")
     }
 
-    onDeleteCellClick() {
+    onDeleteCellClick(row) {
+      debugger
+      this.deleteDialogService = row.ActivitiesId
       this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
     }
 
     deleteActivity() {
-      
+
     }
+
 }

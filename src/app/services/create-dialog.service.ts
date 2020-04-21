@@ -7,74 +7,59 @@ import { ConfigService } from './config.service';
 })
 export class CreateDialogService {
 
-  modalityOptions: any[] = []
-  customerOptions: any[] = []
+  projectOptions: any[] = []
+  phaseOptions: any[] = []
   subphaseOptions: any[] = []
-  placeOptions: any[] = []
 
   constructor(private configService: ConfigService) { }
 
-  public modalityFilter(value: string): string[] {
-    debugger
-    //this.getProducts(value);
-    this.modalityOptions = [];
-    // this.serverResponse.forEach(product => {
-    //   debugger
-    //   this.options.push(product)
-    // });
-    debugger
-    //return this.serverResponse;
-    return this.modalityOptions
+  private generateSearchPhaseBody(value: string): string {
+    //429C8EB5-FF7E-EA11-9981-005056AF44B4
+    //" + this.projectOptions[0].ProjectId + "
+    var projectID = 0
+    if(this.projectOptions.length === 1)
+      projectID = this.projectOptions[0].ProjectId
+    return "{'ProjctId':'" + projectID + "','PhaseName':'" + value + "'}"
   }
 
-  public customerFilter(value: string): string[] {
+  public searchPhase(value: string): Observable<any> {
     debugger
-    //this.getProducts(value);
-    this.customerOptions = [];
-    // this.serverResponse.forEach(product => {
-    //   debugger
-    //   this.options.push(product)
-    // });
-    debugger
-    //return this.serverResponse;
-    return this.customerOptions
-  }
-
-  public subphaseFilter(value: string): string[] {
-    debugger
-    //this.getProducts(value);
-    this.subphaseOptions = [];
-    // this.serverResponse.forEach(product => {
-    //   debugger
-    //   this.options.push(product)
-    // });
-    debugger
-    //return this.serverResponse;
-    return this.subphaseOptions
-  }
-
-  public placeFilter(value: string): string[] {
-    debugger
-    //this.getProducts(value);
-    this.placeOptions = [];
-    // this.serverResponse.forEach(product => {
-    //   debugger
-    //   this.options.push(product)
-    // });
-    debugger
-    //return this.serverResponse;
-    return this.placeOptions
-  }
-
-  public searchPhase(body: string): Observable<any> {
+    var body = this.generateSearchPhaseBody(value)
     return this.configService.post('ContinuebyEstablishments/SearchPhase', body);
   }
 
-  public searchProject(body: string): Observable<any> {
+  private generateSearchProjectBody(value: string): string {
+    return "{'projectName':'" + value + "'}"
+  }
+
+  public searchProject(value: string): Observable<any> {
+    var body = this.generateSearchProjectBody(value);
     return this.configService.post('ContinuebyEstablishments/SearchProject', body);
   }
 
-  public searchSubphase(body: string): Observable<any> {
+  private generateSearchSubphaseBody(value: string): string {
+    debugger
+    var phaseID = 0
+    if(this.phaseOptions.length === 1)
+      phaseID = this.phaseOptions[0].PhaseId
+    return "{'PhaseId':'" + phaseID + "','SubPhaseName':'" + value + "'}"
+  }
+
+  public searchSubphase(value: string): Observable<any> {
+    debugger
+    var body = this.generateSearchSubphaseBody(value)
     return this.configService.post('ContinuebyEstablishments/SearchSubPhase', body);
   }
+
+  // public LoadContinuebyEstablishments(): Observable<any> {
+  //   debugger
+  //   var body = this.generateLoadContinuebyEstablishmentsBody(localStorage.getItem('personCode').replace("\"", "").replace("\"", ""))
+  //   return this.configService.post('ContinuebyEstablishments/LoadContinuebyEstablishments', body);
+  // }
+
+ // private generateLoadContinuebyEstablishmentsBody(personID: string): string {
+    //961523
+    //" + personID + "
+   // return "{'ActivityList':[{}],'PersonId':'961523'}"
+ // }
 }

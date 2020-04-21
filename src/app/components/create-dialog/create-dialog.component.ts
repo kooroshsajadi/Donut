@@ -15,11 +15,12 @@ export class CreateDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private createDialogService: CreateDialogService) {
-      dialogRef.disableClose = true;
+      //dialogRef.disableClose = true;
      }
 
   modalityControl = new FormControl('')
   customerControl = new FormControl('')
+  timeControl = new FormControl('')
   //subphaseControl = new FormControl('')
   placeControl = new FormControl('')
   
@@ -31,31 +32,27 @@ export class CreateDialogComponent implements OnInit {
   date = new FormControl(new Date());
   selectedDate: string;
   serverResponse: any[] = []
-
   projectControl = new FormControl('');
-  projectOptions: any[] = []
   filteredProjectOptions: Observable<string[]>
   phaseControl = new FormControl('');
-  phaseOptions: any[] = []
   filteredPhaseOptions: Observable<string[]>
   subphaseControl = new FormControl('');
-  subphaseOptions: any[] = []
   filteredSubphaseOptions: Observable<string[]>
 
   ngOnInit(): void {
     // Modality
-    this.filteredModalityOptions = this.modalityControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.createDialogService.modalityFilter(value))
-      );
+    // this.filteredModalityOptions = this.modalityControl.valueChanges
+    //   .pipe(
+    //     startWith(''),
+    //     map(value => this.createDialogService.modalityFilter(value))
+    //   );
 
     // Costumer
-    this.filteredCustomerOptions = this.customerControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.createDialogService.customerFilter(value))
-      );
+    // this.filteredCustomerOptions = this.customerControl.valueChanges
+    //   .pipe(
+    //     startWith(''),
+    //     map(value => this.createDialogService.customerFilter(value))
+    //   );
 
       // Project
       this.filteredProjectOptions = this.projectControl.valueChanges
@@ -79,23 +76,23 @@ export class CreateDialogComponent implements OnInit {
       );
 
       // Place
-      this.filteredPlaceOptions = this.placeControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.createDialogService.placeFilter(value))
-      );
+      // this.filteredPlaceOptions = this.placeControl.valueChanges
+      // .pipe(
+      //   startWith(''),
+      //   map(value => this.createDialogService.placeFilter(value))
+      // );
 
     // Date
     this.selectedDate = this.date.value;
   }
 
   public phaseSearch(value: string) {
-    if(this.projectOptions.length === 1) {
+    if(this.createDialogService.projectOptions.length === 1) {
       debugger
-      this.createDialogService.searchPhase("{'ProjectId':'" + this.projectOptions[0].ProjectId + "','PhaseName':'" + value + "'}").subscribe(
+      this.createDialogService.searchPhase(value).subscribe(
         (success) => {
           debugger
-          this.phaseOptions = JSON.parse(success.message)
+          this.createDialogService.phaseOptions = JSON.parse(success.message)
         },
         (error) => {}
       )
@@ -104,22 +101,20 @@ export class CreateDialogComponent implements OnInit {
 
   public subphaseSearch(value: string) {
     debugger
-    //if(this.phaseOptions.length === 1) {
-      debugger
-      this.createDialogService.searchSubphase("{'PhaseId':'" + this.phaseOptions[0].PhaseId + "','SubPhaseName':'" + value + "'}").subscribe(
-        (success) => {
-          debugger
-          this.subphaseOptions = JSON.parse(success.message)
-        },
-        (error) => {}
-      )
-    //}
+    this.createDialogService.searchSubphase(value).subscribe(
+      (success) => {
+        debugger
+        //if(this.createDialogService.subphaseOptions !== null)
+        this.createDialogService.subphaseOptions = JSON.parse(success.message)
+      },
+      (error) => {}
+    )
   }
 
   public projectSearch(value: string) {
-    this.createDialogService.searchProject("{'projectName':'" + value + "'}").subscribe(
+    this.createDialogService.searchProject(value).subscribe(
       (success) => {
-        this.projectOptions = JSON.parse(success.message)
+        this.createDialogService.projectOptions = JSON.parse(success.message)
         debugger
       },
       (error) => {}
@@ -128,36 +123,27 @@ export class CreateDialogComponent implements OnInit {
 
   private phaseFilter(value: string): string[] {
     this.phaseSearch(value);
-    // this.phaseOptions = [];
-    // this.serverResponse.forEach(product => {
-    //   this.phaseOptions.push(product)
-    // });    
-    return this.phaseOptions
+    return this.createDialogService.phaseOptions
   }
 
   private subphaseFilter(value: string): string[] {
     this.subphaseSearch(value);
-    return this.subphaseOptions
+    return this.createDialogService.subphaseOptions
   }
 
   private projectFilter(value: string): string[] {
     this.projectSearch(value);
-    // this.projectOptions = [];
-    // this.serverResponse.forEach(product => {
-    //   this.projectOptions.push(product)
-    // });
-    return this.projectOptions
+    return this.createDialogService.projectOptions
   }
 
-  public getProducts(value: string) {
-    debugger
-    this.createDialogService.searchPhase("{'ProjctId':'429C8EB5-FF7E-EA11-9981-005056AF44B4','PhaseName':'" + value + "'}").subscribe(
-      (success) => {
-        debugger
-        this.serverResponse = JSON.parse(success.message)
-      },
-      (error) => {}
-    )
-  }
-
+  // public getProducts(value: string) {
+  //   debugger
+  //   this.createDialogService.searchPhase("{'ProjctId':'429C8EB5-FF7E-EA11-9981-005056AF44B4','PhaseName':'" + value + "'}").subscribe(
+  //     (success) => {
+  //       debugger
+  //       this.serverResponse = JSON.parse(success.message)
+  //     },
+  //     (error) => {}
+  //   )
+  // }
 }
