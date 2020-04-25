@@ -167,6 +167,9 @@ export class CreateDialogComponent implements OnInit {
     debugger
     var hour = this.createDialogService.time.hour
     var minute = this.createDialogService.time.minute
-    return hour + " : " + minute
+    if(hour === 0 && minute === 0)
+      return ""
+    else
+      return hour + " : " + minute
   }
 }
