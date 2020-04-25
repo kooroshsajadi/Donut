@@ -1,9 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
+import { TimeDialogComponent } from 'src/app/shared/time-dialog/time-dialog.component';
+import { TimeDialogService } from 'src/app/services/time-dialog.service';
 
 @Component({
   selector: 'app-create-dialog',
@@ -14,7 +16,9 @@ export class CreateDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private createDialogService: CreateDialogService) {
+    private createDialogService: CreateDialogService,
+    private dialog: MatDialog,
+    public timeDialogService: TimeDialogService) {
       //dialogRef.disableClose = true;
      }
 
@@ -40,6 +44,7 @@ export class CreateDialogComponent implements OnInit {
   filteredSubphaseOptions: Observable<string[]>
 
   ngOnInit(): void {
+    this.timeControl.disable()
     // Modality
     // this.filteredModalityOptions = this.modalityControl.valueChanges
     //   .pipe(
@@ -84,6 +89,7 @@ export class CreateDialogComponent implements OnInit {
 
     // Date
     this.selectedDate = this.date.value;
+    //this.timeControl.setValue(this.createDialogService.time.hour + " : " + this.createDialogService.time.minute)
   }
 
   public phaseSearch(value: string) {
@@ -146,4 +152,21 @@ export class CreateDialogComponent implements OnInit {
   //     (error) => {}
   //   )
   // }
+
+  openTimeDialog(content: string): void {
+    const dialogRef = this.dialog.open(TimeDialogComponent, {
+      data: {content: content}
+    });
+  }
+
+  onTimeIconClick() {
+    this.openTimeDialog("")
+  }
+
+  public showTime(): string {
+    debugger
+    var hour = this.createDialogService.time.hour
+    var minute = this.createDialogService.time.minute
+    return hour + " : " + minute
+  }
 }

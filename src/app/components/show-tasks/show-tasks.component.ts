@@ -99,7 +99,8 @@ export class ShowTasksComponent implements OnInit {
             this.totalTime.minutes += +row.ActivitesTime
             debugger
           })
-          this.totalTime.hours = this.totalTime.minutes / 60
+          debugger
+          this.totalTime.hours = Math.floor(this.totalTime.minutes / 60)
           this.totalTime.minutes = this.totalTime.minutes % 60
           console.log(this.totalTime)
           this.dataSource.paginator = this.paginator

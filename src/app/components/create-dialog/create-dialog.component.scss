@@ -6,3 +6,11 @@
     font-size: medium;
     width: 600px;
 }
+
+.without_ampm::-webkit-datetime-edit-ampm-field {
+    display: none;
+}
+
+#clickableAwesomeFont {
+    cursor: pointer
+}

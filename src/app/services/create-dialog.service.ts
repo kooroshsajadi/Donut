@@ -10,6 +10,7 @@ export class CreateDialogService {
   projectOptions: any[] = []
   phaseOptions: any[] = []
   subphaseOptions: any[] = []
+  time = {hour: 0, minute: 0};
 
   constructor(private configService: ConfigService) { }
 

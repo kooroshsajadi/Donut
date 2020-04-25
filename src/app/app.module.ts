@@ -20,13 +20,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {  DateAdapter,  MAT_DATE_FORMATS,  MAT_DATE_LOCALE } from "@angular/material/core";
-//import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './components/show-tasks/material.persian-date.adapter';
 import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './shared/material.persian-date.adapter';
 import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component';
 
 // const appRoutes: Routes = [
 //   { path: 'Tasks', component: ShowTasksComponent }
@@ -55,7 +55,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ShowTasksComponent,
     LoadingSpinnerComponent,
     CreateDialogComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    TimeDialogComponent
   ],
   imports: [
     // RouterModule.forRoot(
