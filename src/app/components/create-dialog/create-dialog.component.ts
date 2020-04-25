@@ -16,7 +16,7 @@ export class CreateDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private createDialogService: CreateDialogService,
+    public createDialogService: CreateDialogService,
     private dialog: MatDialog,
     public timeDialogService: TimeDialogService) {
       //dialogRef.disableClose = true;
@@ -25,13 +25,10 @@ export class CreateDialogComponent implements OnInit {
   modalityControl = new FormControl('')
   customerControl = new FormControl('')
   timeControl = new FormControl('')
-  //subphaseControl = new FormControl('')
   placeControl = new FormControl('')
-  
+  descriptionControl = new FormControl('')
   filteredModalityOptions: Observable<string[]>
   filteredCustomerOptions: Observable<string[]>
-  
-  //filteredSubphaseOptions: Observable<string[]>
   filteredPlaceOptions: Observable<string[]>
   date = new FormControl(new Date());
   selectedDate: string;
@@ -42,54 +39,37 @@ export class CreateDialogComponent implements OnInit {
   filteredPhaseOptions: Observable<string[]>
   subphaseControl = new FormControl('');
   filteredSubphaseOptions: Observable<string[]>
+  places: string[] = ["کسرا", "محل مشتری"]
 
   ngOnInit(): void {
     this.timeControl.disable()
-    // Modality
-    // this.filteredModalityOptions = this.modalityControl.valueChanges
-    //   .pipe(
-    //     startWith(''),
-    //     map(value => this.createDialogService.modalityFilter(value))
-    //   );
 
-    // Costumer
-    // this.filteredCustomerOptions = this.customerControl.valueChanges
-    //   .pipe(
-    //     startWith(''),
-    //     map(value => this.createDialogService.customerFilter(value))
-    //   );
-
-      // Project
-      this.filteredProjectOptions = this.projectControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.projectFilter(value))
-      );
+    // Project
+    this.filteredProjectOptions = this.projectControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.projectFilter(value))
+    );
 
     // Phase
-      this.filteredPhaseOptions = this.phaseControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.phaseFilter(value))
-      );
+    this.filteredPhaseOptions = this.phaseControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.phaseFilter(value))
+    );
 
-      // Subphase
-      this.filteredSubphaseOptions = this.subphaseControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.subphaseFilter(value))
-      );
-
-      // Place
-      // this.filteredPlaceOptions = this.placeControl.valueChanges
-      // .pipe(
-      //   startWith(''),
-      //   map(value => this.createDialogService.placeFilter(value))
-      // );
+    // Subphase
+    this.filteredSubphaseOptions = this.subphaseControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.subphaseFilter(value))
+    );
 
     // Date
     this.selectedDate = this.date.value;
-    //this.timeControl.setValue(this.createDialogService.time.hour + " : " + this.createDialogService.time.minute)
+
+    // Description
+    this.descriptionControl.setValue("")
   }
 
   public phaseSearch(value: string) {
@@ -110,7 +90,6 @@ export class CreateDialogComponent implements OnInit {
     this.createDialogService.searchSubphase(value).subscribe(
       (success) => {
         debugger
-        //if(this.createDialogService.subphaseOptions !== null)
         this.createDialogService.subphaseOptions = JSON.parse(success.message)
       },
       (error) => {}
@@ -142,17 +121,6 @@ export class CreateDialogComponent implements OnInit {
     return this.createDialogService.projectOptions
   }
 
-  // public getProducts(value: string) {
-  //   debugger
-  //   this.createDialogService.searchPhase("{'ProjctId':'429C8EB5-FF7E-EA11-9981-005056AF44B4','PhaseName':'" + value + "'}").subscribe(
-  //     (success) => {
-  //       debugger
-  //       this.serverResponse = JSON.parse(success.message)
-  //     },
-  //     (error) => {}
-  //   )
-  // }
-
   openTimeDialog(content: string): void {
     const dialogRef = this.dialog.open(TimeDialogComponent, {
       data: {content: content}
@@ -164,12 +132,42 @@ export class CreateDialogComponent implements OnInit {
   }
 
   public showTime(): string {
-    debugger
     var hour = this.createDialogService.time.hour
     var minute = this.createDialogService.time.minute
     if(hour === 0 && minute === 0)
       return ""
     else
       return hour + " : " + minute
+  }
+
+  onSaveBtnClick() {
+    debugger
+    // this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
+    //   (success) => {
+    //     debugger
+    //     if(success.message == [])
+    //       console.log("عملیات با موفقیت انجام شد")
+    //     else
+    //       console.log("خطایی رخ داد")
+    //   },
+    //   (error) => {}
+    // )
+  }
+
+  onSaveAndContinueBtnClick() {
+    debugger
+  //   this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
+  //     (success) => {
+  //       debugger
+  //       if(success.message == []) {
+  //         console.log("عملیات با موفقیت انجام شد")
+  //         this.dialogRef.close()
+  //       }
+          
+  //       else
+  //         console.log("خطایی رخ داد")
+  //     },
+  //     (error) => {}
+  //   )
   }
 }

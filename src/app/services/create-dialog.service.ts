@@ -11,6 +11,9 @@ export class CreateDialogService {
   phaseOptions: any[] = []
   subphaseOptions: any[] = []
   time = {hour: 0, minute: 0};
+  selectedPlace: string = "option1"
+  selectedModality: string = "option1"
+  selectedProject: string = ""
 
   constructor(private configService: ConfigService) { }
 
@@ -52,15 +55,26 @@ export class CreateDialogService {
     return this.configService.post('ContinuebyEstablishments/SearchSubPhase', body);
   }
 
-  // public LoadContinuebyEstablishments(): Observable<any> {
-  //   debugger
-  //   var body = this.generateLoadContinuebyEstablishmentsBody(localStorage.getItem('personCode').replace("\"", "").replace("\"", ""))
-  //   return this.configService.post('ContinuebyEstablishments/LoadContinuebyEstablishments', body);
-  // }
+  public createContinuebyEstablishmentsBody(projectName: string, description: string, date: string): string {
+    debugger
+    var ActivityID: string = ""
+    var projectID: string = this.projectOptions[0].ProjectId
+    var phaseID: string = this.phaseOptions[0].PhaseId
+    var subphaseID: string = this.subphaseOptions[0].SubPhaseId
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+    var dateArray = date.toString().split(" ")
+    var month = nums[months.indexOf(dateArray[1])]
+    // TODO - Add the true current time to this part later.
+    var dueDate: string = dateArray[3] + "-" + month + "-" + dateArray[2] + " 00:00:00.000"
+    var duration: number = this.time.hour * 60 + this.time.minute
+    var personID: string = localStorage.getItem('personCode').replace("\"", "").replace("\"", "")
+    return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'NextStep':1}],'PersonId':'" + personID + "'}"
+  }
 
- // private generateLoadContinuebyEstablishmentsBody(personID: string): string {
-    //961523
-    //" + personID + "
-   // return "{'ActivityList':[{}],'PersonId':'961523'}"
- // }
+  public createContinuebyEstablishments(projectName: string, description: string, date: string): Observable<any> {
+    debugger
+    var body = this.createContinuebyEstablishmentsBody(projectName, description, date)
+    return this.configService.post('ContinuebyEstablishments/CreaetContinuebyEstablishments', body);
+  }
 }

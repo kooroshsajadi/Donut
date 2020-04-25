@@ -1,29 +1,13 @@
 <div style="display: flex;width: 500px;flex-direction: column;">
-    <!-- <mat-dialog-content>
-        <div>{{ data.content }}</div>
-    </mat-dialog-content> -->
-
-    <!-- <div>
-        <mat-form-field dir="rtl" style="width: 95%;">
-            <input type="text" placeholder="محصولات" matInput [formControl]="myControl" [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option.Name">
-                    {{option.Name}}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-    </div> -->
 
     <mat-dialog-content>
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">ماهیت</mat-label>
-                <input type="text" matInput [formControl]="modalityControl" [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredModalityOptions | async" [value]="option.Name">
-                        {{option.Name}}
-                    </mat-option>
-                </mat-autocomplete>
+                <mat-select [(value)]="createDialogService.selectedModality">
+                    <mat-option value="option1">در دست بررسی استقرار</mat-option>
+                    <mat-option value="option2">در دست بررسی پشتیبانی</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
     
@@ -95,18 +79,14 @@
                 <i id='clickableAwesomeFont' class="fa fa-clock-o" aria-hidden="true" style="color: deeppink;float: left;" (click)="onTimeIconClick()"></i>
             </div>
         </div>
-        <!-- <span id='clickableAwesomeFont' (click)="logg()"> -->
-        <!-- </span> -->
 
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">محل انجام</mat-label>
-                <input type="text" matInput [formControl]="placeControl" [matAutocomplete]="auto5">
-                <mat-autocomplete #auto5="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredPlaceOptions | async" [value]="option.Name">
-                        {{option.Name}}
-                    </mat-option>
-                </mat-autocomplete>
+                <mat-select [(value)]="createDialogService.selectedPlace">
+                    <mat-option value="option1">کسرا</mat-option>
+                    <mat-option value="option2">محل مشتری</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
     
@@ -114,15 +94,15 @@
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="2">
+                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl">
                 </textarea>
             </mat-form-field>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions>
         <div style="margin: auto;">
-            <button type="button" class="btn btn-success button">ذخیره</button>
-            <button type="button" class="btn btn-primary button">ذخیره و ادامه</button>
+            <button type="button" class="btn btn-success button" (click)="onSaveBtnClick()">ذخیره</button>
+            <button type="button" class="btn btn-primary button" (click)="onSaveAndContinueBtnClick()">ذخیره و ادامه</button>
         </div>
     </mat-dialog-actions>
 </div>

@@ -10,7 +10,7 @@ export class DeleteDialogService {
 
   constructor() { }
 
-  deleteContinuebyEstablishments():Observable<any> {
+  public deleteContinuebyEstablishments():Observable<any> {
     var body = this.generateDeleteContinuebyEstablishments()
     return this.configService.post('ContinuebyEstablishments/DeleteContinuebyEstablishments', body);
   }

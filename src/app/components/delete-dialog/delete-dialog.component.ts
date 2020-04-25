@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeleteDialogService } from 'src/app/services/delete-dialog.service';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -8,7 +9,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DeleteDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,
+  constructor(private deleteDialogService: DeleteDialogService,
+    public dialogRef: MatDialogRef<DeleteDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     ) { 
       dialogRef.disableClose = true;
@@ -17,4 +19,16 @@ export class DeleteDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onDeleteAdmitBtnClick() {
+    // this.deleteDialogService.deleteContinuebyEstablishments().subscribe(
+    //   (success) => {
+    //     debugger
+    //     if(success.message === true)
+    //       console.log("عملیات با موفقیت انجام شد")
+    //     else
+    //       console.log("خطایی رخ داد")
+    //   },
+    //   (error) => {}
+    // )
+  }
 }

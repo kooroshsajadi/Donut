@@ -115,16 +115,13 @@ export class ShowTasksComponent implements OnInit {
       this.generateTable()
     }
 
-    // The two following methods get the user data which is stored in the local storage.
+    // The following method gets the user fullname which is stored in the local storage.
     getFullname(): string {
       if(localStorage.getItem('fullname') !== null)
         return localStorage.getItem('fullname').replace("\"", "").replace("\"", "");
       else
         return ""
     }
-    // getPersonCode(): string {
-    //   return localStorage.getItem('personCode');
-    // }
 
     openCreateDialog(content: string): void {
       const dialogRef = this.dialog.open(CreateDialogComponent, {
@@ -139,17 +136,13 @@ export class ShowTasksComponent implements OnInit {
     }
 
     onCreateBtnClick() {
-      this.openCreateDialog("Hi")
+      this.openCreateDialog("")
     }
 
     onDeleteCellClick(row) {
       debugger
       this.deleteDialogService = row.ActivitiesId
       this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
-    }
-
-    deleteActivity() {
-
     }
 
 }

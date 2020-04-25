@@ -10,7 +10,6 @@ import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatInputModule} from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
-//import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -27,26 +26,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component';
-
-// const appRoutes: Routes = [
-//   { path: 'Tasks', component: ShowTasksComponent }
-// ];
-
-// const appRoutes: Routes = [
-//   {
-//     path: '', component: LoginComponent,
-     
-//     // canActivateChild: [LoginGuard],
-//     // children: [
-//     //   { path: 'formula', loadChildren: './formula/formula.module#FormulaModule' },
-//     //   { path: 'report', loadChildren: './report/report.module#ReportModule' },
-//     // ]
-//   },
-//   { path: 'Tasks',
-//   component: ShowTasksComponent,
-//   canActivate:[AuthGuardService] },
-
-// ];
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -59,10 +39,6 @@ import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component'
     TimeDialogComponent
   ],
   imports: [
-    // RouterModule.forRoot(
-    //   appRoutes,
-    //   { enableTracing: true } // <-- debugging purposes only
-    // ),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -81,7 +57,8 @@ import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component'
     MatCheckboxModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSelectModule
   ],
   providers: [
     {provide: HttpClientModule},
