@@ -76,18 +76,27 @@
                 </mat-form-field>
             </div>
             <div style="width: 5%;float: left;margin-top: 35px;">
-                <i id='clickableAwesomeFont' class="fa fa-clock-o" aria-hidden="true" style="color: deeppink;float: left;" (click)="onTimeIconClick()"></i>
+                <span>
+                    <i id='clickableAwesomeFont' class="fa fa-clock-o fa-lg" style="color: deeppink;float: left;" (click)="onTimeIconClick()"></i>
+                </span>
             </div>
         </div>
 
         <div style="width: 100%;">
-            <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">محل انجام</mat-label>
-                <mat-select [(value)]="createDialogService.selectedPlace">
-                    <mat-option value="option1">کسرا</mat-option>
-                    <mat-option value="option2">محل مشتری</mat-option>
-                </mat-select>
-            </mat-form-field>
+            <div style="width: 83%;float: right;">
+                <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                    <mat-label style="color: deeppink;font-weight: bold;">محل انجام</mat-label>
+                    <mat-select [(value)]="createDialogService.selectedPlace">
+                        <mat-option value="option1">کسرا</mat-option>
+                        <mat-option value="option2">محل مشتری</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div style="width: 13%;float: left; margin-top: 35px;">
+                <mat-label style="color: #6691ee;font-weight: bold;float: right;">کار مازاد</mat-label>
+                <mat-checkbox style="float: left"></mat-checkbox>
+            </div>
+            
         </div>
     
         <div style="width: 100%;">

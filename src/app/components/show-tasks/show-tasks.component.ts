@@ -48,12 +48,12 @@ export class ShowTasksComponent implements OnInit {
     model: NgbDateStruct;
 
     ngOnInit(): void {
-      this.route.queryParams.subscribe(params => {
-        this.commonService.OpportunityId = params['id']
-        if (this.commonService.OpportunityId != undefined) {
-          this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
-        }
-      });
+      // this.route.queryParams.subscribe(params => {
+      //   this.commonService.OpportunityId = params['id']
+      //   if (this.commonService.OpportunityId != undefined) {
+      //     this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
+      //   }
+      // });
 
       // Costumizing the paginator.
       this.paginator._intl.nextPageLabel = "بعدی"

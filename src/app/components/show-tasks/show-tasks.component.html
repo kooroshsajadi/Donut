@@ -27,14 +27,14 @@
 
 </div>
 
-<div class="table-responsive">
-  <div style="display: flex;flex-wrap: wrap;">
-    <div dir="rtl">
-      <button type="button" class="btn btn-success table-buttons" (click)="onCreateBtnClick()">ایجاد</button>
-      <button type="button" class="btn btn-primary table-buttons">ویرایش</button>    
-      <!-- <button type="button" class="btn btn-danger table-buttons">حذف</button> -->
-    </div>
+<div style="display: flex;flex-wrap: wrap;">
+  <div dir="rtl">
+    <button type="button" class="btn btn-success table-buttons" (click)="onCreateBtnClick()">ایجاد</button>
+    <button type="button" class="btn btn-primary table-buttons">ویرایش</button>    
+    <!-- <button type="button" class="btn btn-danger table-buttons">حذف</button> -->
   </div>
+</div>
+<div class="table-responsive">
   <table class="table table-striped table-hover table-bordered" mat-table [dataSource]="dataSource" matSort dir="rtl">
 
     <ng-container matColumnDef="Owner" >
