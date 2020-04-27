@@ -6,6 +6,7 @@ import {map, startWith} from 'rxjs/operators';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
 import { TimeDialogComponent } from 'src/app/shared/time-dialog/time-dialog.component';
 import { TimeDialogService } from 'src/app/services/time-dialog.service';
+import { ResultDialogComponent } from 'src/app/shared/result-dialog/result-dialog.component';
 
 @Component({
   selector: 'app-create-dialog',
@@ -142,32 +143,51 @@ export class CreateDialogComponent implements OnInit {
 
   onSaveBtnClick() {
     debugger
-    // this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
-    //   (success) => {
-    //     debugger
-    //     if(success.message == [])
-    //       console.log("عملیات با موفقیت انجام شد")
-    //     else
-    //       console.log("خطایی رخ داد")
-    //   },
-    //   (error) => {}
-    // )
+    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
+      (success) => {
+        debugger
+        if(success.message !== null) {
+          this.dialog.open(ResultDialogComponent, {
+            data: {message: "عملیات با موفقیت انجام شد"}
+          });
+        }
+        else {
+          this.dialog.open(ResultDialogComponent, {
+            data: {message: "خطایی رخ داد"}
+          });
+        }
+      },
+      (error) => {
+        this.dialog.open(ResultDialogComponent, {
+          data: {message: "خطایی رخ داد"}
+        });
+      }
+    )
   }
 
   onSaveAndContinueBtnClick() {
     debugger
-  //   this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
-  //     (success) => {
-  //       debugger
-  //       if(success.message == []) {
-  //         console.log("عملیات با موفقیت انجام شد")
-  //         this.dialogRef.close()
-  //       }
+    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
+      (success) => {
+        debugger
+        if(success.message !== null) {
+          this.dialog.open(ResultDialogComponent, {
+            data: {message: "عملیات با موفقیت انجام شد"}
+          });
+          this.dialogRef.close()
+        }
           
-  //       else
-  //         console.log("خطایی رخ داد")
-  //     },
-  //     (error) => {}
-  //   )
+        else {
+          this.dialog.open(ResultDialogComponent, {
+            data: {message: "خطایی رخ داد"}
+          });
+        }
+      },
+      (error) => {
+        this.dialog.open(ResultDialogComponent, {
+          data: {message: "خطایی رخ داد"}
+        });
+      }
+    )
   }
 }

@@ -27,6 +27,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component';
 import {MatSelectModule} from '@angular/material/select';
+import { ResultDialogComponent } from './shared/result-dialog/result-dialog.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MatSelectModule} from '@angular/material/select';
     LoadingSpinnerComponent,
     CreateDialogComponent,
     DeleteDialogComponent,
-    TimeDialogComponent
+    TimeDialogComponent,
+    ResultDialogComponent
   ],
   imports: [
     BrowserModule,
