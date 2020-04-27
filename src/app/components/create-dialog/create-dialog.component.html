@@ -70,10 +70,20 @@
     
         <div style="width: 100%;">
             <div style="width: 95%;float: right;">
+                <span>
+                    <i (click)="onTimeIconClick()" style="font-style: normal;">
+
                 <mat-form-field style="font-size: medium;width: 100%;">
                     <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
-                    <input matInput [formControl]="timeControl" type="text" style="font-weight: bold;" [ngModel]="showTime()">
+                    <!-- <span> -->
+                        <!-- <i (click)="onTimeIconClick()" style="font-style: normal;"> -->
+                            <input matInput [formControl]="timeControl" type="text" style="font-weight: bold;" [ngModel]="showTime()">
+                        <!-- </i> -->
+                    <!-- </span> -->
                 </mat-form-field>
+            </i>
+        </span>
+
             </div>
             <div style="width: 5%;float: left;margin-top: 35px;">
                 <span>
