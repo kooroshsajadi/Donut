@@ -150,6 +150,7 @@ export class CreateDialogComponent implements OnInit {
           this.dialog.open(ResultDialogComponent, {
             data: {message: "عملیات با موفقیت انجام شد"}
           });
+          this.dialogRef.close()
         }
         else {
           this.dialog.open(ResultDialogComponent, {
@@ -174,7 +175,6 @@ export class CreateDialogComponent implements OnInit {
           this.dialog.open(ResultDialogComponent, {
             data: {message: "عملیات با موفقیت انجام شد"}
           });
-          this.dialogRef.close()
         }
           
         else {

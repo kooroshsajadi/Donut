@@ -75,6 +75,9 @@ export class CreateDialogService {
   public createContinuebyEstablishments(projectName: string, description: string, date: string): Observable<any> {
     debugger
     var body = this.createContinuebyEstablishmentsBody(projectName, description, date)
+    this.projectOptions = []
+    this.phaseOptions = []
+    this.subphaseOptions = []
     return this.configService.post('ContinuebyEstablishments/CreaetContinuebyEstablishments', body);
   }
 }

@@ -67,30 +67,16 @@ export class LoginComponent implements OnInit {
     authObs = this.sendRequest.sendLoginInfo(username, password);
     authObs.subscribe(
       resData => {
-        // if(success.validate) {
-          // console.log(success.message)
         console.log(resData);
         this.isLoading = false;
-          // var resData = JSON.parse(success.message)
-          // this.commonService.currentUserFullname = resData.FullName
         debugger
         this.router.navigate(['/tasks'])
         debugger
       },
-        // else {
-        //   debugger
-        //   console.log(success.message)
-        //   debugger
-        //   this.error = "رمز عبور اشتباه است"
-        //   debugger
-        // }
-        // debugger
-        // this.isLoading = false
-      // },
       errorMessage => {
         debugger
         console.log(errorMessage)
-        this.error = "خطایی رخ داد"
+        this.error = "نام کاربری یا رمز عبور اشتباه است"
         this.isLoading = false
       }
     );
