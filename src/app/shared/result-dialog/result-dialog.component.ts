@@ -16,4 +16,13 @@ export class ResultDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // onOkBtnClick() {
+  //   debugger
+  //   if(this.data.closureEmit) {
+  //     this.createDialogEmitterService.onOkBtnClick()
+  //   }
+    // if(this.data.success) {
+    //   this.showTasksEmitterService.onOkBtnClick(this.data.date)
+    // }
+  // }
 }

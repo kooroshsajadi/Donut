@@ -31,7 +31,7 @@ export class ShowTasksComponent implements OnInit {
   serverRes: any[] = []
   currentDate: string
   events: string[] = [];
-  selectedDate: string;
+  
   selection = new SelectionModel<Element>(true, []);
   totalTime: Time = {hours: 0, minutes: 0}
 
@@ -40,7 +40,7 @@ export class ShowTasksComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,
-    private tasksShowService: TasksShowService,
+    public tasksShowService: TasksShowService,
     private deleteDialogService: DeleteDialogService,
     public commonService: CommonService,
     public dialog: MatDialog) { }
@@ -48,12 +48,13 @@ export class ShowTasksComponent implements OnInit {
     model: NgbDateStruct;
 
     ngOnInit(): void {
-      // this.route.queryParams.subscribe(params => {
-      //   this.commonService.OpportunityId = params['id']
-      //   if (this.commonService.OpportunityId != undefined) {
-      //     this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
-      //   }
-      // });
+      // Generate the table with a given date if a generation call is received.
+    // if (this.ShowTasksEmitterService.subsVar == undefined) {    
+    //   this.ShowTasksEmitterService.subsVar = this.ShowTasksEmitterService.
+    //   invokeTableGeneration.subscribe((name:string) => {    
+    //     this.generateTable()
+    //   });    
+    // }
 
       // Costumizing the paginator.
       this.paginator._intl.nextPageLabel = "بعدی"
@@ -64,10 +65,10 @@ export class ShowTasksComponent implements OnInit {
       const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
       return `${startIndex + 1} – ${endIndex} از ${length}`; }
 
-      this.selectedDate = this.date.value;
+      this.tasksShowService.selectedDate = this.date.value;
 
       //Get the grid with the initial today date.
-      this.generateTable()
+      this.generateTable(this.tasksShowService.selectedDate)
     }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -84,9 +85,9 @@ export class ShowTasksComponent implements OnInit {
       this.dataSource.data.forEach(row => this.selection.select(row));
   }
 
-    public generateTable() {
+    public generateTable(date: string) {
       debugger
-      this.tasksShowService.getActivityData(this.selectedDate).subscribe(
+      this.tasksShowService.getActivityData(date).subscribe(
         (success) => {
           debugger
           this.serverRes = JSON.parse(success.message)
@@ -112,7 +113,7 @@ export class ShowTasksComponent implements OnInit {
     }
 
     onDateChange() {
-      this.generateTable()
+      this.generateTable(this.tasksShowService.selectedDate)
     }
 
     // The following method gets the user fullname which is stored in the local storage.
@@ -124,8 +125,14 @@ export class ShowTasksComponent implements OnInit {
     }
 
     openCreateDialog(content: string): void {
-      const dialogRef = this.dialog.open(CreateDialogComponent, {
+      debugger
+      var dialogRef = this.dialog.open(CreateDialogComponent, {
         data: {content: content}
+      });
+      debugger
+      dialogRef.afterClosed().subscribe(result => {
+        debugger
+        this.generateTable(this.tasksShowService.selectedDate)
       });
     }
 

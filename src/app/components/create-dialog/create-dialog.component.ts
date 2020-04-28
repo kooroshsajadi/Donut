@@ -7,6 +7,7 @@ import { CreateDialogService } from 'src/app/services/create-dialog.service';
 import { TimeDialogComponent } from 'src/app/shared/time-dialog/time-dialog.component';
 import { TimeDialogService } from 'src/app/services/time-dialog.service';
 import { ResultDialogComponent } from 'src/app/shared/result-dialog/result-dialog.component';
+import { TasksShowService } from 'src/app/services/tasks-show.service';
 
 @Component({
   selector: 'app-create-dialog',
@@ -19,7 +20,8 @@ export class CreateDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public createDialogService: CreateDialogService,
     private dialog: MatDialog,
-    public timeDialogService: TimeDialogService) {
+    public timeDialogService: TimeDialogService,
+    public tasksShowService: TasksShowService) {
       //dialogRef.disableClose = true;
      }
 
@@ -32,8 +34,7 @@ export class CreateDialogComponent implements OnInit {
   filteredCustomerOptions: Observable<string[]>
   filteredPlaceOptions: Observable<string[]>
   date = new FormControl(new Date());
-  selectedDate: string;
-  serverResponse: any[] = []
+ serverResponse: any[] = []
   projectControl = new FormControl('');
   filteredProjectOptions: Observable<string[]>
   phaseControl = new FormControl('');
@@ -41,8 +42,11 @@ export class CreateDialogComponent implements OnInit {
   subphaseControl = new FormControl('');
   filteredSubphaseOptions: Observable<string[]>
   places: string[] = ["کسرا", "محل مشتری"]
+  selectedDate: string;
+  
 
   ngOnInit(): void {
+
     this.timeControl.disable()
 
     // Project
@@ -143,24 +147,35 @@ export class CreateDialogComponent implements OnInit {
 
   onSaveBtnClick() {
     debugger
-    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
+    this.tasksShowService.selectedDate = this.selectedDate
+    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
       (success) => {
         debugger
         if(success.message !== null) {
-          this.dialog.open(ResultDialogComponent, {
-            data: {message: "عملیات با موفقیت انجام شد"}
+          debugger
+          var resultDialogRef = this.dialog.open(ResultDialogComponent, {
+            data: {message: "عملیات با موفقیت انجام شد",
+              closureEmit: true,
+              success: true,
+              date: this.tasksShowService.selectedDate}
           });
-          this.dialogRef.close()
+          resultDialogRef.afterClosed().subscribe(result => {
+            this.dialogRef.close()
+          });
         }
         else {
           this.dialog.open(ResultDialogComponent, {
-            data: {message: "خطایی رخ داد"}
+            data: {message: "خطایی رخ داد",
+            closureEmit: false,
+            success: false}
           });
         }
       },
       (error) => {
         this.dialog.open(ResultDialogComponent, {
-          data: {message: "خطایی رخ داد"}
+          data: {message: "خطایی رخ داد",
+          closureEmit: false,
+          success: false}
         });
       }
     )
@@ -168,24 +183,32 @@ export class CreateDialogComponent implements OnInit {
 
   onSaveAndContinueBtnClick() {
     debugger
-    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.selectedDate).subscribe(
+    this.tasksShowService.selectedDate = this.selectedDate
+    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
       (success) => {
         debugger
         if(success.message !== null) {
           this.dialog.open(ResultDialogComponent, {
-            data: {message: "عملیات با موفقیت انجام شد"}
+            data: {message: "عملیات با موفقیت انجام شد",
+            closureEmit: false,
+            success: true,
+            date: this.tasksShowService.selectedDate}
           });
         }
           
         else {
           this.dialog.open(ResultDialogComponent, {
-            data: {message: "خطایی رخ داد"}
+            data: {message: "خطایی رخ داد",
+            closureEmit: false,
+            success: false}
           });
         }
       },
       (error) => {
         this.dialog.open(ResultDialogComponent, {
-          data: {message: "خطایی رخ داد"}
+          data: {message: "خطایی رخ داد",
+          closureEmit: false,
+          success: false}
         });
       }
     )

@@ -14,7 +14,8 @@
 
   <div dir="rtl">
     <mat-form-field style="padding-right: 12px;font-size: medium;">
-      <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="selectedDate" (dateChange)="onDateChange()" name="datePickerInput" disabled style="font-weight: bold;">
+      <!-- <i class="fas fa-angle-up"></i> -->
+      <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.tasksShowService.selectedDate" (dateChange)="onDateChange()" name="datePickerInput" disabled style="font-weight: bold;">
       <mat-hint align="end" style="color: red;margin-left: 8px;font-size: medium;">انتخاب تاریخ ^</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
       <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>

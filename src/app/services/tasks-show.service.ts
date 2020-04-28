@@ -7,6 +7,8 @@ import { ConfigService } from './config.service';
 })
 export class TasksShowService {
 
+  selectedDate: string;
+  
   constructor(private configService: ConfigService) { }
 
   public getActivityData(date: string):Observable<any> {
