@@ -17,18 +17,26 @@ export class CreateDialogService {
 
   constructor(private configService: ConfigService) { }
 
-  private generateSearchPhaseBody(value: string): string {
-    //429C8EB5-FF7E-EA11-9981-005056AF44B4
-    //" + this.projectOptions[0].ProjectId + "
+  private generateSearchPhaseBody(projectName: string, searchedValue: string): string {
+    debugger
     var projectID = 0
-    if(this.projectOptions.length === 1)
+    if(this.projectOptions.length === 1) {
       projectID = this.projectOptions[0].ProjectId
-    return "{'ProjctId':'" + projectID + "','PhaseName':'" + value + "'}"
+    }
+    else if(this.projectOptions.length >= 1) {
+      this.projectOptions.forEach(project => {
+        if(project.Name === projectName) {
+          projectID = project.ProjectId
+          return
+        }
+      })
+    }
+    return "{'ProjctId':'" + projectID + "','PhaseName':'" + searchedValue + "'}"
   }
 
-  public searchPhase(value: string): Observable<any> {
+  public searchPhase(projectName: string, serachedValue: string): Observable<any> {
     debugger
-    var body = this.generateSearchPhaseBody(value)
+    var body = this.generateSearchPhaseBody(projectName, serachedValue)
     return this.configService.post('ContinuebyEstablishments/SearchPhase', body);
   }
 
@@ -41,17 +49,25 @@ export class CreateDialogService {
     return this.configService.post('ContinuebyEstablishments/SearchProject', body);
   }
 
-  private generateSearchSubphaseBody(value: string): string {
+  private generateSearchSubphaseBody(phaseName: string, subphaseSearchedValue: string): string {
     debugger
     var phaseID = 0
     if(this.phaseOptions.length === 1)
       phaseID = this.phaseOptions[0].PhaseId
-    return "{'PhaseId':'" + phaseID + "','SubPhaseName':'" + value + "'}"
+    else if(this.phaseOptions.length >= 1) {
+      this.phaseOptions.forEach(phase => {
+        if(phase.Name === phaseName) {
+          phaseID = phase.PhaseId
+          return
+        }
+      })
+    }
+    return "{'PhaseId':'" + phaseID + "','SubPhaseName':'" + subphaseSearchedValue + "'}"
   }
 
-  public searchSubphase(value: string): Observable<any> {
+  public searchSubphase(phaseName: string, subphaseSearchedValue: string): Observable<any> {
     debugger
-    var body = this.generateSearchSubphaseBody(value)
+    var body = this.generateSearchSubphaseBody(phaseName, subphaseSearchedValue)
     return this.configService.post('ContinuebyEstablishments/SearchSubPhase', body);
   }
 

@@ -77,22 +77,23 @@ export class CreateDialogComponent implements OnInit {
     this.descriptionControl.setValue("")
   }
 
-  public phaseSearch(value: string) {
-    if(this.createDialogService.projectOptions.length === 1) {
-      debugger
-      this.createDialogService.searchPhase(value).subscribe(
+  public phaseSearch(projectName: string, searchedValue: string) {
+    debugger
+    // if(this.createDialogService.projectOptions.length === 1) {
+      
+      this.createDialogService.searchPhase(projectName, searchedValue).subscribe(
         (success) => {
           debugger
           this.createDialogService.phaseOptions = JSON.parse(success.message)
         },
         (error) => {}
       )
-    }
+    // }
   }
 
-  public subphaseSearch(value: string) {
+  public subphaseSearch(phaseName: string, searchedSubphaseValue: string) {
     debugger
-    this.createDialogService.searchSubphase(value).subscribe(
+    this.createDialogService.searchSubphase(phaseName, searchedSubphaseValue).subscribe(
       (success) => {
         debugger
         this.createDialogService.subphaseOptions = JSON.parse(success.message)
@@ -111,13 +112,13 @@ export class CreateDialogComponent implements OnInit {
     )
   }
 
-  private phaseFilter(value: string): string[] {
-    this.phaseSearch(value);
+  private phaseFilter(searchedPhaseValue: string): string[] {
+    this.phaseSearch(this.projectControl.value, searchedPhaseValue);
     return this.createDialogService.phaseOptions
   }
 
-  private subphaseFilter(value: string): string[] {
-    this.subphaseSearch(value);
+  private subphaseFilter(searchedSubphaseValue: string): string[] {
+    this.subphaseSearch(this.phaseControl.value, searchedSubphaseValue);
     return this.createDialogService.subphaseOptions
   }
 
@@ -212,5 +213,24 @@ export class CreateDialogComponent implements OnInit {
         });
       }
     )
+  }
+  onProjectSelectPhaseSearch(projectName: string) {
+    debugger
+    this.phaseSearch(projectName, "")
+    this.filteredPhaseOptions = this.phaseControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.phaseFilter(value))
+    );
+  }
+
+  onPhaseSelectSubphaseSearch(phaseName: string) {
+    debugger
+    this.subphaseSearch(phaseName, "")
+    this.filteredSubphaseOptions = this.subphaseControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.subphaseFilter(value))
+    );
   }
 }

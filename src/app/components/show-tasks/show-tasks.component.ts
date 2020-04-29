@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { DeleteDialogService } from '../../services/delete-dialog.service';
 import { Time } from '@angular/common';
+import { CreateDialogService } from 'src/app/services/create-dialog.service';
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html',
@@ -43,7 +44,8 @@ export class ShowTasksComponent implements OnInit {
     public tasksShowService: TasksShowService,
     private deleteDialogService: DeleteDialogService,
     public commonService: CommonService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private createDialogService: CreateDialogService) { }
 
     model: NgbDateStruct;
 
@@ -133,6 +135,11 @@ export class ShowTasksComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         debugger
         this.generateTable(this.tasksShowService.selectedDate)
+        this.createDialogService.projectOptions = []
+        this.createDialogService.phaseOptions = []
+        this.createDialogService.subphaseOptions = []
+        this.createDialogService.time.hour = 0
+        this.createDialogService.time.minute = 0
       });
     }
 
