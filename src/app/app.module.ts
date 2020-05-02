@@ -28,6 +28,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component';
 import {MatSelectModule} from '@angular/material/select';
 import { ResultDialogComponent } from './shared/result-dialog/result-dialog.component';
+import {MatSortModule} from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ResultDialogComponent } from './shared/result-dialog/result-dialog.comp
     MatDialogModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSortModule
   ],
   providers: [
     {provide: HttpClientModule},

@@ -72,23 +72,18 @@
             <div style="width: 95%;float: right;">
                 <span>
                     <i (click)="onTimeIconClick()" style="font-style: normal;">
-
-                <mat-form-field style="font-size: medium;width: 100%;">
-                    <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
-                    <!-- <span> -->
-                        <!-- <i (click)="onTimeIconClick()" style="font-style: normal;"> -->
+                        <mat-form-field style="font-size: medium;width: 100%;">
+                            <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
                             <input matInput [formControl]="timeControl" type="text" style="font-weight: bold;" [ngModel]="showTime()">
-                        <!-- </i> -->
-                    <!-- </span> -->
-                </mat-form-field>
-            </i>
-        </span>
-
+                        </mat-form-field>
+                    </i>
+                </span>
             </div>
             <div style="width: 5%;float: left;margin-top: 35px;">
                 <span>
                     <i id='clickableAwesomeFont' class="fa fa-clock-o fa-lg" style="color: deeppink;float: left;" (click)="onTimeIconClick()"></i>
                 </span>
+                
             </div>
         </div>
 
@@ -106,7 +101,6 @@
                 <mat-label style="color: #6691ee;font-weight: bold;float: right;">کار مازاد</mat-label>
                 <mat-checkbox style="float: left"></mat-checkbox>
             </div>
-            
         </div>
     
         <div style="width: 100%;">

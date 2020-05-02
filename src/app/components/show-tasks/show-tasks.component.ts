@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Directive } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { MatTableDataSource } from '@angular/material/table';
 import { TasksShowService } from 'src/app/services/tasks-show.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
@@ -14,21 +13,25 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 import { DeleteDialogService } from '../../services/delete-dialog.service';
 import { Time } from '@angular/common';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
+import {MatSort} from '@angular/material/sort';
+
 @Component({
   selector: 'app-show-tasks',
   templateUrl: './show-tasks.component.html',
   styleUrls: ['./show-tasks.component.scss']
 })
+
+
 export class ShowTasksComponent implements OnInit {
 
   displayedColumns: string[] = ['Owner', 'Customer', 'Project', 'Phase', 'SubPhase',
-                                'ActivitesDate', 'ActivitesTime', 'PlaceOfAction', 'Description',
-                                'IsMoreWork', 'Delete'];
+                                'ActivitesDate', 'ActivitesTime', 'PlaceOfAction', 'Description'];
+    // 'IsMoreWork', 'Delete'
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
-  @ViewChild(MatSort, { static: true }) sort: MatSort
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  dataSource: MatTableDataSource<any>
+  dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
   serverRes: any[] = []
   currentDate: string
   events: string[] = [];
@@ -50,14 +53,6 @@ export class ShowTasksComponent implements OnInit {
     model: NgbDateStruct;
 
     ngOnInit(): void {
-      // Generate the table with a given date if a generation call is received.
-    // if (this.ShowTasksEmitterService.subsVar == undefined) {    
-    //   this.ShowTasksEmitterService.subsVar = this.ShowTasksEmitterService.
-    //   invokeTableGeneration.subscribe((name:string) => {    
-    //     this.generateTable()
-    //   });    
-    // }
-
       // Costumizing the paginator.
       this.paginator._intl.nextPageLabel = "بعدی"
       this.paginator._intl.previousPageLabel = "قبلی"
@@ -93,22 +88,19 @@ export class ShowTasksComponent implements OnInit {
         (success) => {
           debugger
           this.serverRes = JSON.parse(success.message)
-          debugger
-          this.dataSource = new MatTableDataSource(this.serverRes)
-          this.dataSource = new MatTableDataSource(this.serverRes)
+          this.dataSource = new MatTableDataSource(this.serverRes);
+          this.dataSource = new MatTableDataSource(this.serverRes);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          
           this.totalTime.hours = 0
           this.totalTime.minutes = 0
           this.dataSource.data.forEach(row => {
             this.totalTime.minutes += +row.ActivitesTime
-            debugger
           })
           debugger
           this.totalTime.hours = Math.floor(this.totalTime.minutes / 60)
-          this.totalTime.minutes = this.totalTime.minutes % 60
-          console.log(this.totalTime)
-          this.dataSource.paginator = this.paginator
-          this.dataSource.sort = this.sort
-          debugger
+          this.totalTime.minutes = this.totalTime.minutes % 60          
         },
         (error) => {}
       )
@@ -158,5 +150,4 @@ export class ShowTasksComponent implements OnInit {
       this.deleteDialogService = row.ActivitiesId
       this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
     }
-
 }

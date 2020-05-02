@@ -28,6 +28,8 @@
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
+    "angular-resizable-element": "^3.3.0",
+    "angular-resize-event": "^1.2.1",
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
     "iransans-fontface": "^0.1.1",
