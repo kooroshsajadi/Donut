@@ -23,6 +23,7 @@ export class CreateDialogComponent implements OnInit {
     public timeDialogService: TimeDialogService,
     public tasksShowService: TasksShowService) {
       //dialogRef.disableClose = true;
+      dialogRef.updateSize("75%", "75%")
      }
 
   modalityControl = new FormControl('')

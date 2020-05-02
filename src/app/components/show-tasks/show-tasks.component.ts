@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Directive } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
@@ -35,7 +35,6 @@ export class ShowTasksComponent implements OnInit {
   serverRes: any[] = []
   currentDate: string
   events: string[] = [];
-  
   selection = new SelectionModel<Element>(true, []);
   totalTime: Time = {hours: 0, minutes: 0}
 
@@ -48,7 +47,7 @@ export class ShowTasksComponent implements OnInit {
     private deleteDialogService: DeleteDialogService,
     public commonService: CommonService,
     public dialog: MatDialog,
-    private createDialogService: CreateDialogService) { }
+    private createDialogService: CreateDialogService,) { }
 
     model: NgbDateStruct;
 

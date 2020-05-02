@@ -6,10 +6,6 @@
     left: 0;
 }
 
-// ::ng-deep mat-form-field .mat-form-field-infix {
-//   width: initial;
-// } 
-
 .fullnameParagraph {
     font-weight: bold;
     font-size: large;
@@ -45,6 +41,11 @@ td, th {
 th{
   border: 2px solid #dee2e6;
   font-weight: bold;
+}
+
+.tableHeaderCellDiv {
+  resize: horizontal;
+  overflow:hidden;
 }
 
 // The following lines are the stylings that I have took from the previous projects.
