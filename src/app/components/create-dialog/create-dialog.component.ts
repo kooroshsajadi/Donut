@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
@@ -27,6 +27,7 @@ export class CreateDialogComponent implements OnInit {
      }
 
   modalityControl = new FormControl('')
+  
   customerControl = new FormControl('')
   timeControl = new FormControl('')
   placeControl = new FormControl('')
@@ -141,14 +142,7 @@ export class CreateDialogComponent implements OnInit {
   public showTime(): string {
     var hour = this.createDialogService.time.hour
     var minute = this.createDialogService.time.minute
-    if(hour === 0 && minute === 0) {
-      return ""
-    }
-      
-    else {
-      return hour + " : " + minute
-    }
-      
+    return hour + " : " + minute
   }
 
   onSaveBtnClick() {
@@ -204,7 +198,7 @@ export class CreateDialogComponent implements OnInit {
               date: this.tasksShowService.selectedDate}
             });
           }
-            
+
           else {
             this.dialog.open(ResultDialogComponent, {
               data: {message: "خطایی رخ داد",
