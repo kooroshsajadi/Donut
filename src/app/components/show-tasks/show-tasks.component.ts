@@ -47,7 +47,7 @@ export class ShowTasksComponent implements OnInit {
     private deleteDialogService: DeleteDialogService,
     public commonService: CommonService,
     public dialog: MatDialog,
-    private createDialogService: CreateDialogService,) { }
+    private createDialogService: CreateDialogService) { }
 
     model: NgbDateStruct;
 
@@ -94,10 +94,21 @@ export class ShowTasksComponent implements OnInit {
           
           this.totalTime.hours = 0
           this.totalTime.minutes = 0
+          var min: string
+          var hour: string
           this.dataSource.data.forEach(row => {
             this.totalTime.minutes += +row.ActivitesTime
             // Change the time input in here.
-            
+            debugger
+            hour = Math.floor(row.ActivitesTime / 60).toString()
+            // if(hour.length === 1) {
+            //   hour = "0" + hour
+            // }
+            min = (row.ActivitesTime % 60).toString()
+            if(min.length === 1) {
+              min = "0" + min
+            }
+            row.ActivitesTime = hour + ":" + min
           })
           debugger
           this.totalTime.hours = Math.floor(this.totalTime.minutes / 60)
@@ -136,19 +147,24 @@ export class ShowTasksComponent implements OnInit {
       });
     }
 
-    openDeleteDialog(content: string): void {
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-        data: {content: content}
-      });
-    }
+    // openDeleteDialog(content: string): void {
+    //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    //     data: {content: content}
+    //   });
+    // }
 
     onCreateBtnClick() {
       this.openCreateDialog("")
     }
 
-    onDeleteCellClick(row) {
+    // onDeleteCellClick(row) {
+    //   debugger
+    //   this.deleteDialogService = row.ActivitiesId
+    //   this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
+    // }
+
+    onNextDayClick() {
       debugger
-      this.deleteDialogService = row.ActivitiesId
-      this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
+      console.log(this.date.value)
     }
 }

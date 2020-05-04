@@ -26,7 +26,7 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">پروژه</mat-label>
-                <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" required>
+                <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" required title="لطفا این فیلد را پر کنید">
                 <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onProjectSelectPhaseSearch($event.option.value)">
                     <mat-option *ngFor="let option of filteredProjectOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -38,7 +38,7 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">فاز</mat-label>
-                <input type="text" matInput [formControl]="phaseControl" [matAutocomplete]="auto3" required>
+                <input type="text" matInput [formControl]="phaseControl" [matAutocomplete]="auto3" required title="لطفا این فیلد را پر کنید">
                 <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="onPhaseSelectSubphaseSearch($event.option.value)">
                     <mat-option *ngFor="let option of filteredPhaseOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -50,7 +50,7 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">زیر فاز</mat-label>
-                <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" required>
+                <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" required title="لطفا این فیلد را پر کنید">
                 <mat-autocomplete #auto4="matAutocomplete">
                     <mat-option *ngFor="let option of filteredSubphaseOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -107,7 +107,7 @@
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl" required>
+                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl" required title="لطفا این فیلد را پر کنید">
                 </textarea>
             </mat-form-field>
         </div>
