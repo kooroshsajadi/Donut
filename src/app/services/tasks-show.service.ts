@@ -8,6 +8,7 @@ import { ConfigService } from './config.service';
 export class TasksShowService {
 
   selectedDate: string;
+  time = {hour: 0, minute: 0};
   
   constructor(private configService: ConfigService) { }
 

@@ -96,6 +96,8 @@ export class ShowTasksComponent implements OnInit {
           this.totalTime.minutes = 0
           this.dataSource.data.forEach(row => {
             this.totalTime.minutes += +row.ActivitesTime
+            // Change the time input in here.
+            
           })
           debugger
           this.totalTime.hours = Math.floor(this.totalTime.minutes / 60)

@@ -141,79 +141,87 @@ export class CreateDialogComponent implements OnInit {
   public showTime(): string {
     var hour = this.createDialogService.time.hour
     var minute = this.createDialogService.time.minute
-    if(hour === 0 && minute === 0)
+    if(hour === 0 && minute === 0) {
       return ""
-    else
+    }
+      
+    else {
       return hour + " : " + minute
+    }
+      
   }
 
   onSaveBtnClick() {
     debugger
-    this.tasksShowService.selectedDate = this.selectedDate
-    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
-      (success) => {
-        debugger
-        if(success.message !== null) {
+    if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
+      this.tasksShowService.selectedDate = this.selectedDate
+      this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
+        (success) => {
           debugger
-          var resultDialogRef = this.dialog.open(ResultDialogComponent, {
-            data: {message: "عملیات با موفقیت انجام شد",
-              closureEmit: true,
-              success: true,
-              date: this.tasksShowService.selectedDate}
-          });
-          resultDialogRef.afterClosed().subscribe(result => {
-            this.dialogRef.close()
-          });
-        }
-        else {
+          if(success.message !== null) {
+            debugger
+            var resultDialogRef = this.dialog.open(ResultDialogComponent, {
+              data: {message: "عملیات با موفقیت انجام شد",
+                closureEmit: true,
+                success: true,
+                date: this.tasksShowService.selectedDate}
+            });
+            resultDialogRef.afterClosed().subscribe(result => {
+              this.dialogRef.close()
+            });
+          }
+          else {
+            this.dialog.open(ResultDialogComponent, {
+              data: {message: "خطایی رخ داد",
+              closureEmit: false,
+              success: false}
+            });
+          }
+        },
+        (error) => {
           this.dialog.open(ResultDialogComponent, {
             data: {message: "خطایی رخ داد",
             closureEmit: false,
             success: false}
           });
         }
-      },
-      (error) => {
-        this.dialog.open(ResultDialogComponent, {
-          data: {message: "خطایی رخ داد",
-          closureEmit: false,
-          success: false}
-        });
-      }
-    )
+      )
+    }
   }
 
   onSaveAndContinueBtnClick() {
     debugger
-    this.tasksShowService.selectedDate = this.selectedDate
-    this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
-      (success) => {
-        debugger
-        if(success.message !== null) {
-          this.dialog.open(ResultDialogComponent, {
-            data: {message: "عملیات با موفقیت انجام شد",
-            closureEmit: false,
-            success: true,
-            date: this.tasksShowService.selectedDate}
-          });
-        }
-          
-        else {
+    if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
+      this.tasksShowService.selectedDate = this.selectedDate
+      this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
+        (success) => {
+          debugger
+          if(success.message !== null) {
+            this.dialog.open(ResultDialogComponent, {
+              data: {message: "عملیات با موفقیت انجام شد",
+              closureEmit: false,
+              success: true,
+              date: this.tasksShowService.selectedDate}
+            });
+          }
+            
+          else {
+            this.dialog.open(ResultDialogComponent, {
+              data: {message: "خطایی رخ داد",
+              closureEmit: false,
+              success: false}
+            });
+          }
+        },
+        (error) => {
           this.dialog.open(ResultDialogComponent, {
             data: {message: "خطایی رخ داد",
             closureEmit: false,
             success: false}
           });
         }
-      },
-      (error) => {
-        this.dialog.open(ResultDialogComponent, {
-          data: {message: "خطایی رخ داد",
-          closureEmit: false,
-          success: false}
-        });
-      }
-    )
+      )
+    }
   }
   onProjectSelectPhaseSearch(projectName: string) {
     debugger
