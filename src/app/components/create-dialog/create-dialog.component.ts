@@ -45,6 +45,7 @@ export class CreateDialogComponent implements OnInit {
   filteredSubphaseOptions: Observable<string[]>
   places: string[] = ["کسرا", "محل مشتری"]
   selectedDate: string;
+  valid: boolean = null
   
 
   ngOnInit(): void {
