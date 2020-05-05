@@ -101,9 +101,6 @@ export class ShowTasksComponent implements OnInit {
             // Change the time input in here.
             debugger
             hour = Math.floor(row.ActivitesTime / 60).toString()
-            // if(hour.length === 1) {
-            //   hour = "0" + hour
-            // }
             min = (row.ActivitesTime % 60).toString()
             if(min.length === 1) {
               min = "0" + min
@@ -133,7 +130,8 @@ export class ShowTasksComponent implements OnInit {
     openCreateDialog(content: string): void {
       debugger
       var dialogRef = this.dialog.open(CreateDialogComponent, {
-        data: {content: content}
+        data: {content: content},
+        width: "800px"
       });
       debugger
       dialogRef.afterClosed().subscribe(result => {
@@ -148,25 +146,10 @@ export class ShowTasksComponent implements OnInit {
       });
     }
 
-    // openDeleteDialog(content: string): void {
-    //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
-    //     data: {content: content}
-    //   });
-    // }
-
     onCreateBtnClick() {
       debugger
-      //this.tasksShowService.selectedDate
-      //this.date.valid
-      // this.date.setValue("2/4/78")
       this.openCreateDialog("")
     }
-
-    // onDeleteCellClick(row) {
-    //   debugger
-    //   this.deleteDialogService = row.ActivitiesId
-    //   this.openDeleteDialog("آیا از حذف فعالیت اطمینان دارید ؟")
-    // }
 
     onNextDayClick() {
       debugger
