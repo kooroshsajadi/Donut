@@ -14,7 +14,7 @@ export class myErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     if(control.value === "") {
-      return false
+      return true
     }
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -42,7 +42,7 @@ export class CreateDialogComponent implements OnInit {
   customerControl = new FormControl('')
   timeControl = new FormControl('', [
     Validators.required,
-    Validators.minLength(4)
+    Validators.minLength(5)
   ])
   placeControl = new FormControl('')
   descriptionControl = new FormControl('')
@@ -150,15 +150,18 @@ export class CreateDialogComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       debugger
+      // At this part the time must get converted to a proper format.
       if(this.createDialogService.time.hour.toString().length === 1) {
-        this.createDialogService.taskTime = '0' + this.createDialogService.time.hour.toString()
+        this.createDialogService.taskTime = "0" + this.createDialogService.time.hour.toString()
       }
       else {
         this.createDialogService.taskTime = this.createDialogService.time.hour.toString()
       }
 
+      this.createDialogService.taskTime += ":"
+
       if(this.createDialogService.time.minute.toString().length === 1) {
-        this.createDialogService.taskTime += '0' + this.createDialogService.time.minute.toString()
+        this.createDialogService.taskTime += "0" + this.createDialogService.time.minute.toString()
       }
       else {
         this.createDialogService.taskTime += this.createDialogService.time.minute.toString()
@@ -266,5 +269,9 @@ export class CreateDialogComponent implements OnInit {
       startWith(''),
       map(value => this.subphaseFilter(value))
     );
+  }
+
+  logData() {
+    console.log(this.timeControl.value)
   }
 }

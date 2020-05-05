@@ -26,7 +26,7 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">پروژه</mat-label>
-                <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" required title="لطفا این فیلد را پر کنید">
+                <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" required title="لطفا این فیلد را پر کنید" [errorStateMatcher]="matcher">
                 <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onProjectSelectPhaseSearch($event.option.value)">
                     <mat-option *ngFor="let option of filteredProjectOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -50,7 +50,7 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">زیر فاز</mat-label>
-                <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" required title="لطفا این فیلد را پر کنید">
+                <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" required title="لطفا این فیلد را پر کنید" [errorStateMatcher]="matcher">
                 <mat-autocomplete #auto4="matAutocomplete">
                     <mat-option *ngFor="let option of filteredSubphaseOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -62,7 +62,7 @@
         <div dir="rtl" style="width: 100%;">
             <mat-form-field style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
-                <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required>
+                <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required [errorStateMatcher]="matcher">
                 <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
                 <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -72,7 +72,7 @@
             <div style="width: 95%;float: right;">
                 <mat-form-field style="font-size: medium;width: 100%;">
                     <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
-                    <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required>
+                    <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required [errorStateMatcher]="matcher" (change)="logData()"> 
                 </mat-form-field>
             </div>
             
@@ -103,7 +103,7 @@
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl" required title="لطفا این فیلد را پر کنید">
+                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl" required title="لطفا این فیلد را پر کنید" [errorStateMatcher]="matcher">
                 </textarea>
             </mat-form-field>
         </div>
