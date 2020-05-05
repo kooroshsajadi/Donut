@@ -11,6 +11,7 @@ export class CreateDialogService {
   phaseOptions: any[] = []
   subphaseOptions: any[] = []
   time = {hour: 0, minute: 0};
+  taskTime: string = ""
   selectedPlace: string = "option1"
   selectedModality: string = "option1"
   selectedProject: string = ""
@@ -83,7 +84,10 @@ export class CreateDialogService {
     var month = nums[months.indexOf(dateArray[1])]
     // TODO - Add the true current time to this part later.
     var dueDate: string = dateArray[3] + "-" + month + "-" + dateArray[2] + " 00:00:00.000"
-    var duration: number = this.time.hour * 60 + this.time.minute
+    // var duration: number = this.time.hour * 60 + this.time.minute
+    var stringTimeArray: Array<string> = this.taskTime.split(':')
+    var integerTimeArray: Array<number> = [Number.parseInt(stringTimeArray[0]), Number.parseInt(stringTimeArray[1])]
+    var duration: number = integerTimeArray[0] * 60 + integerTimeArray[1]
     var personID: string = localStorage.getItem('personCode').replace("\"", "").replace("\"", "")
     return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'NextStep':1}],'PersonId':'" + personID + "'}"
   }

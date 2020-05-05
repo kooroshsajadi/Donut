@@ -30,11 +30,13 @@
     "@ng-bootstrap/ng-bootstrap": "^6.0.2",
     "angular-resizable-element": "^3.3.0",
     "angular-resize-event": "^1.2.1",
+    "angular2-text-mask": "^9.0.0",
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
     "iransans-fontface": "^0.1.1",
     "jalali-moment": "^3.3.3",
     "jquery": "^3.4.1",
+    "ngx-mask": "^9.0.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

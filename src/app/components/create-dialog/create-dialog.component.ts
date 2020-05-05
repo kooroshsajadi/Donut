@@ -1,16 +1,24 @@
-import { Component, OnInit, Inject, OnDestroy, Input, Self, ElementRef, Optional } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { FormControl, Validators, ControlValueAccessor, FormGroup, FormBuilder, NgControl } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
 import { TimeDialogComponent } from 'src/app/shared/time-dialog/time-dialog.component';
 import { TimeDialogService } from 'src/app/services/time-dialog.service';
 import { ResultDialogComponent } from 'src/app/shared/result-dialog/result-dialog.component';
 import { TasksShowService } from 'src/app/services/tasks-show.service';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { FocusMonitor } from '@angular/cdk/a11y';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+export class myErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    if(control.value === "") {
+      return false
+    }
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-create-dialog',
@@ -32,7 +40,10 @@ export class CreateDialogComponent implements OnInit {
   modalityControl = new FormControl('')
   
   customerControl = new FormControl('')
-  timeControl = new FormControl('')
+  timeControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(4)
+  ])
   placeControl = new FormControl('')
   descriptionControl = new FormControl('')
   filteredModalityOptions: Observable<string[]>
@@ -49,7 +60,13 @@ export class CreateDialogComponent implements OnInit {
   places: string[] = ["کسرا", "محل مشتری"]
   selectedDate: string;
   valid: boolean = null
-  
+  matcher = new myErrorStateMatcher();
+
+  public mask = {
+    guide: false,
+    showMask: true,
+    mask: [/\d/, /\d/, ':', /\d/, /\d/]
+  };  
 
   ngOnInit(): void {
     // Project
@@ -81,9 +98,7 @@ export class CreateDialogComponent implements OnInit {
   }
 
   public phaseSearch(projectName: string, searchedValue: string) {
-    debugger
-    // if(this.createDialogService.projectOptions.length === 1) {
-      
+    debugger      
       this.createDialogService.searchPhase(projectName, searchedValue).subscribe(
         (success) => {
           debugger
@@ -91,7 +106,6 @@ export class CreateDialogComponent implements OnInit {
         },
         (error) => {}
       )
-    // }
   }
 
   public subphaseSearch(phaseName: string, searchedSubphaseValue: string) {
@@ -133,6 +147,22 @@ export class CreateDialogComponent implements OnInit {
   openTimeDialog(content: string): void {
     const dialogRef = this.dialog.open(TimeDialogComponent, {
       data: {content: content}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      debugger
+      if(this.createDialogService.time.hour.toString().length === 1) {
+        this.createDialogService.taskTime = '0' + this.createDialogService.time.hour.toString()
+      }
+      else {
+        this.createDialogService.taskTime = this.createDialogService.time.hour.toString()
+      }
+
+      if(this.createDialogService.time.minute.toString().length === 1) {
+        this.createDialogService.taskTime += '0' + this.createDialogService.time.minute.toString()
+      }
+      else {
+        this.createDialogService.taskTime += this.createDialogService.time.minute.toString()
+      }
     });
   }
 
@@ -238,144 +268,3 @@ export class CreateDialogComponent implements OnInit {
     );
   }
 }
-
-// export class TaskTime {
-//   constructor(public hours: string, public minutes: string) {}
-// }
-
-// /** Custom `MatFormFieldControl` for telephone number input. */
-// @Component({
-//   selector: 'time-input',
-//   templateUrl: 'time-input.html',
-//   styleUrls: ['time-input.scss'],
-//   providers: [{provide: MatFormFieldControl, useExisting: TimeInput}],
-//   host: {
-//     '[class.example-floating]': 'shouldLabelFloat',
-//     '[id]': 'id',
-//     '[attr.aria-describedby]': 'describedBy',
-//   }
-// })
-// export class TimeInput implements ControlValueAccessor, MatFormFieldControl<TaskTime>, OnDestroy {
-//   static nextId = 0;
-
-//   private formBuilder: FormBuilder
-//   parts: FormGroup;
-//   // parts = this.formBuilder.group({});
-//   stateChanges = new Subject<void>();
-//   focused = false;
-//   errorState = false;
-//   controlType = 'time-input';
-//   id = `time-input-${TimeInput.nextId++}`;
-//   describedBy = '';
-//   onChange = (_: any) => {};
-//   onTouched = () => {};
-
-//   get empty() {
-//     const {value: {hours, minutes}} = this.parts;
-
-//     return !hours && !minutes;
-//   }
-
-//   get shouldLabelFloat() { return this.focused || !this.empty; }
-
-//   @Input()
-//   get placeholder(): string { return this._placeholder; }
-//   set placeholder(value: string) {
-//     this._placeholder = value;
-//     this.stateChanges.next();
-//   }
-//   private _placeholder: string;
-
-//   @Input()
-//   get required(): boolean { return this._required; }
-//   set required(value: boolean) {
-//     this._required = coerceBooleanProperty(value);
-//     this.stateChanges.next();
-//   }
-//   private _required = false;
-
-//   @Input()
-//   get disabled(): boolean { return this._disabled; }
-//   set disabled(value: boolean) {
-//     this._disabled = coerceBooleanProperty(value);
-//     this._disabled ? this.parts.disable() : this.parts.enable();
-//     this.stateChanges.next();
-//   }
-//   private _disabled = false;
-
-//   @Input()
-//   get value(): TaskTime | null {
-//     if (this.parts.valid) {
-//       const {value: {hours, minutes}} = this.parts;
-//       return new TaskTime(hours, minutes);
-//     }
-//     return null;
-//   }
-//   set value(time: TaskTime | null) {
-//     const {hours, minutes} = time || new TaskTime('', '');
-//     this.parts.setValue({hours, minutes});
-//     this.stateChanges.next();
-//   }
-
-//   constructor(
-//     formBuilder: FormBuilder,
-//     private _focusMonitor: FocusMonitor,
-//     private _elementRef: ElementRef<HTMLElement>,
-//     @Optional() @Self() public ngControl: NgControl) {
-
-//     this.parts = formBuilder.group({
-//       hours: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
-//       minutes: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(2)]],
-//     });
-
-//     _focusMonitor.monitor(_elementRef, true).subscribe(origin => {
-//       if (this.focused && !origin) {
-//         this.onTouched();
-//       }
-//       this.focused = !!origin;
-//       this.stateChanges.next();
-//     });
-
-//     if (this.ngControl != null) {
-//       this.ngControl.valueAccessor = this;
-//     }
-//   }
-
-//   ngOnDestroy() {
-//     this.stateChanges.complete();
-//     this._focusMonitor.stopMonitoring(this._elementRef);
-//   }
-
-//   setDescribedByIds(ids: string[]) {
-//     this.describedBy = ids.join(' ');
-//   }
-
-//   onContainerClick(event: MouseEvent) {
-//     if ((event.target as Element).tagName.toLowerCase() != 'input') {
-//       this._elementRef.nativeElement.querySelector('input')!.focus();
-//     }
-//   }
-
-//   writeValue(time: TaskTime | null): void {
-//     this.value = time;
-//   }
-
-//   registerOnChange(fn: any): void {
-//     this.onChange = fn;
-//   }
-
-//   registerOnTouched(fn: any): void {
-//     this.onTouched = fn;
-//   }
-
-//   setDisabledState(isDisabled: boolean): void {
-//     this.disabled = isDisabled;
-//   }
-
-//   _handleInput(): void {
-//     this.onChange(this.value);
-//   }
-
-//   static ngAcceptInputType_disabled: boolean | string | null | undefined;
-//   static ngAcceptInputType_required: boolean | string | null | undefined;
-// }

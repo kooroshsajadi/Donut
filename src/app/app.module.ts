@@ -29,6 +29,9 @@ import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component'
 import {MatSelectModule} from '@angular/material/select';
 import { ResultDialogComponent } from './shared/result-dialog/result-dialog.component';
 import {MatSortModule} from '@angular/material/sort';
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMaskModule } from 'ngx-mask'
+
 
 @NgModule({
   declarations: [
@@ -62,7 +65,9 @@ import {MatSortModule} from '@angular/material/sort';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatSelectModule,
-    MatSortModule
+    MatSortModule,
+    TextMaskModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [
     {provide: HttpClientModule},
