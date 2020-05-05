@@ -154,6 +154,10 @@ export class ShowTasksComponent implements OnInit {
     // }
 
     onCreateBtnClick() {
+      debugger
+      //this.tasksShowService.selectedDate
+      //this.date.valid
+      // this.date.setValue("2/4/78")
       this.openCreateDialog("")
     }
 

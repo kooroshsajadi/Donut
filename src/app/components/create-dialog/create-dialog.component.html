@@ -62,7 +62,7 @@
         <div dir="rtl" style="width: 100%;">
             <mat-form-field style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
-                <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.selectedDate" name="datePickerInput" disabled style="font-weight: bold;">
+                <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.selectedDate" name="datePickerInput" style="font-weight: bold;">
                 <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
                 <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
             </mat-form-field>
