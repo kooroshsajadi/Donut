@@ -131,7 +131,7 @@ export class ShowTasksComponent implements OnInit {
       debugger
       var dialogRef = this.dialog.open(CreateDialogComponent, {
         data: {content: content},
-        width: "800px"
+        width: "75%"
       });
       debugger
       dialogRef.afterClosed().subscribe(result => {
