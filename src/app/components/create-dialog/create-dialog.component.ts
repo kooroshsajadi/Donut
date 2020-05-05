@@ -270,8 +270,4 @@ export class CreateDialogComponent implements OnInit {
       map(value => this.subphaseFilter(value))
     );
   }
-
-  logData() {
-    console.log(this.timeControl.value)
-  }
 }

@@ -12,9 +12,6 @@ import { Observable } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
-  //hidePassword = true
-  //username: string = ""
-  //password: string = ""
   OpportunityId: any
   error: string = null
   isLoading = false;
@@ -25,35 +22,13 @@ export class LoginComponent implements OnInit {
     private commonService: CommonService) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.commonService.OpportunityId = params['id']
-      if (this.commonService.OpportunityId != undefined) {
-        this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
-      }
-    });
+    // this.route.queryParams.subscribe(params => {
+    //   this.commonService.OpportunityId = params['id']
+    //   if (this.commonService.OpportunityId != undefined) {
+    //     this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
+    //   }
+    // });
   }
-
-  // onLoginButtonClick() {
-  //   this.router.navigate(['/Tasks'])
-  //   this.isLoading = true
-  //   this.commonService.OpportunityId = this.commonService.getParameterByName();
-  //   // this.generateLoginBody()
-  //   this.sendRequest.sendLoginInfo(this.username, this.password).subscribe(
-  //     (success) => {
-  //       console.log("true")
-  //       this.isLoading = false
-  //     },
-  //     (error) => {
-  //       console.log("false")
-  //       this.error = "خطایی رخ داد!"
-  //       this.isLoading = false
-  //     }
-  //   )
-  // }
-
-  // private generateLoginBody(): string {
-  //   return "{'UserName':'" + this.username + "','Password':'" + this.password + "'}"
-  // }
 
   onSubmit(form: NgForm) {
     if(!form.valid) {
@@ -67,7 +42,6 @@ export class LoginComponent implements OnInit {
     authObs = this.sendRequest.sendLoginInfo(username, password);
     authObs.subscribe(
       resData => {
-        console.log(resData);
         this.isLoading = false;
         debugger
         this.router.navigate(['/tasks'])
@@ -75,7 +49,6 @@ export class LoginComponent implements OnInit {
       },
       errorMessage => {
         debugger
-        console.log(errorMessage)
         this.error = "نام کاربری یا رمز عبور اشتباه است"
         this.isLoading = false
       }

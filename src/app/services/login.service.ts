@@ -43,7 +43,5 @@ export class LoginService {
     this.user.next(user);
     localStorage.setItem('fullname', JSON.stringify(user.fullname));
     localStorage.setItem('personCode', JSON.stringify(user.personID));
-    // this.commonService.currentUserFullname = fullname
-    // this.commonService.currentUserID = personID
   }
 }
