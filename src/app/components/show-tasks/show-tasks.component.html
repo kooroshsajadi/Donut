@@ -7,7 +7,7 @@
 
 <div style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
 
-  <div style="padding-top: 35px;">
+  <div style="padding-top: 30px;">
     <!-- {{ getFullname() }} -->
     <label>  : {{ getFullname() }}</label>
   </div>
@@ -21,7 +21,7 @@
   <div dir="rtl">
     <mat-form-field style="padding-right: 12px;font-size: medium;">
       <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.tasksShowService.selectedDate" (dateChange)="onDateChange()" name="datePickerInput"  style="font-weight: bold;">
-      <mat-hint align="end" style="color:deeppink;margin-left: 8px;font-size: medium;">تقویم ^</mat-hint>
+      <!-- <mat-hint align="end" style="color:deeppink;margin-left: 8px;font-size: medium;">تقویم ^</mat-hint> -->
       <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
       <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
     </mat-form-field>
@@ -33,7 +33,7 @@
     </span>
   </div> -->
 
-  <div style="margin-right: auto; padding-top: 20px; padding-left: 5px;">
+  <div style="margin-right: auto; padding-top: 30px; padding-left: 5px;">
     <label>زمان کل :  {{totalTime.hours}}:{{totalTime.minutes}}</label>
   </div>
 

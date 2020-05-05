@@ -62,7 +62,7 @@
         <div dir="rtl" style="width: 100%;">
             <mat-form-field style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
-                <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.selectedDate" name="datePickerInput" style="font-weight: bold;">
+                <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required>
                 <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
                 <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -71,14 +71,36 @@
         <div style="width: 100%;">
             <div style="width: 95%;float: right;">
                 <span>
-                    <i (click)="onTimeIconClick()" style="font-style: normal;">
+                    <!-- <i (click)="onTimeIconClick()" style="font-style: normal;"> -->
                         <mat-form-field style="font-size: medium;width: 100%;">
                             <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
-                            <input matInput [formControl]="timeControl" type="text" style="font-weight: bold;" [ngModel]="showTime()" required>
+                            <input matInput [formControl]="timeControl" [ngModel]="showTime()" required>
                         </mat-form-field>
-                    </i>
+                    <!-- </i> -->
                 </span>
             </div>
+
+            <!-- <mat-form-field>
+                <mat-label>Phone number</mat-label>
+                <time-input required></time-input>
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-hint>Include area code</mat-hint>
+              </mat-form-field> -->
+            
+
+            <!-- <div dir="rtl" style="width: 100%;">
+                <mat-form-field style="font-size: medium;width: 100%;">
+                    <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
+                    <div [formGroup]="parts" class="time-input-container">
+                        <input matInput type="text" class="time-input-element" size="2">
+                        <span style="font-weight: bold;">&#58;</span>
+                        <input matInput type="text" class="time-input-element" size="2">
+                    </div>
+                    <mat-icon matSuffix>phone</mat-icon>
+                    <mat-hint>Include area code</mat-hint>
+                </mat-form-field>
+            </div> -->
+            
             <div style="width: 5%;float: left;margin-top: 35px;">
                 <span>
                     <i id='clickableAwesomeFont' class="fa fa-clock-o fa-lg" style="color: deeppink;float: left;" (click)="onTimeIconClick()"></i>
