@@ -62,7 +62,7 @@
         <div dir="rtl" style="width: 100%;">
             <mat-form-field style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
-                <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required [errorStateMatcher]="matcher">
+                <input matInput [matDatepicker]="picker" [value]="dateControl.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required [errorStateMatcher]="matcher">
                 <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
                 <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -104,15 +104,19 @@
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl" required title="لطفا این فیلد را پر کنید" [errorStateMatcher]="matcher">
+                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl"
+                    required title="لطفا این فیلد را پر کنید" [errorStateMatcher]="matcher">
                 </textarea>
             </mat-form-field>
         </div>
     </mat-dialog-content>
-    <mat-dialog-actions>
-        <div style="margin: auto;">
+    <!-- <mat-dialog-actions style="border-style: solid;"> -->
+        <div style="margin: auto;width: 100%;" class="alert alert-danger" *ngIf="error">
+            <p style="font-size: medium;text-align: center;"><strong>{{ error }}</strong></p>
+        </div>
+        <div style="margin: auto;text-align: center;">
             <button type="button" class="btn btn-success button" (click)="onSaveBtnClick()">ذخیره</button>
             <button type="button" class="btn btn-primary button" (click)="onSaveAndContinueBtnClick()">ذخیره و ادامه</button>
         </div>
-    </mat-dialog-actions>
+    <!-- </mat-dialog-actions> -->
 <!-- </div> -->

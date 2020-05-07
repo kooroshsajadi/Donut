@@ -75,9 +75,15 @@ export class CreateDialogService {
   public createContinuebyEstablishmentsBody(projectName: string, description: string, date: string): string {
     debugger
     var ActivityID: string = ""
-    var projectID: string = this.projectOptions[0].ProjectId
-    var phaseID: string = this.phaseOptions[0].PhaseId
-    var subphaseID: string = this.subphaseOptions[0].SubPhaseId
+    if(this.projectOptions !== null && this.projectOptions.length > 0){
+      var projectID: string = this.projectOptions[0].ProjectId
+    }
+    if(this.phaseOptions !== null && this.phaseOptions.length > 0) {
+      var phaseID: string = this.phaseOptions[0].PhaseId
+    }
+    if(this.subphaseOptions !== null && this.subphaseOptions.length > 0) {
+      var subphaseID: string = this.subphaseOptions[0].SubPhaseId
+    }
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     const nums = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
     var dateArray = date.toString().split(" ")

@@ -9,11 +9,14 @@ import { TimeDialogService } from 'src/app/services/time-dialog.service';
 import { ResultDialogComponent } from 'src/app/shared/result-dialog/result-dialog.component';
 import { TasksShowService } from 'src/app/services/tasks-show.service';
 import {ErrorStateMatcher} from '@angular/material/core';
+import { stringify } from 'querystring';
 
 export class myErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
-    if(control.value === "") {
+    // !str.replace(/\s/g, '').length
+    debugger
+    if(control.value === "" ) {
       return true
     }
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -32,24 +35,20 @@ export class CreateDialogComponent implements OnInit {
     public createDialogService: CreateDialogService,
     private dialog: MatDialog,
     public timeDialogService: TimeDialogService,
-    public tasksShowService: TasksShowService) {
-      //dialogRef.disableClose = true;
-      // dialogRef.updateSize("75%", "75%")
-     }
+    public tasksShowService: TasksShowService) {}
 
-  modalityControl = new FormControl('')
-  
-  customerControl = new FormControl('')
-  timeControl = new FormControl('', [
+  modalityControl = new FormControl("")
+  customerControl = new FormControl("")
+  timeControl = new FormControl("", [
     Validators.required,
-    Validators.minLength(5)
+    Validators.minLength(5),
   ])
-  placeControl = new FormControl('')
-  descriptionControl = new FormControl('')
+  placeControl = new FormControl("")
+  descriptionControl = new FormControl("")
   filteredModalityOptions: Observable<string[]>
   filteredCustomerOptions: Observable<string[]>
   filteredPlaceOptions: Observable<string[]>
-  date = new FormControl(new Date());
+  dateControl = new FormControl(new Date());
  serverResponse: any[] = []
   projectControl = new FormControl('');
   filteredProjectOptions: Observable<string[]>
@@ -61,6 +60,7 @@ export class CreateDialogComponent implements OnInit {
   selectedDate: string;
   valid: boolean = null
   matcher = new myErrorStateMatcher();
+  error: string = null
 
   public mask = {
     guide: false,
@@ -91,14 +91,15 @@ export class CreateDialogComponent implements OnInit {
     );
 
     // Date
-    this.selectedDate = this.date.value;
+    this.selectedDate = this.dateControl.value;
 
     // Description
     this.descriptionControl.setValue("")
   }
 
   public phaseSearch(projectName: string, searchedValue: string) {
-    debugger      
+    debugger
+    this.createDialogService.subphaseOptions = []
       this.createDialogService.searchPhase(projectName, searchedValue).subscribe(
         (success) => {
           debugger
@@ -120,6 +121,7 @@ export class CreateDialogComponent implements OnInit {
   }
 
   public projectSearch(value: string) {
+    this.createDialogService.phaseOptions = []
     this.createDialogService.searchProject(value).subscribe(
       (success) => {
         this.createDialogService.projectOptions = JSON.parse(success.message)
@@ -181,6 +183,7 @@ export class CreateDialogComponent implements OnInit {
 
   onSaveBtnClick() {
     debugger
+    this.error = null
     if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
@@ -205,6 +208,7 @@ export class CreateDialogComponent implements OnInit {
               success: false}
             });
           }
+          this.error = null
         },
         (error) => {
           this.dialog.open(ResultDialogComponent, {
@@ -212,13 +216,18 @@ export class CreateDialogComponent implements OnInit {
             closureEmit: false,
             success: false}
           });
+          this.error = null
         }
       )
+    }
+    else {
+      this.error = "! لطفا تمامی فیلد های ضروری را پر کنید"
     }
   }
 
   onSaveAndContinueBtnClick() {
     debugger
+    this.error = null
     if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
@@ -240,6 +249,7 @@ export class CreateDialogComponent implements OnInit {
               success: false}
             });
           }
+          this.error = null
         },
         (error) => {
           this.dialog.open(ResultDialogComponent, {
@@ -247,8 +257,12 @@ export class CreateDialogComponent implements OnInit {
             closureEmit: false,
             success: false}
           });
+          this.error = null
         }
       )
+    }
+    else {
+      this.error = "! لطفا تمامی فیلد های ضروری را پر کنید"
     }
   }
   onProjectSelectPhaseSearch(projectName: string) {
@@ -257,7 +271,7 @@ export class CreateDialogComponent implements OnInit {
     this.filteredPhaseOptions = this.phaseControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this.phaseFilter(value))
+      map(value => this.phaseFilter(value)),
     );
   }
 
