@@ -14,6 +14,8 @@ import { DeleteDialogService } from '../../services/delete-dialog.service';
 import { Time } from '@angular/common';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
 import {MatSort} from '@angular/material/sort';
+import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
+import { GridDataResult } from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'app-show-tasks',
@@ -29,7 +31,7 @@ export class ShowTasksComponent implements OnInit {
     // 'IsMoreWork', 'Delete'
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  // @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
   serverRes: any[] = []
@@ -37,6 +39,13 @@ export class ShowTasksComponent implements OnInit {
   events: string[] = [];
   selection = new SelectionModel<Element>(true, []);
   totalTime: Time = {hours: 0, minutes: 0}
+  public multiple = false;
+    public allowUnsort = true;
+    public sort: SortDescriptor[] = [{
+      field: 'ProductName',
+      dir: 'asc'
+    }];
+    public gridView: GridDataResult;
 
   // The initial value of the calendar is set to today.
   date = new FormControl(new Date());
@@ -89,8 +98,8 @@ export class ShowTasksComponent implements OnInit {
           this.serverRes = JSON.parse(success.message)
           this.dataSource = new MatTableDataSource(this.serverRes);
           this.dataSource = new MatTableDataSource(this.serverRes);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
+          // this.dataSource.paginator = this.paginator;
+          // this.dataSource.sort = this.sort;
           
           this.totalTime.hours = 0
           this.totalTime.minutes = 0
@@ -131,7 +140,7 @@ export class ShowTasksComponent implements OnInit {
       debugger
       var dialogRef = this.dialog.open(CreateDialogComponent, {
         data: {content: content},
-        width: "75%"
+        width: "100%"
       });
       debugger
       dialogRef.afterClosed().subscribe(result => {
@@ -155,4 +164,16 @@ export class ShowTasksComponent implements OnInit {
       debugger
       console.log(this.date.value)
     }
+
+    private loadProducts(): void {
+      this.gridView = {
+          data: orderBy(this.dataSource.data, this.sort),
+          total: this.dataSource.data.length
+      };
+    }
+    
+    public sortChange(sort: SortDescriptor[]): void {
+      this.sort = sort;
+      this.loadProducts();
+  }
 }

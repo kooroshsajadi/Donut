@@ -32,45 +32,68 @@
   </div>
 </div>
 
-  <!-- <kendo-grid [data]="dataSource" [resizable]="true" dir="rtl">
+<!-- <div class="table-responsive"> -->
+
+
+  <!-- <kendo-grid 
+    [data]="dataSource"
+    [resizable]="true"
+    [sortable]="{
+      allowUnsort: allowUnsort,
+      mode: multiple ? 'multiple' : 'single'
+      }"
+    [sort]="sort"
+    (sortChange)="sortChange($event)"
+    style="width: 100%;"
+    dir="rtl">
     <kendo-grid-column
+      width="10%"
       field="Owner" title="مالک">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="10%"
       field="Customer" title="مشتری">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="10%"
       field="Project" title="پروژه">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="10%"
       field="Phase" title="فاز">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="10%"
       field="SubPhase" title="زیرفاز">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="15%"
       field="ActivitesDate" title="تاریخ">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="10%"
       field="ActivitesTime" title="زمان">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="10%"
       field="PlaceOfAction" title="محل">
     </kendo-grid-column>
 
     <kendo-grid-column
+    width="15%"
       field="Description" title="توضیحات">
     </kendo-grid-column>
   </kendo-grid> -->
+<!-- </div> -->
 <div class="table-responsive">
-  <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort cdkDropListGroup>
+  <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort >
 
     <ng-container matColumnDef="Owner" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">

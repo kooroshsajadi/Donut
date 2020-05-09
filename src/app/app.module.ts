@@ -31,6 +31,8 @@ import { ResultDialogComponent } from './shared/result-dialog/result-dialog.comp
 import {MatSortModule} from '@angular/material/sort';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxMaskModule } from 'ngx-mask'
+import { GridModule } from '@progress/kendo-angular-grid';
+
 
 
 @NgModule({
@@ -67,7 +69,8 @@ import { NgxMaskModule } from 'ngx-mask'
     MatSelectModule,
     MatSortModule,
     TextMaskModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    GridModule
   ],
   providers: [
     {provide: HttpClientModule},

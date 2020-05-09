@@ -7,6 +7,7 @@ import { ConfigService } from './config.service';
 })
 export class CreateDialogService {
 
+  accountOptions: any[] = []
   projectOptions: any[] = []
   phaseOptions: any[] = []
   subphaseOptions: any[] = []
@@ -21,16 +22,18 @@ export class CreateDialogService {
   private generateSearchPhaseBody(projectName: string, searchedValue: string): string {
     debugger
     var projectID = 0
-    if(this.projectOptions.length === 1) {
-      projectID = this.projectOptions[0].ProjectId
-    }
-    else if(this.projectOptions.length >= 1) {
-      this.projectOptions.forEach(project => {
-        if(project.Name === projectName) {
-          projectID = project.ProjectId
-          return
-        }
-      })
+    if(this.projectOptions !== null) {
+      if(this.projectOptions.length === 1) {
+        projectID = this.projectOptions[0].ProjectId
+      }
+      else if(this.projectOptions.length >= 1) {
+        this.projectOptions.forEach(project => {
+          if(project.Name === projectName) {
+            projectID = project.ProjectId
+            return
+          }
+        })
+      }
     }
     return "{'ProjctId':'" + projectID + "','PhaseName':'" + searchedValue + "'}"
   }
@@ -41,12 +44,20 @@ export class CreateDialogService {
     return this.configService.post('ContinuebyEstablishments/SearchPhase', body);
   }
 
-  private generateSearchProjectBody(value: string): string {
-    return "{'projectName':'" + value + "'}"
+  private generateSearchProjectBody(accountName: string, searchedValue: string): string {
+    debugger
+    var accountID = ""
+    this.accountOptions.forEach(account => {
+      if(account.Name === accountName) {
+        accountID = account.AccountId
+        return
+      }
+    })
+    return "{'AccountId':'" + accountID + "','projectName':'" + searchedValue + "'}"
   }
 
-  public searchProject(value: string): Observable<any> {
-    var body = this.generateSearchProjectBody(value);
+  public searchProject(accountName: string, serachecValue: string): Observable<any> {
+    var body = this.generateSearchProjectBody(accountName, serachecValue);
     return this.configService.post('ContinuebyEstablishments/SearchProject', body);
   }
 
@@ -106,5 +117,33 @@ export class CreateDialogService {
     this.phaseOptions = []
     this.subphaseOptions = []
     return this.configService.post('ContinuebyEstablishments/CreaetContinuebyEstablishments', body);
+  }
+
+  private generateLoadSubchecklistBody(phaseName: string): string {
+    debugger
+    var phaseID = ""
+    this.phaseOptions.forEach(element => {
+      if(element.Name === phaseName) {
+        phaseID = element.PhaseId
+        return
+      }
+    });
+    // var phaseID = this.phaseOptions[this.phaseOptions.indexOf(phaseName)].PhaseId
+    return "{'ActivityList':[{}],'PhaseId':'" + phaseID + "'}"
+  }
+
+  public LoadSubchecklist(phaseName: string): Observable<any> {
+    debugger
+    var body = this.generateLoadSubchecklistBody(phaseName)
+    return this.configService.post('ContinuebyEstablishments/LoadSubCheckList', body);
+  }
+
+  public searchAccount(searchValue: string): Observable<any> {
+    var body = this.generateSearchAccountBody(searchValue);
+    return this.configService.post('ContinuebyEstablishments/SearchAccount', body);
+  }
+
+  private generateSearchAccountBody(searchValue: string): string {
+    return "{'accountName':'" + searchValue + "'}"
   }
 }

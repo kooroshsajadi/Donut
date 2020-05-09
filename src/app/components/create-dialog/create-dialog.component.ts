@@ -36,31 +36,37 @@ export class CreateDialogComponent implements OnInit {
     public timeDialogService: TimeDialogService,
     public tasksShowService: TasksShowService) {}
 
+  // Form controllers
   modalityControl = new FormControl("")
-  customerControl = new FormControl("")
+  placeControl = new FormControl("")
+  descriptionControl = new FormControl("")
+  projectControl = new FormControl("");
+  accountControl = new FormControl("");
+  phaseControl = new FormControl("");
+  subphaseControl = new FormControl("");
+  dateControl = new FormControl(new Date());
   timeControl = new FormControl("", [
     Validators.required,
     Validators.minLength(5),
   ])
-  placeControl = new FormControl("")
-  descriptionControl = new FormControl("")
+
+  // Filteredoptions
   filteredModalityOptions: Observable<string[]>
-  filteredCustomerOptions: Observable<string[]>
+  filteredAccountOptions: Observable<string[]>
   filteredPlaceOptions: Observable<string[]>
-  dateControl = new FormControl(new Date());
- serverResponse: any[] = []
-  projectControl = new FormControl('');
   filteredProjectOptions: Observable<string[]>
-  phaseControl = new FormControl('');
   filteredPhaseOptions: Observable<string[]>
-  subphaseControl = new FormControl('');
   filteredSubphaseOptions: Observable<string[]>
+
   places: string[] = ["کسرا", "محل مشتری"]
   selectedDate: string;
   valid: boolean = null
   matcher = new myErrorStateMatcher();
   error: string = null
+  accountName: string
+  serverRes: any[] = []
 
+  // Input mask
   public mask = {
     guide: false,
     showMask: true,
@@ -68,6 +74,13 @@ export class CreateDialogComponent implements OnInit {
   };  
 
   ngOnInit(): void {
+    // Account
+    this.filteredAccountOptions = this.accountControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.accountFilter(value))
+    );
+
     // Project
     this.filteredProjectOptions = this.projectControl.valueChanges
     .pipe(
@@ -94,23 +107,29 @@ export class CreateDialogComponent implements OnInit {
 
     // Description
     this.descriptionControl.setValue("")
+
   }
 
   public phaseSearch(projectName: string, searchedValue: string) {
     debugger
     this.createDialogService.subphaseOptions = []
+    // this.filteredPhaseOptions = this.phaseControl.valueChanges
+    //       .pipe(
+    //       startWith(''),
+    //       map(value => this.phaseFilter(value)),
+    //       );
       this.createDialogService.searchPhase(projectName, searchedValue).subscribe(
         (success) => {
           debugger
           this.createDialogService.phaseOptions = JSON.parse(success.message)
+          // this.filteredPhaseOptions = this.phaseControl.valueChanges
+          // .pipe(
+          // startWith(''),
+          // map(value => this.phaseFilter(value)),
+          // );
         },
         (error) => {}
       )
-      // this.filteredPhaseOptions = this.phaseControl.valueChanges
-      //       .pipe(
-      //         startWith(''),
-      //         map(value => this.phaseFilter(value)),
-      //       );
   }
 
   public subphaseSearch(phaseName: string, searchedSubphaseValue: string) {
@@ -124,9 +143,9 @@ export class CreateDialogComponent implements OnInit {
     )
   }
 
-  public projectSearch(value: string) {
+  public projectSearch(accountName: string, searchedValue: string) {
     this.createDialogService.phaseOptions = []
-    this.createDialogService.searchProject(value).subscribe(
+    this.createDialogService.searchProject(accountName, searchedValue).subscribe(
       (success) => {
         this.createDialogService.projectOptions = JSON.parse(success.message)
         debugger
@@ -145,9 +164,14 @@ export class CreateDialogComponent implements OnInit {
     return this.createDialogService.subphaseOptions
   }
 
-  private projectFilter(value: string): string[] {
-    this.projectSearch(value);
+  private projectFilter(searchedProjectValue: string): string[] {
+    this.projectSearch(this.accountControl.value, searchedProjectValue);
     return this.createDialogService.projectOptions
+  }
+
+  private accountFilter(value: string): string[] {
+    this.accountSearch(value);
+    return this.createDialogService.accountOptions
   }
 
   openTimeDialog(content: string): void {
@@ -186,9 +210,7 @@ export class CreateDialogComponent implements OnInit {
   }
 
   onSaveBtnClick() {
-    debugger
     this.error = null
-    debugger
     if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
@@ -273,20 +295,33 @@ export class CreateDialogComponent implements OnInit {
   onProjectSelectPhaseSearch(projectName: string) {
     debugger
     this.phaseSearch(projectName, "")
-    this.filteredPhaseOptions = this.phaseControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this.phaseFilter(value)),
-    );
+    // this.filteredPhaseOptions = this.phaseControl.valueChanges
+    // .pipe(
+    //   startWith(''),
+    //   map(value => this.phaseFilter(value)),
+    // );
   }
 
   onPhaseSelectSubphaseSearch(phaseName: string) {
     debugger
     this.subphaseSearch(phaseName, "")
+    debugger
+    this.LoadSubchecklist(phaseName)
+
     this.filteredSubphaseOptions = this.subphaseControl.valueChanges
     .pipe(
       startWith(''),
       map(value => this.subphaseFilter(value))
+    );
+  }
+
+  onAccountSelectProjectSearch(accountName: string) {
+    debugger
+    this.projectSearch(accountName, "")
+    this.filteredProjectOptions = this.projectControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this.projectFilter(value)),
     );
   }
 
@@ -306,5 +341,30 @@ export class CreateDialogComponent implements OnInit {
         this.createDialogService.taskTime = taskTimeArray[0] + ":" + "0" + taskTimeArray[1]
       }
     }
+  }
+
+  LoadSubchecklist(phaseName: string) {
+    debugger
+    this.createDialogService.LoadSubchecklist(phaseName).subscribe(
+      (success) => {
+        debugger
+        this.serverRes = JSON.parse(success.message)
+      },
+      (error) => {}
+    )
+  }
+
+  accountSearch(searchedValue: string) {
+    debugger
+    this.createDialogService.projectOptions = []
+    debugger
+    this.createDialogService.searchAccount(searchedValue).subscribe(
+      (success) => {
+        debugger
+        this.createDialogService.accountOptions = JSON.parse(success.message)
+        debugger
+      },
+      (error) => {}
+    )
   }
 }
