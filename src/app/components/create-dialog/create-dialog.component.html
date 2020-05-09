@@ -72,7 +72,7 @@
             <div style="width: 95%;float: right;">
                 <mat-form-field style="font-size: medium;width: 100%;">
                     <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
-                    <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required [errorStateMatcher]="matcher"> 
+                    <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required [errorStateMatcher]="matcher" (change)="onTimeValueChange()"> 
                 </mat-form-field>
             </div>
             

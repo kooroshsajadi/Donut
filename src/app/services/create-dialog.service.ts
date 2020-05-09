@@ -95,7 +95,8 @@ export class CreateDialogService {
     var integerTimeArray: Array<number> = [Number.parseInt(stringTimeArray[0]), Number.parseInt(stringTimeArray[1])]
     var duration: number = integerTimeArray[0] * 60 + integerTimeArray[1]
     var personID: string = localStorage.getItem('personCode').replace("\"", "").replace("\"", "")
-    return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'NextStep':1}],'PersonId':'" + personID + "'}"
+    var place = (this.selectedPlace === "option1") ? "کسرا" : "محل مشتری"
+    return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Place':'" + place + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'NextStep':1}],'PersonId':'" + personID + "'}"
   }
 
   public createContinuebyEstablishments(projectName: string, description: string, date: string): Observable<any> {

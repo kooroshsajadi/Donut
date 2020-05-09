@@ -15,7 +15,6 @@ export class myErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     // !str.replace(/\s/g, '').length
-    debugger
     if(control.value === "" ) {
       return true
     }
@@ -107,6 +106,11 @@ export class CreateDialogComponent implements OnInit {
         },
         (error) => {}
       )
+      // this.filteredPhaseOptions = this.phaseControl.valueChanges
+      //       .pipe(
+      //         startWith(''),
+      //         map(value => this.phaseFilter(value)),
+      //       );
   }
 
   public subphaseSearch(phaseName: string, searchedSubphaseValue: string) {
@@ -184,6 +188,7 @@ export class CreateDialogComponent implements OnInit {
   onSaveBtnClick() {
     debugger
     this.error = null
+    debugger
     if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
@@ -283,5 +288,23 @@ export class CreateDialogComponent implements OnInit {
       startWith(''),
       map(value => this.subphaseFilter(value))
     );
+  }
+
+  onTimeValueChange() {
+    debugger
+    if(this.createDialogService.taskTime !== null) {
+      this.createDialogService.taskTime.trim()
+      if(this.createDialogService.taskTime.length === 1) {
+        this.createDialogService.taskTime = "0" + this.createDialogService.taskTime + ":" + "00"
+      }
+      else if(this.createDialogService.taskTime.length === 3) {
+        var taskTimeArray = this.createDialogService.taskTime.split(":")
+        this.createDialogService.taskTime = taskTimeArray[0] + ":" + "00"
+      }
+      else if(this.createDialogService.taskTime.length === 4) {
+        var taskTimeArray = this.createDialogService.taskTime.split(":")
+        this.createDialogService.taskTime = taskTimeArray[0] + ":" + "0" + taskTimeArray[1]
+      }
+    }
   }
 }
