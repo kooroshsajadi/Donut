@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -10,6 +10,9 @@ import { ResultDialogComponent } from 'src/app/shared/result-dialog/result-dialo
 import { TasksShowService } from 'src/app/services/tasks-show.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { stringify } from 'querystring';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 export class myErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,6 +31,12 @@ export class myErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./create-dialog.component.scss']
 })
 export class CreateDialogComponent implements OnInit {
+
+  displayedColumns: string[] = ['ListName', 'SubListName', 'CreatedOn'];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -74,6 +83,15 @@ export class CreateDialogComponent implements OnInit {
   };  
 
   ngOnInit(): void {
+    // Costumizing the paginator.
+    this.paginator._intl.nextPageLabel = "بعدی"
+    this.paginator._intl.previousPageLabel = "قبلی"
+    this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
+    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
+    { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
+    const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    return `${startIndex + 1} – ${endIndex} از ${length}`; }
+
     // Account
     this.filteredAccountOptions = this.accountControl.valueChanges
     .pipe(
@@ -306,7 +324,7 @@ export class CreateDialogComponent implements OnInit {
     debugger
     this.subphaseSearch(phaseName, "")
     debugger
-    this.LoadSubchecklist(phaseName)
+    this.LoadSubchecklistGrid(phaseName)
 
     this.filteredSubphaseOptions = this.subphaseControl.valueChanges
     .pipe(
@@ -343,12 +361,16 @@ export class CreateDialogComponent implements OnInit {
     }
   }
 
-  LoadSubchecklist(phaseName: string) {
+  LoadSubchecklistGrid(phaseName: string) {
     debugger
     this.createDialogService.LoadSubchecklist(phaseName).subscribe(
       (success) => {
         debugger
         this.serverRes = JSON.parse(success.message)
+        this.dataSource = new MatTableDataSource(this.serverRes)
+        this.dataSource = new MatTableDataSource(this.serverRes)
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       (error) => {}
     )

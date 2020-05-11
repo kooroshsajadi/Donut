@@ -13,7 +13,8 @@ export class CreateDialogService {
   subphaseOptions: any[] = []
   time = {hour: 0, minute: 0};
   taskTime: string = ""
-  selectedPlace: string = "option1"
+  selectedPlace: string = "0"
+  nextStep: string = "0"
   selectedModality: string = "option1"
   selectedProject: string = ""
 
@@ -106,8 +107,8 @@ export class CreateDialogService {
     var integerTimeArray: Array<number> = [Number.parseInt(stringTimeArray[0]), Number.parseInt(stringTimeArray[1])]
     var duration: number = integerTimeArray[0] * 60 + integerTimeArray[1]
     var personID: string = localStorage.getItem('personCode').replace("\"", "").replace("\"", "")
-    var place = (this.selectedPlace === "option1") ? "کسرا" : "محل مشتری"
-    return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Place':'" + place + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'NextStep':1}],'PersonId':'" + personID + "'}"
+    // var place = (this.selectedPlace === "option1") ? "کسرا" : "محل مشتری"
+    return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'Place':" + +this.selectedPlace + ",'NextStep':" + this.nextStep + "}],'PersonId':'" + personID + "'}"
   }
 
   public createContinuebyEstablishments(projectName: string, description: string, date: string): Observable<any> {
@@ -116,7 +117,7 @@ export class CreateDialogService {
     this.projectOptions = []
     this.phaseOptions = []
     this.subphaseOptions = []
-    return this.configService.post('ContinuebyEstablishments/CreaetContinuebyEstablishments', body);
+    return this.configService.post('ContinuebyEstablishments/CreateContinuebyEstablishments', body);
   }
 
   private generateLoadSubchecklistBody(phaseName: string): string {

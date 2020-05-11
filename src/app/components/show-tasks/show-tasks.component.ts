@@ -31,7 +31,7 @@ export class ShowTasksComponent implements OnInit {
     // 'IsMoreWork', 'Delete'
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
   serverRes: any[] = []
@@ -41,10 +41,10 @@ export class ShowTasksComponent implements OnInit {
   totalTime: Time = {hours: 0, minutes: 0}
   public multiple = false;
     public allowUnsort = true;
-    public sort: SortDescriptor[] = [{
-      field: 'ProductName',
-      dir: 'asc'
-    }];
+    // public sort: SortDescriptor[] = [{
+    //   field: 'ProductName',
+    //   dir: 'asc'
+    // }];
     public gridView: GridDataResult;
 
   // The initial value of the calendar is set to today.
@@ -62,13 +62,13 @@ export class ShowTasksComponent implements OnInit {
 
     ngOnInit(): void {
       // Costumizing the paginator.
-      // this.paginator._intl.nextPageLabel = "بعدی"
-      // this.paginator._intl.previousPageLabel = "قبلی"
-      // this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
-      // this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
-      // { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
-      // const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-      // return `${startIndex + 1} – ${endIndex} از ${length}`; }
+      this.paginator._intl.nextPageLabel = "بعدی"
+      this.paginator._intl.previousPageLabel = "قبلی"
+      this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
+      this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
+      { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
+      const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+      return `${startIndex + 1} – ${endIndex} از ${length}`; }
 
       this.tasksShowService.selectedDate = this.date.value;
 
@@ -98,8 +98,8 @@ export class ShowTasksComponent implements OnInit {
           this.serverRes = JSON.parse(success.message)
           this.dataSource = new MatTableDataSource(this.serverRes);
           this.dataSource = new MatTableDataSource(this.serverRes);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
           
           this.totalTime.hours = 0
           this.totalTime.minutes = 0
@@ -140,7 +140,8 @@ export class ShowTasksComponent implements OnInit {
       debugger
       var dialogRef = this.dialog.open(CreateDialogComponent, {
         data: {content: content},
-        width: "100%"
+        width: "100%",
+        height: "100%"
       });
       debugger
       dialogRef.afterClosed().subscribe(result => {
@@ -165,15 +166,15 @@ export class ShowTasksComponent implements OnInit {
       console.log(this.date.value)
     }
 
-    private loadProducts(): void {
-      this.gridView = {
-          data: orderBy(this.dataSource.data, this.sort),
-          total: this.dataSource.data.length
-      };
-    }
+  //   private loadProducts(): void {
+  //     this.gridView = {
+  //         data: orderBy(this.dataSource.data, this.sort),
+  //         total: this.dataSource.data.length
+  //     };
+  //   }
     
-    public sortChange(sort: SortDescriptor[]): void {
-      this.sort = sort;
-      this.loadProducts();
-  }
+  //   public sortChange(sort: SortDescriptor[]): void {
+  //     this.sort = sort;
+  //     this.loadProducts();
+  // }
 }

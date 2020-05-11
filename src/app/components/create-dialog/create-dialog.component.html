@@ -1,122 +1,175 @@
 <!-- <div style="display: flex;min-width: 800px;flex-direction: column;"> -->
 
-    <mat-dialog-content>
-        <div style="width: 100%;">
-            <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">ماهیت</mat-label>
-                <mat-select [(value)]="createDialogService.selectedModality">
-                    <mat-option value="option1">در دست بررسی استقرار</mat-option>
-                    <mat-option value="option2">در دست بررسی پشتیبانی</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-    
-        <div style="width: 100%;">
-            <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">مشتری</mat-label>
-                <input type="text" matInput [formControl]="accountControl" [matAutocomplete]="auto1" required title="" [errorStateMatcher]="matcher">
-                <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="onAccountSelectProjectSearch($event.option.value)">
-                    <mat-option *ngFor="let option of filteredAccountOptions | async" [value]="option.Name">
-                        {{option.Name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-        </div>
-    
-        <div style="width: 100%;">
-            <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">پروژه</mat-label>
-                <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" required title="" [errorStateMatcher]="matcher">
-                <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onProjectSelectPhaseSearch($event.option.value)">
-                    <mat-option *ngFor="let option of filteredProjectOptions | async" [value]="option.Name">
-                        {{option.Name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-        </div>
-    
-        <div style="width: 100%;">
-            <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">فاز</mat-label>
-                <input type="text" matInput [formControl]="phaseControl" [matAutocomplete]="auto3" required title="" [errorStateMatcher]="matcher">
-                <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="onPhaseSelectSubphaseSearch($event.option.value)">
-                    <mat-option *ngFor="let option of filteredPhaseOptions | async" [value]="option.Name">
-                        {{option.Name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-        </div>
-    
-        <div style="width: 100%;">
-            <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">زیر فاز</mat-label>
-                <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" required title="" [errorStateMatcher]="matcher">
-                <mat-autocomplete #auto4="matAutocomplete">
-                    <mat-option *ngFor="let option of filteredSubphaseOptions | async" [value]="option.Name">
-                        {{option.Name}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
-        </div>
-        
-        <div dir="rtl" style="width: 100%;">
-            <mat-form-field style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
-                <input matInput [matDatepicker]="picker" [value]="dateControl.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required [errorStateMatcher]="matcher">
-                <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
-                <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
-            </mat-form-field>
-        </div>
-    
-        <div style="width: 100%;">
-            <div style="width: 95%;float: right;">
-                <mat-form-field style="font-size: medium;width: 100%;">
-                    <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
-                    <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required [errorStateMatcher]="matcher" (change)="onTimeValueChange()"> 
-                </mat-form-field>
-            </div>
-            
-            <div style="width: 5%;float: left;margin-top: 35px;">
-                <span>
-                    <i id='clickableAwesomeFont' class="fa fa-clock-o fa-lg" style="color: deeppink;float: left; cursor: pointer;" (click)="onTimeIconClick()"></i>
-                </span>
-            </div>
-        </div>
+<div style="display: flex;flex-direction: column;height: 100%;">
 
-        <div style="width: 100%;">
-            <div style="width: 83%;float: right;">
+    <div style="height: 90%;overflow: scroll;">
+    
+        <!-- <mat-dialog-content style="height: 150%"> -->
+            <div style="width: 100%;">
                 <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                    <mat-label style="color: deeppink;font-weight: bold;">محل انجام</mat-label>
-                    <mat-select [(value)]="createDialogService.selectedPlace">
-                        <mat-option value="option1">کسرا</mat-option>
-                        <mat-option value="option2">محل مشتری</mat-option>
-                        <!-- this a comment -->
+                    <mat-label style="color: deeppink;font-weight: bold;">ماهیت</mat-label>
+                    <mat-select [(value)]="createDialogService.selectedModality">
+                        <mat-option value="option1">در دست بررسی استقرار</mat-option>
+                        <mat-option value="option2">در دست بررسی پشتیبانی</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div style="width: 13%;float: left; margin-top: 35px;">
-                <mat-label style="color: #6691ee;font-weight: bold;float: right;">کار مازاد</mat-label>
-                <mat-checkbox style="float: left"></mat-checkbox>
+        
+            <div style="width: 100%;">
+                <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                    <mat-label style="color: deeppink;font-weight: bold;">مشتری</mat-label>
+                    <input type="text" matInput [formControl]="accountControl" [matAutocomplete]="auto1" required title="" [errorStateMatcher]="matcher">
+                    <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="onAccountSelectProjectSearch($event.option.value)">
+                        <mat-option *ngFor="let option of filteredAccountOptions | async" [value]="option.Name">
+                            {{option.Name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
             </div>
-        </div>
-    
-        <div style="width: 100%;">
-            <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
-                <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
-                <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
-                    cdkAutosizeMaxRows="2" [formControl]="descriptionControl"
-                    required title="" [errorStateMatcher]="matcher">
-                </textarea>
-            </mat-form-field>
-        </div>
-    </mat-dialog-content>
-    <!-- <mat-dialog-actions style="border-style: solid;"> -->
-        <div style="margin: auto;width: 100%;" class="alert alert-danger" *ngIf="error">
-            <p style="font-size: medium;text-align: center;"><strong>{{ error }}</strong></p>
-        </div>
-        <div style="margin: auto;text-align: center;">
-            <button type="button" class="btn btn-success button" (click)="onSaveBtnClick()">ذخیره</button>
-            <button type="button" class="btn btn-primary button" (click)="onSaveAndContinueBtnClick()">ذخیره و ادامه</button>
-        </div>
-    <!-- </mat-dialog-actions> -->
-<!-- </div> -->
+        
+            <div style="width: 100%;">
+                <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                    <mat-label style="color: deeppink;font-weight: bold;">پروژه</mat-label>
+                    <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" required title="" [errorStateMatcher]="matcher">
+                    <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onProjectSelectPhaseSearch($event.option.value)">
+                        <mat-option *ngFor="let option of filteredProjectOptions | async" [value]="option.Name">
+                            {{option.Name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        
+            <div style="width: 100%;">
+                <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                    <mat-label style="color: deeppink;font-weight: bold;">فاز</mat-label>
+                    <input type="text" matInput [formControl]="phaseControl" [matAutocomplete]="auto3" required title="" [errorStateMatcher]="matcher">
+                    <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="onPhaseSelectSubphaseSearch($event.option.value)">
+                        <mat-option *ngFor="let option of filteredPhaseOptions | async" [value]="option.Name">
+                            {{option.Name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        
+            <div style="width: 100%;">
+                <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                    <mat-label style="color: deeppink;font-weight: bold;">زیر فاز</mat-label>
+                    <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" required title="" [errorStateMatcher]="matcher">
+                    <mat-autocomplete #auto4="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredSubphaseOptions | async" [value]="option.Name">
+                            {{option.Name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+            <div dir="rtl" style="width: 100%;">
+                <mat-form-field style="width: 100%;font-size: medium;">
+                    <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
+                    <input matInput [matDatepicker]="picker" [value]="dateControl.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required [errorStateMatcher]="matcher">
+                    <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
+                    <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+                </mat-form-field>
+            </div>
+        
+            <div style="width: 100%;">
+                <div style="width: 95%;float: right;">
+                    <mat-form-field style="font-size: medium;width: 100%;">
+                        <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
+                        <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required [errorStateMatcher]="matcher" (change)="onTimeValueChange()"> 
+                    </mat-form-field>
+                </div>
+
+                <div style="width: 5%;float: left;margin-top: 35px;">
+                    <span>
+                        <i id='clickableAwesomeFont' class="fa fa-clock-o fa-lg" style="color: deeppink;float: left; cursor: pointer;" (click)="onTimeIconClick()"></i>
+                    </span>
+                </div>
+            </div>
+            <div style="width: 100%;">
+                <div style="width: 83%;float: right;">
+                    <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                        <mat-label style="color: deeppink;font-weight: bold;">محل انجام</mat-label>
+                        <mat-select [(value)]="createDialogService.selectedPlace">
+                            <mat-option value=0>کسرا</mat-option>
+                            <mat-option value=1>محل مشتری</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div style="width: 13%;float: left; margin-top: 35px;">
+                    <mat-label style="color: #6691ee;font-weight: bold;float: right;">کار مازاد</mat-label>
+                    <mat-checkbox style="float: left"></mat-checkbox>
+                </div>
+            </div>
+
+            <div style="width: 100%;">
+                <div style="width: 100%;float: right;">
+                    <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                        <mat-label style="color: deeppink;font-weight: bold;">قدم بعدی</mat-label>
+                        <mat-select [(value)]="createDialogService.nextStep">
+                            <mat-option value=0>تعلیق پروژه</mat-option>
+                            <mat-option value=1>ادامه کار</mat-option>
+                            <mat-option value=2>بستن زیرفاز</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        
+            <div style="width: 100%;">
+                <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
+                    <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
+                    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="2" [formControl]="descriptionControl"
+                        required title="" [errorStateMatcher]="matcher">
+                    </textarea>
+                </mat-form-field>
+            </div>
+            <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort >
+                
+                  <ng-container matColumnDef="ListName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+                      نام لیست
+                    </th>
+                    <td mat-cell *matCellDef="let row"> {{row.ListName}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="SubListName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+                      نام زیرلیست
+                    </th>
+                    <td mat-cell *matCellDef="let row"> {{row.SubListName}} </td>
+                  </ng-container>
+              
+                  <ng-container matColumnDef="CreatedOn">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+                      تاریخ ایجاد زیرلیست
+                    </th>
+                    <td mat-cell *matCellDef="let row"> {{row.CreatedOn}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </div>
+            <div dir="rtl" style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
+                <div>
+                  <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
+                </div>
+            </div>
+        <!-- </mat-dialog-content> -->
+    </div>
+
+    <div style="margin-top: auto;">
+
+        <mat-dialog-actions>
+            <div style="margin: auto;width: 100%;" class="alert alert-danger" *ngIf="error">
+                <p style="font-size: medium;text-align: center;"><strong>{{ error }}</strong></p>
+            </div>
+            <div style="margin: auto;text-align: center;">
+                <button type="button" class="btn btn-success button" (click)="onSaveBtnClick()">ذخیره</button>
+                <button type="button" class="btn btn-primary button" (click)="onSaveAndContinueBtnClick()">ذخیره و ادامه</button>
+            </div>
+        </mat-dialog-actions>
+    </div>
+</div>
