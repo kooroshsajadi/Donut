@@ -13,6 +13,8 @@ import { stringify } from 'querystring';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
+import { GridDataResult } from '@progress/kendo-angular-grid';
 
 export class myErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -36,7 +38,7 @@ export class CreateDialogComponent implements OnInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  // @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -80,17 +82,27 @@ export class CreateDialogComponent implements OnInit {
     guide: false,
     showMask: true,
     mask: [/\d/, /\d/, ':', /\d/, /\d/]
-  };  
+  };
+
+  // Variables related to Kendo grid
+  kendoSource: any = []
+  public multiple = false;
+    public allowUnsort = true;
+    public sort: SortDescriptor[] = [{
+      field: 'ListName',
+      dir: 'asc'
+    }];
+    public gridView: GridDataResult;
 
   ngOnInit(): void {
     // Costumizing the paginator.
-    this.paginator._intl.nextPageLabel = "بعدی"
-    this.paginator._intl.previousPageLabel = "قبلی"
-    this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
-    this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
-    { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
-    const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    return `${startIndex + 1} – ${endIndex} از ${length}`; }
+    // this.paginator._intl.nextPageLabel = "بعدی"
+    // this.paginator._intl.previousPageLabel = "قبلی"
+    // this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
+    // this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
+    // { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
+    // const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    // return `${startIndex + 1} – ${endIndex} از ${length}`; }
 
     // Account
     this.filteredAccountOptions = this.accountControl.valueChanges
@@ -367,10 +379,12 @@ export class CreateDialogComponent implements OnInit {
       (success) => {
         debugger
         this.serverRes = JSON.parse(success.message)
+        this.kendoSource = this.serverRes
+        this.kendoSource = this.serverRes
         this.dataSource = new MatTableDataSource(this.serverRes)
         this.dataSource = new MatTableDataSource(this.serverRes)
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        // this.dataSource.paginator = this.paginator;
+        // this.dataSource.sort = this.sort;
       },
       (error) => {}
     )
@@ -389,4 +403,19 @@ export class CreateDialogComponent implements OnInit {
       (error) => {}
     )
   }
+
+  private loadProducts(): void {
+    this.gridView = {
+        data: orderBy(this.kendoSource, this.sort),
+        total: this.kendoSource.length
+    };
+  }
+  
+  public sortChange(sort: SortDescriptor[]): void {
+    this.sort = sort;
+    debugger
+    this.loadProducts();
+    debugger
+    this.kendoSource = this.gridView.data
+}
 }

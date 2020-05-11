@@ -125,7 +125,7 @@
                 </mat-form-field>
             </div>
             <div class="table-responsive">
-                <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort >
+                <!-- <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort >
                 
                   <ng-container matColumnDef="ListName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
@@ -150,13 +150,38 @@
 
                   <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
                   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
+                </table> -->
+            <kendo-grid 
+            [data]="kendoSource"
+            [resizable]="true"
+            [sortable]="{
+                allowUnsort: allowUnsort,
+                mode: multiple ? 'multiple' : 'single'
+            }"
+            [sort]="sort"
+            (sortChange)="sortChange($event)"
+            >
+                <kendo-grid-column
+                  field="ListName"
+                  title="نام لیست">
+                </kendo-grid-column>
+            
+                <kendo-grid-column
+                  field="SubListName"
+                  title="نام زیرلیست">
+                </kendo-grid-column>
+            
+                <kendo-grid-column
+                  field="CreatedOn"
+                  title="تاریخ ایجاد زیرلیست">
+                </kendo-grid-column>
+            </kendo-grid>
             </div>
-            <div dir="rtl" style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
+            <!-- <div dir="rtl" style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
                 <div>
                   <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
                 </div>
-            </div>
+            </div> -->
         <!-- </mat-dialog-content> -->
     </div>
 

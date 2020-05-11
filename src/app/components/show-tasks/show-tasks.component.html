@@ -32,11 +32,11 @@
   </div>
 </div>
 
-<!-- <div class="table-responsive"> -->
+<div class="table-responsive">
 
 
-  <!-- <kendo-grid 
-    [data]="dataSource"
+  <kendo-grid 
+    [data]="kendoSource"
     [resizable]="true"
     [sortable]="{
       allowUnsort: allowUnsort,
@@ -44,55 +44,55 @@
       }"
     [sort]="sort"
     (sortChange)="sortChange($event)"
-    style="width: 100%;"
-    dir="rtl">
+    
+    >
     <kendo-grid-column
-      width="10%"
-      field="Owner" title="مالک">
+      field="Owner"
+      title="مالک">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="10%"
-      field="Customer" title="مشتری">
+      field="Customer"
+      title="مشتری">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="10%"
-      field="Project" title="پروژه">
+      field="Project"
+      title="پروژه">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="10%"
-      field="Phase" title="فاز">
+      field="Phase"
+      title="فاز">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="10%"
-      field="SubPhase" title="زیرفاز">
+      field="SubPhase"
+      title="زیرفاز">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="15%"
-      field="ActivitesDate" title="تاریخ">
+      field="ActivitesDate"
+      title="تاریخ">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="10%"
-      field="ActivitesTime" title="زمان">
+      field="ActivitesTime"
+      title="زمان">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="10%"
-      field="PlaceOfAction" title="محل">
+      field="PlaceOfAction"
+      title="محل">
     </kendo-grid-column>
 
     <kendo-grid-column
-    width="15%"
-      field="Description" title="توضیحات">
+      field="Description"
+      title="توضیحات">
     </kendo-grid-column>
-  </kendo-grid> -->
-<!-- </div> -->
-<div class="table-responsive">
+  </kendo-grid>
+</div>
+<!-- <div class="table-responsive">
   <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort >
 
     <ng-container matColumnDef="Owner" >
@@ -156,7 +156,7 @@
         توضیحات
       </th>
       <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
-    </ng-container>
+    </ng-container> -->
 
     <!-- <ng-container matColumnDef="IsMoreWork">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> کار مازاد </th>
@@ -174,7 +174,7 @@
       </td>
     </ng-container> -->
     
-    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
@@ -184,4 +184,4 @@
     <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
   </div>
     
-</div>
+</div> -->

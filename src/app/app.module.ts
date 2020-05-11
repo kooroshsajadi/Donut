@@ -32,6 +32,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { TextMaskModule } from 'angular2-text-mask';
 import { NgxMaskModule } from 'ngx-mask'
 import { GridModule } from '@progress/kendo-angular-grid';
+import { RTL } from '@progress/kendo-angular-l10n';
 
 
 
@@ -73,6 +74,7 @@ import { GridModule } from '@progress/kendo-angular-grid';
     GridModule
   ],
   providers: [
+    { provide: RTL, useValue: true },
     {provide: HttpClientModule},
     { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS }
