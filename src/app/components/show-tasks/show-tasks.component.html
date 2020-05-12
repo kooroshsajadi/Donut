@@ -34,7 +34,6 @@
 
 <div class="table-responsive">
 
-
   <kendo-grid 
     [data]="kendoSource"
     [resizable]="true"
@@ -44,77 +43,76 @@
       }"
     [sort]="sort"
     (sortChange)="sortChange($event)"
-    
     >
     <kendo-grid-column
       field="Owner"
       title="مالک"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
     >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="Customer"
       title="مشتری"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
       >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="Project"
       title="پروژه"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
       >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="Phase"
       title="فاز"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
       >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="SubPhase"
       title="زیرفاز"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
       >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="ActivitesDate"
       title="تاریخ"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
       >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="ActivitesTime"
       title="زمان"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
       >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="PlaceOfAction"
       title="محل"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"
       >
     </kendo-grid-column>
 
     <kendo-grid-column
       field="Description"
       title="توضیحات"
-      [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
-      [style]="{'font-size': 'medium'}"
+      [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '150px'}"
+      [style]="{'font-size': 'medium','width': '150px'}"      
       >
     </kendo-grid-column>
     <ng-template kendoGridNoRecordsTemplate>
