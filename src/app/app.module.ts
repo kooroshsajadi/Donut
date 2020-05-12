@@ -10,46 +10,44 @@ import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatInputModule} from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ShowTasksComponent } from './components/show-tasks/show-tasks.component';
-import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './services/auth-guard.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {  DateAdapter,  MAT_DATE_FORMATS,  MAT_DATE_LOCALE } from "@angular/material/core";
+import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './shared/material.persian-date.adapter';
+import { CreateDialogComponent } from './components/create-dialog/create-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { TimeDialogComponent } from './shared/time-dialog/time-dialog.component';
+import {MatSelectModule} from '@angular/material/select';
+import { ResultDialogComponent } from './shared/result-dialog/result-dialog.component';
+import {MatSortModule} from '@angular/material/sort';
+import { TextMaskModule } from 'angular2-text-mask';
+import { NgxMaskModule } from 'ngx-mask'
+import { GridModule } from '@progress/kendo-angular-grid';
+import { RTL } from '@progress/kendo-angular-l10n';
 
-// const appRoutes: Routes = [
-//   { path: 'Tasks', component: ShowTasksComponent }
-// ];
 
-
-const appRoutes: Routes = [
-  {
-    path: '', component: LoginComponent,
-     
-    // canActivateChild: [LoginGuard],
-    // children: [
-    //   { path: 'formula', loadChildren: './formula/formula.module#FormulaModule' },
-    //   { path: 'report', loadChildren: './report/report.module#ReportModule' },
-    // ]
-  },
-  { path: 'Tasks',
-  component: ShowTasksComponent,
-  canActivate:[AuthGuardService] },
-
-];
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ShowTasksComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    CreateDialogComponent,
+    DeleteDialogComponent,
+    TimeDialogComponent,
+    ResultDialogComponent
   ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -60,9 +58,27 @@ const appRoutes: Routes = [
     MatInputModule,
     MatIconModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule,
+    MatTableModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatSelectModule,
+    MatSortModule,
+    TextMaskModule,
+    NgxMaskModule.forRoot(),
+    GridModule
   ],
-  providers: [HttpClientModule],
+  providers: [
+    { provide: RTL, useValue: true },
+    {provide: HttpClientModule},
+    { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

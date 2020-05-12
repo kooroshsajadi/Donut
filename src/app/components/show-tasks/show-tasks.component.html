@@ -1,1 +1,187 @@
-<p>show-tasks works!</p>
+<div class="toolbar" role="banner">
+  <img class="logo" src="../assets/logos/logokasra.png" alt="شرکت مهندسی کسرا"
+    itemprop="image" title="logokasra">
+  <div class="spacer"></div>
+</div>
+<br/>
+
+<div style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
+
+  <div style="padding-top: 30px;">
+    <label>  : {{ getFullname() }}</label>
+  </div>
+
+  <div dir="rtl">
+    <mat-form-field style="padding-right: 12px;font-size: medium;">
+      <input matInput [matDatepicker]="picker" [value]="date.value" [(ngModel)]="this.tasksShowService.selectedDate" (dateChange)="onDateChange()" name="datePickerInput"  style="font-weight: bold;">
+      <!-- <mat-hint align="end" style="color:deeppink;margin-left: 8px;font-size: medium;">تقویم ^</mat-hint> -->
+      <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div style="margin-right: auto; padding-top: 30px; padding-left: 5px;">
+    <label>زمان کل :  {{totalTime.hours}}:{{totalTime.minutes}}</label>
+  </div>
+
+</div>
+
+<div style="display: flex;flex-wrap: wrap;">
+  <div dir="rtl">
+    <button type="button" class="btn btn-success table-buttons" (click)="onCreateBtnClick()">ایجاد</button>
+  </div>
+</div>
+
+<div class="table-responsive">
+
+
+  <kendo-grid 
+    [data]="kendoSource"
+    [resizable]="true"
+    [sortable]="{
+      allowUnsort: allowUnsort,
+      mode: multiple ? 'multiple' : 'single'
+      }"
+    [sort]="sort"
+    (sortChange)="sortChange($event)"
+    
+    >
+    <kendo-grid-column
+      field="Owner"
+      title="مالک">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="Customer"
+      title="مشتری">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="Project"
+      title="پروژه">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="Phase"
+      title="فاز">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="SubPhase"
+      title="زیرفاز">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="ActivitesDate"
+      title="تاریخ">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="ActivitesTime"
+      title="زمان">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="PlaceOfAction"
+      title="محل">
+    </kendo-grid-column>
+
+    <kendo-grid-column
+      field="Description"
+      title="توضیحات">
+    </kendo-grid-column>
+  </kendo-grid>
+</div>
+<!-- <div class="table-responsive">
+  <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort >
+
+    <ng-container matColumnDef="Owner" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        مالک
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Customer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        مشتری
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Project">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        پروژه
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Phase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        فاز
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="SubPhase">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        زیرفاز
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ActivitesDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        تاریخ
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ActivitesTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        زمان
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.ActivitesTime}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="PlaceOfAction">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        محل
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.PlaceOfAction}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
+        توضیحات
+      </th>
+      <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
+    </ng-container> -->
+
+    <!-- <ng-container matColumnDef="IsMoreWork">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> کار مازاد </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox [checked]="row.IsMoreWork"></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Delete">
+      <th mat-header-cell *matHeaderCellDef>حذف</th>
+      <td mat-cell *matCellDef="let row">
+        <button dir="rtl" mat-icon-button (click)="onDeleteCellClick(row)">
+          <img src="../../../assets/icons/delete-24px.svg">
+        </button>
+      </td>
+    </ng-container> -->
+    
+    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+  
+<div dir="rtl" style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
+  <div>
+    <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
+  </div>
+    
+</div> -->

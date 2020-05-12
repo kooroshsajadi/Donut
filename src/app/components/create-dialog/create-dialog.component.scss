@@ -1,55 +1,90 @@
-.logo{
-  margin-top: 3px;
-  width: 134px;
-  height: 47px;
-  position: absolute;
-  left: 0;
+.button {
+    margin: 12px;
 }
 
-.fullnameParagraph {
-  font-weight: bold;
-  font-size: large;
+.all-style {
+    font-size: medium;
+    width: 600px;
 }
 
-.table {
-width: 100%;
+.without_ampm::-webkit-datetime-edit-ampm-field {
+    display: none;
 }
 
-.table-buttons {
-margin: 10px;
+#clickableAwesomeFont {
+    cursor: pointer
 }
 
-.my-button {
-margin-right: 20px;
-}
+.mat-option {
+    margin: 1rem 0;
+    overflow: visible;
+    line-height: initial;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .mat-option i {
+    display: block;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    margin-left: 0.5rem;
+  }
 
-td, th {
-font-size: medium;
-padding-top: 15px!important;
-}
+  .time-input-container {
+    display: flex;
+  }
+  
+  .time-input-element {
+    border: none;
+    background: none;
+    padding: 0;
+    outline: none;
+    font: inherit;
+    text-align: center;
+  }
+  
+  .time-input-spacer {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  
+  :host.example-floating .time-input-spacer {
+    opacity: 1;
+  }
 
-.cellDataLeftPadding {
-padding-left: 5px;
-}
+  .table-buttons {
+    margin: 10px;
+  }
+  
+  .my-button {
+    margin-right: 20px;
+  }
+  
+  td, th {
+    font-size: medium;
+    padding-top: 15px!important;
+  }
+  
+  .cellDataLeftPadding {
+   padding-left: 5px;
+  }
+  
+  .my-mat-cell {
+    text-align: center;
+    justify-content: center;
+    vertical-align: middle;
+  }
+  
+  th{
+    border: 2px solid #dee2e6;
+    font-weight: bold;
+  }
+  
+  .tableHeaderCellDiv {
+    resize: horizontal;
+    overflow: hidden;
+  }
 
-.my-mat-cell {
-text-align: center;
-justify-content: center;
-vertical-align: middle;
-}
-
-th{
-border: 2px solid #dee2e6;
-font-weight: bold;
-}
-
-.tableHeaderCellDiv {
-resize: horizontal;
-overflow:hidden;
-border-style: solid;
-}
-
-// The following lines are the stylings that I have took from the previous projects.
+  // The following lines are the stylings that I have took from the previous projects.
 
 :host {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
