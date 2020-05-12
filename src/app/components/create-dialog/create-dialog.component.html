@@ -1,4 +1,4 @@
-<div style="margin-top: -15px;float: left;margin-left: -15px;">
+<div style="margin-top: -20px;float: left;margin-left: -15px;">
     <span id='clickableXMark' (click)="onXMarkClick()">&#10006;</span>
 </div>
 
@@ -134,31 +134,25 @@
             }"
             [sort]="sort"
             (sortChange)="sortChange($event)"
-            [style]="{'font-size': 'medium','width': '1215px'}"
+            [style]="{'font-size': 'medium'}"
             >
                 <kendo-grid-column
                   field="ListName"
                   title="نام لیست"
-                  [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '250px'}"
-                  [style]="{'font-size': 'medium','width': '250px'}"
+                  [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
+                  [style]="{'font-size': 'medium'}"
+                  [width]="250"
                   >
                 </kendo-grid-column>
             
                 <kendo-grid-column
                   field="SubListName"
                   title="نام زیرلیست"
-                  [headerStyle]="{'font-weight': 'bold','font-size': 'medium','width': '450px'}"
-                  [style]="{'font-size': 'medium','width': '450px'}"
-                  >
-                </kendo-grid-column>
-            
-                <!-- <kendo-grid-column
-                  field="CreatedOn"
-                  title="تاریخ ایجاد زیرلیست"
                   [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
                   [style]="{'font-size': 'medium'}"
+                  [width]="450"
                   >
-                </kendo-grid-column> -->
+                </kendo-grid-column>
                 <ng-template kendoGridNoRecordsTemplate>
                     هیچ داده ای یافت نشد !
                  </ng-template>
