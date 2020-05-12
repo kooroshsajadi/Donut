@@ -9,11 +9,9 @@ import { FormControl } from '@angular/forms';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CreateDialogComponent } from '../create-dialog/create-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { DeleteDialogService } from '../../services/delete-dialog.service';
 import { Time } from '@angular/common';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
-import {MatSort} from '@angular/material/sort';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 
@@ -62,15 +60,6 @@ export class ShowTasksComponent implements OnInit {
     model: NgbDateStruct;
 
     ngOnInit(): void {
-      // Costumizing the paginator.
-      // this.paginator._intl.nextPageLabel = "بعدی"
-      // this.paginator._intl.previousPageLabel = "قبلی"
-      // this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
-      // this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
-      // { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
-      // const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-      // return `${startIndex + 1} – ${endIndex} از ${length}`; }
-
       this.tasksShowService.selectedDate = this.date.value;
 
       //Get the grid with the initial today date.

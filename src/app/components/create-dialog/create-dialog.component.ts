@@ -45,7 +45,9 @@ export class CreateDialogComponent implements OnInit {
     public createDialogService: CreateDialogService,
     private dialog: MatDialog,
     public timeDialogService: TimeDialogService,
-    public tasksShowService: TasksShowService) {}
+    public tasksShowService: TasksShowService) {
+      dialogRef.disableClose = true;
+    }
 
   // Form controllers
   modalityControl = new FormControl("")
@@ -89,8 +91,8 @@ export class CreateDialogComponent implements OnInit {
   public multiple = false;
     public allowUnsort = true;
     public sort: SortDescriptor[] = [{
-      field: 'ListName',
-      dir: 'asc'
+      field: 'CreatedOn',
+      dir: 'desc'
     }];
     public gridView: GridDataResult;
 
@@ -417,5 +419,9 @@ export class CreateDialogComponent implements OnInit {
     this.loadProducts();
     debugger
     this.kendoSource = this.gridView.data
-}
+  }
+
+  onXMarkClick() {
+    this.dialogRef.close()
+  }
 }

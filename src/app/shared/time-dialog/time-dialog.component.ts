@@ -11,7 +11,7 @@ export class TimeDialogComponent implements OnInit {
 
   constructor(public createDialogService: CreateDialogService,
     public dialogRef: MatDialogRef<TimeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,) {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
       dialogRef.disableClose = true;
      }
 
