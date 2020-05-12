@@ -145,6 +145,9 @@ export class ShowTasksComponent implements OnInit {
         this.createDialogService.time.hour = 0
         this.createDialogService.time.minute = 0
         this.createDialogService.taskTime = ""
+        this.createDialogService.selectedModality = "0"
+        this.createDialogService.selectedPlace = "0"
+        this.createDialogService.nextStep = "0"
       });
     }
 

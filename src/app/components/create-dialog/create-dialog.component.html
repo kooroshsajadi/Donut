@@ -72,22 +72,22 @@
             </mat-form-field>
         </div>
         
-        <div style="width: 100%;">
-            <div style="width: 95%;float: right;">
+        <div style="width: 100%;display: flex;flex-direction: row-reverse;">
+            <div style="width: 100%;">
                 <mat-form-field style="font-size: medium;width: 100%;">
                     <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
                     <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required [errorStateMatcher]="matcher" (change)="onTimeValueChange()"> 
                 </mat-form-field>
             </div>
         
-            <div style="width: 5%;float: left;margin-top: 35px;">
+            <div style="margin-top: 38px;margin-right: 5px;">
                 <span>
                     <i id='clickableAwesomeFont' class="fa fa-clock-o fa-lg" style="color: deeppink;float: left; cursor: pointer;" (click)="onTimeIconClick()"></i>
                 </span>
             </div>
         </div>
-        <div style="width: 100%;">
-            <div style="width: 83%;float: right;">
+        <div style="width: 100%;display: inline-flex;flex-direction: row-reverse;flex-wrap: wrap;">
+            <div style="width: 100%">
                 <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                     <mat-label style="color: deeppink;font-weight: bold;">محل انجام</mat-label>
                     <mat-select [(value)]="createDialogService.selectedPlace">
@@ -96,9 +96,9 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div style="width: 13%;float: left; margin-top: 35px;">
-                <mat-label style="color: #6691ee;font-weight: bold;float: right;">کار مازاد</mat-label>
-                <mat-checkbox style="float: left"></mat-checkbox>
+            <div style="display: inline-flex;flex-direction: row-reverse;margin-right: auto;">
+                <mat-label style="color: #6691ee;font-weight: bold;">کار مازاد</mat-label>
+                <mat-checkbox style="margin-right: 5px;"></mat-checkbox>
             </div>
         </div>
         
