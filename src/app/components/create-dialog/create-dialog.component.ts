@@ -45,7 +45,9 @@ export class CreateDialogComponent implements OnInit {
     public createDialogService: CreateDialogService,
     private dialog: MatDialog,
     public timeDialogService: TimeDialogService,
-    public tasksShowService: TasksShowService) {}
+    public tasksShowService: TasksShowService) {
+      dialogRef.disableClose = true;
+    }
 
   // Form controllers
   modalityControl = new FormControl("")
@@ -89,21 +91,12 @@ export class CreateDialogComponent implements OnInit {
   public multiple = false;
     public allowUnsort = true;
     public sort: SortDescriptor[] = [{
-      field: 'ListName',
-      dir: 'asc'
+      field: 'CreatedOn',
+      dir: 'desc'
     }];
     public gridView: GridDataResult;
 
   ngOnInit(): void {
-    // Costumizing the paginator.
-    // this.paginator._intl.nextPageLabel = "بعدی"
-    // this.paginator._intl.previousPageLabel = "قبلی"
-    // this.paginator._intl.itemsPerPageLabel = "موارد در هر صفحه"
-    // this.paginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) =>
-    // { if (length == 0 || pageSize == 0) { return `0 از ${length}`; } length = Math.max(length, 0);
-    // const startIndex = page * pageSize; const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    // return `${startIndex + 1} – ${endIndex} از ${length}`; }
-
     // Account
     this.filteredAccountOptions = this.accountControl.valueChanges
     .pipe(
@@ -417,5 +410,9 @@ export class CreateDialogComponent implements OnInit {
     this.loadProducts();
     debugger
     this.kendoSource = this.gridView.data
-}
+  }
+
+  onXMarkClick() {
+    this.dialogRef.close()
+  }
 }

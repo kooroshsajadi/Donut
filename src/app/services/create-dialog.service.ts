@@ -15,7 +15,7 @@ export class CreateDialogService {
   taskTime: string = ""
   selectedPlace: string = "0"
   nextStep: string = "0"
-  selectedModality: string = "option1"
+  selectedModality: string = "0"
   selectedProject: string = ""
 
   constructor(private configService: ConfigService) { }

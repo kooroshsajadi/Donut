@@ -68,7 +68,6 @@ import { RTL } from '@progress/kendo-angular-l10n';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatSelectModule,
-    MatSortModule,
     TextMaskModule,
     NgxMaskModule.forRoot(),
     GridModule
