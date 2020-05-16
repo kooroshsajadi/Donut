@@ -242,7 +242,7 @@ export class CreateDialogComponent implements OnInit {
           if(success.validate) {
             debugger
             var resultDialogRef = this.dialog.open(ResultDialogComponent, {
-              data: {message: success.message,
+              data: {message: success.exceptionMessage,
                 closureEmit: true,
                 success: true,
                 date: this.tasksShowService.selectedDate}
@@ -285,7 +285,7 @@ export class CreateDialogComponent implements OnInit {
           debugger
           if(success.validate) {
             this.dialog.open(ResultDialogComponent, {
-              data: {message: success.message,
+              data: {message: success.exceptionMessage,
               closureEmit: false,
               success: true,
               date: this.tasksShowService.selectedDate}
