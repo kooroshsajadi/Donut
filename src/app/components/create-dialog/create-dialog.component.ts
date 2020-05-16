@@ -239,10 +239,10 @@ export class CreateDialogComponent implements OnInit {
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
           debugger
-          if(success.message !== null) {
+          if(success.validate) {
             debugger
             var resultDialogRef = this.dialog.open(ResultDialogComponent, {
-              data: {message: "عملیات با موفقیت انجام شد",
+              data: {message: success.message,
                 closureEmit: true,
                 success: true,
                 date: this.tasksShowService.selectedDate}
@@ -253,7 +253,7 @@ export class CreateDialogComponent implements OnInit {
           }
           else {
             this.dialog.open(ResultDialogComponent, {
-              data: {message: "خطایی رخ داد",
+              data: {message: success.exceptionMessage,
               closureEmit: false,
               success: false}
             });
@@ -283,9 +283,9 @@ export class CreateDialogComponent implements OnInit {
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
           debugger
-          if(success.message !== null) {
+          if(success.validate) {
             this.dialog.open(ResultDialogComponent, {
-              data: {message: "عملیات با موفقیت انجام شد",
+              data: {message: success.message,
               closureEmit: false,
               success: true,
               date: this.tasksShowService.selectedDate}
@@ -294,7 +294,7 @@ export class CreateDialogComponent implements OnInit {
 
           else {
             this.dialog.open(ResultDialogComponent, {
-              data: {message: "خطایی رخ داد",
+              data: {message: success.exceptionMessage,
               closureEmit: false,
               success: false}
             });
