@@ -14,7 +14,7 @@ export class CreateDialogService {
   time = {hour: 0, minute: 0};
   taskTime: string = ""
   selectedPlace: string = "0"
-  nextStep: string = "0"
+  nextStep: string = "1"
   selectedModality: string = "0"
   selectedProject: string = ""
 

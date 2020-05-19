@@ -13,7 +13,7 @@ import { DeleteDialogService } from '../../services/delete-dialog.service';
 import { Time } from '@angular/common';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
-import { GridDataResult } from '@progress/kendo-angular-grid';
+import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 
 @Component({
   selector: 'app-show-tasks',
@@ -45,6 +45,9 @@ export class ShowTasksComponent implements OnInit {
       dir: 'asc'
     }];
     public gridView: GridDataResult;
+    public pageSize = 10;
+    public skip = 0;
+    private items: any[]
 
   // The initial value of the calendar is set to today.
   date = new FormControl(new Date());
@@ -86,11 +89,12 @@ export class ShowTasksComponent implements OnInit {
         (success) => {
           debugger
           this.serverRes = JSON.parse(success.message)
-          this.kendoSource = this.serverRes
-          this.kendoSource = this.serverRes
-          this.dataSource = new MatTableDataSource(this.serverRes);
-          this.dataSource = new MatTableDataSource(this.serverRes);
-          this.dataSource.paginator = this.paginator;
+          this.items = this.serverRes
+          this.kendoSource = this.items
+          this.loadItems()
+          // this.dataSource = new MatTableDataSource(this.serverRes);
+          // this.dataSource = new MatTableDataSource(this.serverRes);
+          // this.dataSource.paginator = this.paginator;
           // this.dataSource.sort = this.sort;
           
           this.totalTime.hours = 0
@@ -133,7 +137,7 @@ export class ShowTasksComponent implements OnInit {
       var dialogRef = this.dialog.open(CreateDialogComponent, {
         data: {content: content},
         width: "100%",
-        height: "100%"
+        height: "98%"
       });
       debugger
       dialogRef.afterClosed().subscribe(result => {
@@ -175,4 +179,17 @@ export class ShowTasksComponent implements OnInit {
       debugger
       this.kendoSource = this.gridView.data
   }
+
+  public pageChange(event: PageChangeEvent): void {
+    this.skip = event.skip;
+    this.loadItems();
+  }
+
+  private loadItems(): void {
+    debugger
+    this.kendoSource = {
+        data: this.items.slice(this.skip, this.skip + this.pageSize),
+        total: this.items.length
+    };
+ }
 }

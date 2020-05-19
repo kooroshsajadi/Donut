@@ -2,19 +2,17 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Observable } from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {map, startWith, debounceTime, switchMap} from 'rxjs/operators';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
 import { TimeDialogComponent } from 'src/app/shared/time-dialog/time-dialog.component';
 import { TimeDialogService } from 'src/app/services/time-dialog.service';
 import { ResultDialogComponent } from 'src/app/shared/result-dialog/result-dialog.component';
 import { TasksShowService } from 'src/app/services/tasks-show.service';
 import {ErrorStateMatcher} from '@angular/material/core';
-import { stringify } from 'querystring';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
-import { GridDataResult } from '@progress/kendo-angular-grid';
+import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 
 export class myErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -38,7 +36,6 @@ export class CreateDialogComponent implements OnInit {
   dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(public dialogRef: MatDialogRef<CreateDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -95,34 +92,38 @@ export class CreateDialogComponent implements OnInit {
       dir: 'desc'
     }];
     public gridView: GridDataResult;
+    public pageSize = 10;
+    public skip = 0;
+    private items: any[]
 
   ngOnInit(): void {
     // Account
     this.filteredAccountOptions = this.accountControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this.accountFilter(value))
+      debounceTime(500),
+      switchMap(value => this.accountFilter(value))
     );
 
     // Project
     this.filteredProjectOptions = this.projectControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this.projectFilter(value))
+      switchMap(value => this.projectFilter(value))
     );
 
     // Phase
     this.filteredPhaseOptions = this.phaseControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this.phaseFilter(value))
+      switchMap(value => this.phaseFilter(value))
     );
 
     // Subphase
     this.filteredSubphaseOptions = this.subphaseControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this.subphaseFilter(value))
+      switchMap(value => this.subphaseFilter(value))
     );
 
     // Date
@@ -133,68 +134,43 @@ export class CreateDialogComponent implements OnInit {
 
   }
 
-  public phaseSearch(projectName: string, searchedValue: string) {
+  public phaseSearch(projectName: string, searchedValue: string): Observable<any> {
     debugger
-    this.createDialogService.subphaseOptions = []
-    // this.filteredPhaseOptions = this.phaseControl.valueChanges
-    //       .pipe(
-    //       startWith(''),
-    //       map(value => this.phaseFilter(value)),
-    //       );
-      this.createDialogService.searchPhase(projectName, searchedValue).subscribe(
-        (success) => {
-          debugger
-          this.createDialogService.phaseOptions = JSON.parse(success.message)
-          // this.filteredPhaseOptions = this.phaseControl.valueChanges
-          // .pipe(
-          // startWith(''),
-          // map(value => this.phaseFilter(value)),
-          // );
-        },
-        (error) => {}
-      )
+      return this.createDialogService.searchPhase(projectName, searchedValue).pipe(
+        map(success => this.createDialogService.phaseOptions = JSON.parse(success.message))
+      );
   }
 
-  public subphaseSearch(phaseName: string, searchedSubphaseValue: string) {
+  public subphaseSearch(phaseName: string, searchedSubphaseValue: string): Observable<any> {
     debugger
-    this.createDialogService.searchSubphase(phaseName, searchedSubphaseValue).subscribe(
-      (success) => {
-        debugger
-        this.createDialogService.subphaseOptions = JSON.parse(success.message)
-      },
-      (error) => {}
-    )
+    return this.createDialogService.searchSubphase(phaseName, searchedSubphaseValue).pipe(
+      map(success => this.createDialogService.subphaseOptions = JSON.parse(success.message))
+    );
   }
 
-  public projectSearch(accountName: string, searchedValue: string) {
-    this.createDialogService.phaseOptions = []
-    this.createDialogService.searchProject(accountName, searchedValue).subscribe(
-      (success) => {
-        this.createDialogService.projectOptions = JSON.parse(success.message)
-        debugger
-      },
-      (error) => {}
-    )
+  public projectSearch(accountName: string, searchedValue: string): Observable<any> {
+    return this.createDialogService.searchProject(accountName, searchedValue).pipe(
+      map(success => this.createDialogService.projectOptions = JSON.parse(success.message))
+    );
   }
 
-  private phaseFilter(searchedPhaseValue: string): string[] {
-    this.phaseSearch(this.projectControl.value, searchedPhaseValue);
-    return this.createDialogService.phaseOptions
+  private phaseFilter(searchedPhaseValue: string): Observable<any> {
+    return this.phaseSearch(this.projectControl.value, searchedPhaseValue);
   }
 
-  private subphaseFilter(searchedSubphaseValue: string): string[] {
-    this.subphaseSearch(this.phaseControl.value, searchedSubphaseValue);
-    return this.createDialogService.subphaseOptions
+  private subphaseFilter(searchedSubphaseValue: string): Observable<any> {
+    return this.subphaseSearch(this.phaseControl.value, searchedSubphaseValue);
   }
 
-  private projectFilter(searchedProjectValue: string): string[] {
-    this.projectSearch(this.accountControl.value, searchedProjectValue);
-    return this.createDialogService.projectOptions
+  private projectFilter(searchedProjectValue: string): Observable<any> {
+    return this.projectSearch(this.accountControl.value, searchedProjectValue);
   }
 
-  private accountFilter(value: string): string[] {
-    this.accountSearch(value);
-    return this.createDialogService.accountOptions
+  private accountFilter(value: string): Observable<any> {
+    debugger
+    this.createDialogService.accountOptions
+    return this.accountSearch(value);
+    debugger
   }
 
   openTimeDialog(content: string): void {
@@ -317,34 +293,31 @@ export class CreateDialogComponent implements OnInit {
   }
   onProjectSelectPhaseSearch(projectName: string) {
     debugger
-    this.phaseSearch(projectName, "")
-    // this.filteredPhaseOptions = this.phaseControl.valueChanges
-    // .pipe(
-    //   startWith(''),
-    //   map(value => this.phaseFilter(value)),
-    // );
+    this.createDialogService.phaseOptions
+    this.filteredPhaseOptions = this.phaseControl.valueChanges
+    .pipe(
+      startWith(''),
+      switchMap(value => this.phaseFilter(value))
+    );
   }
 
   onPhaseSelectSubphaseSearch(phaseName: string) {
     debugger
-    this.subphaseSearch(phaseName, "")
-    debugger
     this.LoadSubchecklistGrid(phaseName)
-
     this.filteredSubphaseOptions = this.subphaseControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this.subphaseFilter(value))
+      switchMap(value => this.subphaseFilter(value))
     );
   }
 
   onAccountSelectProjectSearch(accountName: string) {
     debugger
-    this.projectSearch(accountName, "")
+    this.createDialogService.accountOptions
     this.filteredProjectOptions = this.projectControl.valueChanges
     .pipe(
       startWith(''),
-      map(value => this.projectFilter(value)),
+      switchMap(value => this.projectFilter(value))
     );
   }
 
@@ -372,10 +345,11 @@ export class CreateDialogComponent implements OnInit {
       (success) => {
         debugger
         this.serverRes = JSON.parse(success.message)
-        this.kendoSource = this.serverRes
-        this.kendoSource = this.serverRes
-        this.dataSource = new MatTableDataSource(this.serverRes)
-        this.dataSource = new MatTableDataSource(this.serverRes)
+        this.items = this.serverRes
+        this.kendoSource = this.items
+        this.loadItems()
+        // this.dataSource = new MatTableDataSource(this.serverRes)
+        // this.dataSource = new MatTableDataSource(this.serverRes)
         // this.dataSource.paginator = this.paginator;
         // this.dataSource.sort = this.sort;
       },
@@ -383,18 +357,11 @@ export class CreateDialogComponent implements OnInit {
     )
   }
 
-  accountSearch(searchedValue: string) {
+  accountSearch(searchedValue: string): Observable<any> {
     debugger
-    this.createDialogService.projectOptions = []
-    debugger
-    this.createDialogService.searchAccount(searchedValue).subscribe(
-      (success) => {
-        debugger
-        this.createDialogService.accountOptions = JSON.parse(success.message)
-        debugger
-      },
-      (error) => {}
-    )
+    return this.createDialogService.searchAccount(searchedValue).pipe(
+      map(success => this.createDialogService.accountOptions = JSON.parse(success.message))
+    );
   }
 
   private loadProducts(): void {
@@ -415,4 +382,17 @@ export class CreateDialogComponent implements OnInit {
   onXMarkClick() {
     this.dialogRef.close()
   }
+
+  public pageChange(event: PageChangeEvent): void {
+    this.skip = event.skip;
+    this.loadItems();
+  }
+
+  private loadItems(): void {
+    debugger
+    this.kendoSource = {
+        data: this.items.slice(this.skip, this.skip + this.pageSize),
+        total: this.items.length
+    };
+ }
 }

@@ -37,6 +37,10 @@
   <kendo-grid 
     [data]="kendoSource"
     [resizable]="true"
+    [pageSize]="pageSize"
+    [pageable]="true"
+    (pageChange)="pageChange($event)"
+    [skip]="skip"
     [sortable]="{
       allowUnsort: allowUnsort,
       mode: multiple ? 'multiple' : 'single'
@@ -130,96 +134,3 @@
    </ng-template>
   </kendo-grid>
 </div>
-<!-- <div class="table-responsive">
-  <table mat-table [dataSource]="dataSource" dir="rtl" class="table table-striped table-hover table-bordered mat-elevation-z8" matSort >
-
-    <ng-container matColumnDef="Owner" >
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        مالک
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.Owner}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Customer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        مشتری
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.Customer}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Project">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        پروژه
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.Project}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Phase">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        فاز
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.Phase}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="SubPhase">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        زیرفاز
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.SubPhase}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="ActivitesDate">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        تاریخ
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.ActivitesDate}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="ActivitesTime">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        زمان
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.ActivitesTime}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="PlaceOfAction">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        محل
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.PlaceOfAction}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Description">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="custom-mat-header-styling tableHeaderCellDiv">
-        توضیحات
-      </th>
-      <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
-    </ng-container> -->
-
-    <!-- <ng-container matColumnDef="IsMoreWork">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header class="headerColumn"> کار مازاد </th>
-      <td mat-cell *matCellDef="let row">
-        <mat-checkbox [checked]="row.IsMoreWork"></mat-checkbox>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Delete">
-      <th mat-header-cell *matHeaderCellDef>حذف</th>
-      <td mat-cell *matCellDef="let row">
-        <button dir="rtl" mat-icon-button (click)="onDeleteCellClick(row)">
-          <img src="../../../assets/icons/delete-24px.svg">
-        </button>
-      </td>
-    </ng-container> -->
-    
-    <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</div>
-  
-<div dir="rtl" style="display: flex;flex-direction: row-reverse;flex-wrap: wrap;">
-  <div>
-    <mat-paginator [pageSizeOptions]="[5,10,25,100]"></mat-paginator>
-  </div>
-    
-</div> -->
