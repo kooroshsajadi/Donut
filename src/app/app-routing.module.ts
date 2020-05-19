@@ -1,3 +1,4 @@
+
 // import { NgModule } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,6 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'tasks', component: ShowTasksComponent,  canActivate: [AuthGuardService] }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
