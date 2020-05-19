@@ -96,10 +96,6 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div style="display: inline-flex;flex-direction: row-reverse;margin-right: auto;">
-                <mat-label style="color: #6691ee;font-weight: bold;">کار مازاد</mat-label>
-                <mat-checkbox style="margin-right: 5px;"></mat-checkbox>
-            </div>
         </div>
         
         <div style="width: 100%;">
@@ -141,11 +137,20 @@
             [style]="{'font-size': 'medium','min-width': '100%'}"
             >
                 <kendo-grid-column
+                  field="Number"
+                  title="#"
+                  [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
+                  [style]="{'font-size': 'medium'}"
+                  [width]="30"
+                  >
+                </kendo-grid-column>
+
+                <kendo-grid-column
                   field="ListName"
                   title="نام لیست"
                   [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
                   [style]="{'font-size': 'medium'}"
-                  [width]="250"
+                  [width]="235"
                   >
                 </kendo-grid-column>
             
@@ -154,7 +159,7 @@
                   title="نام زیرلیست"
                   [headerStyle]="{'font-weight': 'bold','font-size': 'medium'}"
                   [style]="{'font-size': 'medium'}"
-                  [width]="450"
+                  [width]="435"
                   >
                 </kendo-grid-column>
                 <ng-template kendoGridNoRecordsTemplate>
