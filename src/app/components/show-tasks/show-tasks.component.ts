@@ -89,19 +89,13 @@ export class ShowTasksComponent implements OnInit {
         (success) => {
           debugger
           this.serverRes = JSON.parse(success.message)
-          this.items = this.serverRes
-          this.kendoSource = this.items
-          this.loadItems()
-          // this.dataSource = new MatTableDataSource(this.serverRes);
-          // this.dataSource = new MatTableDataSource(this.serverRes);
-          // this.dataSource.paginator = this.paginator;
-          // this.dataSource.sort = this.sort;
           
+          // Performing some operations to fix the time column and to calculate the total time.
           this.totalTime.hours = 0
           this.totalTime.minutes = 0
           var min: string
           var hour: string
-          this.dataSource.data.forEach(row => {
+          this.serverRes.forEach(row => {
             this.totalTime.minutes += +row.ActivitesTime
             // Change the time input in here.
             debugger
@@ -114,7 +108,11 @@ export class ShowTasksComponent implements OnInit {
           })
           debugger
           this.totalTime.hours = Math.floor(this.totalTime.minutes / 60)
-          this.totalTime.minutes = this.totalTime.minutes % 60          
+          this.totalTime.minutes = this.totalTime.minutes % 60
+          
+          this.items = this.serverRes
+          this.kendoSource = this.items
+          this.loadItems()
         },
         (error) => {}
       )

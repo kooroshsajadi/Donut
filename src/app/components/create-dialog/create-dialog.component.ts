@@ -210,7 +210,8 @@ export class CreateDialogComponent implements OnInit {
 
   onSaveBtnClick() {
     this.error = null
-    if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
+    var allFieldsValid = (this.accountControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid && this.dateControl.valid)
+    if(allFieldsValid) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -247,14 +248,15 @@ export class CreateDialogComponent implements OnInit {
       )
     }
     else {
-      this.error = "! لطفا تمامی فیلد های ضروری را پر کنید"
+      this.error = "! لطفا تمام فیلد های ضروری را به درستی پر کنید"
     }
   }
 
   onSaveAndContinueBtnClick() {
     debugger
     this.error = null
-    if(this.modalityControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid) {
+    var allFieldsValid = (this.accountControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid && this.dateControl.valid)
+    if(allFieldsValid) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -288,7 +290,7 @@ export class CreateDialogComponent implements OnInit {
       )
     }
     else {
-      this.error = "! لطفا تمامی فیلد های ضروری را پر کنید"
+      this.error = "! لطفا تمام فیلد های ضروری را به درستی پر کنید"
     }
   }
   onProjectSelectPhaseSearch(projectName: string) {
