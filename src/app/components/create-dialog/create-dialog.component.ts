@@ -210,8 +210,9 @@ export class CreateDialogComponent implements OnInit {
 
   onSaveBtnClick() {
     this.error = null
-    var allFieldsValid = (this.accountControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid && this.dateControl.valid)
-    if(allFieldsValid) {
+    debugger
+    var allFieldsValid = this.allFieldsValidator()
+    if(allFieldsValid[allFieldsValid.length - 1]) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -248,15 +249,45 @@ export class CreateDialogComponent implements OnInit {
       )
     }
     else {
-      this.error = "! لطفا تمام فیلد های ضروری را به درستی پر کنید"
+      var errorMessage: string = ""
+
+      if (!allFieldsValid[0]) {
+        errorMessage = "، فیلد مشتری را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[1]) {
+        errorMessage += "، فیلد پروژه را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[2]) {
+        errorMessage += "، فیلد فاز را به درستی پر کنید"
+      }
+      
+      if (!allFieldsValid[3]) {
+        errorMessage += "، فیلد زیرفاز را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[4]) {
+        errorMessage += "، فیلد تاریخ را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[5]) {
+        errorMessage += "، فیلد زمان را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[6]) {
+        errorMessage += " فیلد توضیحات را به درستی پر کنید"
+      }
+
+      this.error = errorMessage
     }
   }
 
   onSaveAndContinueBtnClick() {
     debugger
     this.error = null
-    var allFieldsValid = (this.accountControl.valid && this.projectControl.valid && this.phaseControl.valid && this.subphaseControl.valid && this.timeControl.value !== "" && this.descriptionControl.valid && this.dateControl.valid)
-    if(allFieldsValid) {
+    var allFieldsValid = this.allFieldsValidator()
+    if(allFieldsValid[allFieldsValid.length - 1]) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -290,7 +321,37 @@ export class CreateDialogComponent implements OnInit {
       )
     }
     else {
-      this.error = "! لطفا تمام فیلد های ضروری را به درستی پر کنید"
+      var errorMessage: string = ""
+
+      if (!allFieldsValid[0]) {
+        errorMessage = "، فیلد مشتری را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[1]) {
+        errorMessage += "، فیلد پروژه را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[2]) {
+        errorMessage += "، فیلد فاز را به درستی پر کنید"
+      }
+      
+      if (!allFieldsValid[3]) {
+        errorMessage += "، فیلد زیرفاز را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[4]) {
+        errorMessage += "، فیلد تاریخ را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[5]) {
+        errorMessage += "، فیلد زمان را به درستی پر کنید"
+      }
+
+      if (!allFieldsValid[6]) {
+        errorMessage += " فیلد توضیحات را به درستی پر کنید"
+      }
+
+      this.error = errorMessage
     }
   }
   onProjectSelectPhaseSearch(projectName: string) {
@@ -397,4 +458,24 @@ export class CreateDialogComponent implements OnInit {
         total: this.items.length
     };
  }
+
+  private allFieldsValidator(): boolean[] {
+    debugger
+    var fieldValids = new Array<boolean>(8)
+    fieldValids[0] = this.accountControl.valid
+    fieldValids[1] = this.projectControl.valid
+    fieldValids[2] = this.phaseControl.valid
+    fieldValids[3] = this.subphaseControl.valid
+    fieldValids[4] = (this.selectedDate != null)
+    fieldValids[5] = (this.timeControl.value !== "")
+    fieldValids[6] = this.descriptionControl.valid
+    fieldValids[7] = true
+    for(var i = 0; i < 7; ++i) {
+      if(!fieldValids[i]) {
+        fieldValids[7] = false
+        break
+      }
+    }
+    return fieldValids
+  }
 }
