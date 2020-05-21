@@ -5,7 +5,7 @@
 <div style="display: flex;flex-direction: column;height: 100%;">
 
     <div style="height: 90%;overflow: scroll;">
-        <div style="width: 100%;">
+        <div style="width: 100%;padding-right: 4px;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">ماهیت</mat-label>
                 <mat-select [(value)]="createDialogService.selectedModality">
@@ -15,7 +15,7 @@
             </mat-form-field>
         </div>
         
-        <div style="width: 100%;">
+        <div style="width: 100%;padding-right: 4px;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">مشتری</mat-label>
                 <input type="text" matInput [formControl]="accountControl" [matAutocomplete]="auto1" title="" [errorStateMatcher]="matcher">
@@ -30,7 +30,7 @@
             </mat-form-field>
         </div>
         
-        <div style="width: 100%;">
+        <div style="width: 100%;padding-right: 4px;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">پروژه</mat-label>
                 <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" title="" [errorStateMatcher]="matcher">
@@ -45,7 +45,7 @@
             </mat-form-field>
         </div>
         
-        <div style="width: 100%;">
+        <div style="width: 100%;padding-right: 4px;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">فاز</mat-label>
                 <input type="text" matInput [formControl]="phaseControl" [matAutocomplete]="auto3" title="" [errorStateMatcher]="matcher">
@@ -60,7 +60,7 @@
             </mat-form-field>
         </div>
         
-        <div style="width: 100%;">
+        <div style="width: 100%;padding-right: 4px;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">زیر فاز</mat-label>
                 <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" title="" [errorStateMatcher]="matcher">
@@ -75,7 +75,7 @@
             </mat-form-field>
         </div>
         
-        <div dir="rtl" style="width: 100%;">
+        <div dir="rtl" style="width: 100%;padding-right: 4px;">
             <mat-form-field style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
                 <input matInput (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" [matDatepicker]="picker" [value]="dateControl.value" [(ngModel)]="this.selectedDate" name="datePickerInput" [errorStateMatcher]="matcher">
@@ -87,7 +87,7 @@
             </mat-form-field>
         </div>
         
-        <div style="width: 100%;display: flex;flex-direction: row-reverse;">
+        <div style="width: 100%;display: flex;flex-direction: row-reverse;padding-right: 4px;">
             <div style="width: 100%;">
                 <mat-form-field style="font-size: medium;width: 100%;">
                     <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
@@ -104,8 +104,8 @@
                 </span>
             </div>
         </div>
-        <div style="width: 100%;display: inline-flex;flex-direction: row-reverse;flex-wrap: wrap;">
-            <div style="width: 100%">
+        <!-- <div style="width: 100%;display: inline-flex;flex-direction: row-reverse;flex-wrap: wrap;"> -->
+            <div style="width: 100%;padding-right: 4px;">
                 <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                     <mat-label style="color: deeppink;font-weight: bold;">محل انجام</mat-label>
                     <mat-select [(value)]="createDialogService.selectedPlace">
@@ -114,10 +114,10 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-        </div>
+        <!-- </div> -->
         
-        <div style="width: 100%;">
-            <div style="width: 100%;float: right;">
+        <!-- <div style="width: 100%;"> -->
+            <div style="width: 100%;float: right;padding-right: 4px;">
                 <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                     <mat-label style="color: deeppink;font-weight: bold;">قدم بعدی</mat-label>
                     <mat-select [(value)]="createDialogService.nextStep">
@@ -127,9 +127,9 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-        </div>
+        <!-- </div> -->
         
-        <div style="width: 100%;">
+        <div style="width: 100%;padding-right: 4px;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
