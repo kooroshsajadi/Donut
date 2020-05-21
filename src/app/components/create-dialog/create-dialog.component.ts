@@ -378,7 +378,7 @@ export class CreateDialogComponent implements OnInit {
         debugger
         this.serverRes = JSON.parse(success.message)
         this.items = this.serverRes
-        this.kendoSource = this.items
+        this.kendoSource.data = this.items
         this.loadItems()
         // this.dataSource = new MatTableDataSource(this.serverRes)
         // this.dataSource = new MatTableDataSource(this.serverRes)
@@ -398,8 +398,8 @@ export class CreateDialogComponent implements OnInit {
 
   private loadProducts(): void {
     this.gridView = {
-        data: orderBy(this.kendoSource, this.sort),
-        total: this.kendoSource.length
+        data: orderBy(this.kendoSource.data, this.sort),
+        total: this.kendoSource.data.length
     };
   }
   
@@ -408,7 +408,7 @@ export class CreateDialogComponent implements OnInit {
     debugger
     this.loadProducts();
     debugger
-    this.kendoSource = this.gridView.data
+    this.kendoSource.data = this.gridView.data
   }
 
   onXMarkClick() {

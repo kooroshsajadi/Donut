@@ -40,6 +40,10 @@ export class ShowTasksComponent implements OnInit {
   totalTime: Time = {hours: 0, minutes: 0}
   public multiple = false;
     public allowUnsort = true;
+    // public sort: SortDescriptor[] = [{
+    //   field: 'Project',
+    //   dir: 'asc'
+    // }];
     public sort: SortDescriptor[] = [{
       field: 'Project',
       dir: 'asc'
@@ -84,7 +88,6 @@ export class ShowTasksComponent implements OnInit {
   }
 
     public generateTable(date: string) {
-      debugger
       this.tasksShowService.getActivityData(date).subscribe(
         (success) => {
           debugger
@@ -97,8 +100,6 @@ export class ShowTasksComponent implements OnInit {
           var hour: string
           this.serverRes.forEach(row => {
             this.totalTime.minutes += +row.ActivitesTime
-            // Change the time input in here.
-            debugger
             hour = Math.floor(row.ActivitesTime / 60).toString()
             min = (row.ActivitesTime % 60).toString()
             if(min.length === 1) {
@@ -106,12 +107,11 @@ export class ShowTasksComponent implements OnInit {
             }
             row.ActivitesTime = hour + ":" + min
           })
-          debugger
           this.totalTime.hours = Math.floor(this.totalTime.minutes / 60)
           this.totalTime.minutes = this.totalTime.minutes % 60
           
           this.items = this.serverRes
-          this.kendoSource = this.items
+          this.kendoSource.data = this.items
           this.loadItems()
         },
         (error) => {}
@@ -154,28 +154,20 @@ export class ShowTasksComponent implements OnInit {
     }
 
     onCreateBtnClick() {
-      debugger
       this.openCreateDialog("")
-    }
-
-    onNextDayClick() {
-      debugger
-      console.log(this.date.value)
     }
 
     private loadProducts(): void {
       this.gridView = {
-          data: orderBy(this.kendoSource, this.sort),
-          total: this.kendoSource.length
+          data: orderBy(this.kendoSource.data, this.sort),
+          total: this.kendoSource.data.length
       };
     }
     
     public sortChange(sort: SortDescriptor[]): void {
       this.sort = sort;
-      debugger
       this.loadProducts();
-      debugger
-      this.kendoSource = this.gridView.data
+      this.kendoSource.data = this.gridView.data
   }
 
   public pageChange(event: PageChangeEvent): void {
@@ -184,7 +176,6 @@ export class ShowTasksComponent implements OnInit {
   }
 
   private loadItems(): void {
-    debugger
     this.kendoSource = {
         data: this.items.slice(this.skip, this.skip + this.pageSize),
         total: this.items.length
