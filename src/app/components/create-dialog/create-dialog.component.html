@@ -18,7 +18,10 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">مشتری</mat-label>
-                <input type="text" matInput [formControl]="accountControl" [matAutocomplete]="auto1" required title="" [errorStateMatcher]="matcher">
+                <input type="text" matInput [formControl]="accountControl" [matAutocomplete]="auto1" title="" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="accountControl.hasError('required')">
+                    فیلد مشتری <strong>ضروری </strong> است
+                </mat-error>
                 <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="onAccountSelectProjectSearch($event.option.value)">
                     <mat-option *ngFor="let option of filteredAccountOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -30,7 +33,10 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">پروژه</mat-label>
-                <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" required title="" [errorStateMatcher]="matcher">
+                <input type="text" matInput [formControl]="projectControl" [matAutocomplete]="auto2" title="" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="projectControl.hasError('required')">
+                    فیلد پروژه <strong>ضروری </strong> است
+                </mat-error>
                 <mat-autocomplete #auto2="matAutocomplete" (optionSelected)="onProjectSelectPhaseSearch($event.option.value)">
                     <mat-option *ngFor="let option of filteredProjectOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -42,7 +48,10 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">فاز</mat-label>
-                <input type="text" matInput [formControl]="phaseControl" [matAutocomplete]="auto3" required title="" [errorStateMatcher]="matcher">
+                <input type="text" matInput [formControl]="phaseControl" [matAutocomplete]="auto3" title="" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="phaseControl.hasError('required')">
+                    فیلد فاز <strong>ضروری </strong> است
+                </mat-error>
                 <mat-autocomplete #auto3="matAutocomplete" (optionSelected)="onPhaseSelectSubphaseSearch($event.option.value)">
                     <mat-option *ngFor="let option of filteredPhaseOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -54,7 +63,10 @@
         <div style="width: 100%;">
             <mat-form-field dir="rtl" style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">زیر فاز</mat-label>
-                <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" required title="" [errorStateMatcher]="matcher">
+                <input type="text" matInput [formControl]="subphaseControl" [matAutocomplete]="auto4" title="" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="subphaseControl.hasError('required')">
+                    فیلد زیرفاز <strong>ضروری </strong> است
+                </mat-error>
                 <mat-autocomplete #auto4="matAutocomplete">
                     <mat-option *ngFor="let option of filteredSubphaseOptions | async" [value]="option.Name">
                         {{option.Name}}
@@ -66,7 +78,10 @@
         <div dir="rtl" style="width: 100%;">
             <mat-form-field style="width: 100%;font-size: medium;">
                 <mat-label style="color: deeppink;font-weight: bold;">تاریخ</mat-label>
-                <input matInput [matDatepicker]="picker" [value]="dateControl.value" [(ngModel)]="this.selectedDate" name="datePickerInput" required [errorStateMatcher]="matcher">
+                <input matInput (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" [matDatepicker]="picker" [value]="dateControl.value" [(ngModel)]="this.selectedDate" name="datePickerInput" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="selectedDate === null || invalidFilledDate">
+                    لطفا تاریخی معتبر وارد کنید
+                </mat-error>
                 <mat-datepicker-toggle matSuffix [for]="picker" style="color: deeppink;"></mat-datepicker-toggle>
                 <mat-datepicker touchUi #picker disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -76,7 +91,10 @@
             <div style="width: 100%;">
                 <mat-form-field style="font-size: medium;width: 100%;">
                     <mat-label style="color: deeppink;font-weight: bold;">زمان</mat-label>
-                    <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" required [errorStateMatcher]="matcher" (change)="onTimeValueChange()"> 
+                    <input matInput [formControl]="timeControl" type="text" [textMask]="mask" [(ngModel)]="this.createDialogService.taskTime" [errorStateMatcher]="matcher" (change)="onTimeValueChange()">
+                    <mat-error *ngIf="timeControl.hasError('required')">
+                        فیلد زمان <strong>ضروری </strong> است
+                    </mat-error>
                 </mat-form-field>
             </div>
         
@@ -116,8 +134,11 @@
                 <mat-label style="color: deeppink;font-weight: bold;">توضیحات</mat-label>
                 <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"
                     cdkAutosizeMaxRows="2" [formControl]="descriptionControl"
-                    required title="" [errorStateMatcher]="matcher">
+                    title="" [errorStateMatcher]="matcher">
                 </textarea>
+                <mat-error *ngIf="descriptionControl.hasError('required')">
+                    فیلد توضیحات <strong>ضروری </strong> است
+                </mat-error>
             </mat-form-field>
         </div>
         <div class="table-responsive">

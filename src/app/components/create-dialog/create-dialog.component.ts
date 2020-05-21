@@ -13,14 +13,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
+import { validateComplexValues } from '@progress/kendo-angular-dropdowns/dist/es2015/util';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 export class myErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
-    // !str.replace(/\s/g, '').length
-    if(control.value === "" ) {
-      return true
-    }
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
 }
@@ -47,15 +45,41 @@ export class CreateDialogComponent implements OnInit {
     }
 
   // Form controllers
-  modalityControl = new FormControl("")
-  placeControl = new FormControl("")
-  descriptionControl = new FormControl("")
-  projectControl = new FormControl("");
-  accountControl = new FormControl("");
-  phaseControl = new FormControl("");
-  subphaseControl = new FormControl("");
-  dateControl = new FormControl(new Date());
-  timeControl = new FormControl("", [
+  modalityControl = new FormControl('', [
+    Validators.required,
+  ])
+
+  placeControl = new FormControl('', [
+    Validators.required,
+  ])
+
+  descriptionControl = new FormControl('', [
+    Validators.required,
+  ])
+
+  projectControl = new FormControl('', [
+    Validators.required,
+  ])
+
+  accountControl = new FormControl('', [
+    Validators.required,
+  ])
+
+  phaseControl = new FormControl('', [
+    Validators.required,
+  ])
+
+  subphaseControl = new FormControl('', [
+    Validators.required,
+  ])
+
+  dateControl = new FormControl(new Date(), [
+    Validators.required,
+  ])
+  events: string[] = [];
+  invalidFilledDate: boolean = false
+
+  timeControl = new FormControl('', [
     Validators.required,
     Validators.minLength(5),
   ])
@@ -131,7 +155,6 @@ export class CreateDialogComponent implements OnInit {
 
     // Description
     this.descriptionControl.setValue("")
-
   }
 
   public phaseSearch(projectName: string, searchedValue: string): Observable<any> {
@@ -211,8 +234,8 @@ export class CreateDialogComponent implements OnInit {
   onSaveBtnClick() {
     this.error = null
     debugger
-    var allFieldsValid = this.allFieldsValidator()
-    if(allFieldsValid[allFieldsValid.length - 1]) {
+    this.dateControl.valid
+    if(this.preSaveValidator()) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -249,45 +272,14 @@ export class CreateDialogComponent implements OnInit {
       )
     }
     else {
-      var errorMessage: string = ""
-
-      if (!allFieldsValid[0]) {
-        errorMessage = "، فیلد مشتری را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[1]) {
-        errorMessage += "، فیلد پروژه را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[2]) {
-        errorMessage += "، فیلد فاز را به درستی پر کنید"
-      }
-      
-      if (!allFieldsValid[3]) {
-        errorMessage += "، فیلد زیرفاز را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[4]) {
-        errorMessage += "، فیلد تاریخ را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[5]) {
-        errorMessage += "، فیلد زمان را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[6]) {
-        errorMessage += " فیلد توضیحات را به درستی پر کنید"
-      }
-
-      this.error = errorMessage
+      this.error = "! لطفا تمامی فیلد ها را به درستی پر کنید"
     }
   }
 
   onSaveAndContinueBtnClick() {
     debugger
     this.error = null
-    var allFieldsValid = this.allFieldsValidator()
-    if(allFieldsValid[allFieldsValid.length - 1]) {
+    if(this.preSaveValidator()) {
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -321,37 +313,7 @@ export class CreateDialogComponent implements OnInit {
       )
     }
     else {
-      var errorMessage: string = ""
-
-      if (!allFieldsValid[0]) {
-        errorMessage = "، فیلد مشتری را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[1]) {
-        errorMessage += "، فیلد پروژه را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[2]) {
-        errorMessage += "، فیلد فاز را به درستی پر کنید"
-      }
-      
-      if (!allFieldsValid[3]) {
-        errorMessage += "، فیلد زیرفاز را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[4]) {
-        errorMessage += "، فیلد تاریخ را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[5]) {
-        errorMessage += "، فیلد زمان را به درستی پر کنید"
-      }
-
-      if (!allFieldsValid[6]) {
-        errorMessage += " فیلد توضیحات را به درستی پر کنید"
-      }
-
-      this.error = errorMessage
+      this.error = "! لطفا تمامی فیلد ها را به درستی پر کنید"
     }
   }
   onProjectSelectPhaseSearch(projectName: string) {
@@ -459,23 +421,24 @@ export class CreateDialogComponent implements OnInit {
     };
  }
 
-  private allFieldsValidator(): boolean[] {
+  private preSaveValidator(): boolean {
     debugger
-    var fieldValids = new Array<boolean>(8)
-    fieldValids[0] = this.accountControl.valid
-    fieldValids[1] = this.projectControl.valid
-    fieldValids[2] = this.phaseControl.valid
-    fieldValids[3] = this.subphaseControl.valid
-    fieldValids[4] = (this.selectedDate != null)
-    fieldValids[5] = (this.timeControl.value !== "")
-    fieldValids[6] = this.descriptionControl.valid
-    fieldValids[7] = true
-    for(var i = 0; i < 7; ++i) {
-      if(!fieldValids[i]) {
-        fieldValids[7] = false
-        break
-      }
+    this.subphaseControl.hasError('required')
+    return this.accountControl.valid && this.projectControl.valid && this.phaseControl.valid
+           && this.subphaseControl.valid && !this.invalidFilledDate
+           && this.timeControl.value !== "" && this.descriptionControl.valid
+  }
+
+  addEvent(event: MatDatepickerInputEvent<Date>) {
+    debugger
+    var t = this.selectedDate
+    if(event.value === null) {
+      this.invalidFilledDate = true
+      this.selectedDate = null
+      this.dateControl.setValue(null)
     }
-    return fieldValids
+    else {
+      this.invalidFilledDate = false
+    }
   }
 }
