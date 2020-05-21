@@ -183,7 +183,7 @@
 
     <div style="margin-top: auto;">
     
-        <mat-dialog-actions>
+        <mat-dialog-actions *ngIf="!isSaving">
             <div style="margin: auto;width: 100%;" class="alert alert-danger" *ngIf="error">
                 <p style="font-size: medium;text-align: center;"><strong>{{ error }}</strong></p>
             </div>
@@ -192,5 +192,9 @@
                 <button type="button" class="btn btn-primary button" (click)="onSaveAndContinueBtnClick()">ذخیره و ادامه</button>
             </div>
         </mat-dialog-actions>
+
+        <div *ngIf="isSaving" class="spinner" style="text-align: center;">
+            <app-loading-spinner></app-loading-spinner>
+        </div>
     </div>
 </div>

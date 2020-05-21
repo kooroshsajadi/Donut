@@ -99,6 +99,7 @@ export class CreateDialogComponent implements OnInit {
   error: string = null
   accountName: string
   serverRes: any[] = []
+  isSaving: boolean = false
 
   // Input mask
   public mask = {
@@ -236,6 +237,7 @@ export class CreateDialogComponent implements OnInit {
     debugger
     this.dateControl.valid
     if(this.preSaveValidator()) {
+      this.isSaving = true
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -260,6 +262,7 @@ export class CreateDialogComponent implements OnInit {
             });
           }
           this.error = null
+          this.isSaving = false
         },
         (error) => {
           this.dialog.open(ResultDialogComponent, {
@@ -268,6 +271,7 @@ export class CreateDialogComponent implements OnInit {
             success: false}
           });
           this.error = null
+          this.isSaving = false
         }
       )
     }
@@ -280,6 +284,7 @@ export class CreateDialogComponent implements OnInit {
     debugger
     this.error = null
     if(this.preSaveValidator()) {
+      this.isSaving = true
       this.tasksShowService.selectedDate = this.selectedDate
       this.createDialogService.createContinuebyEstablishments(this.projectControl.value, this.descriptionControl.value, this.tasksShowService.selectedDate).subscribe(
         (success) => {
@@ -301,6 +306,7 @@ export class CreateDialogComponent implements OnInit {
             });
           }
           this.error = null
+          this.isSaving = false
         },
         (error) => {
           this.dialog.open(ResultDialogComponent, {
@@ -309,6 +315,7 @@ export class CreateDialogComponent implements OnInit {
             success: false}
           });
           this.error = null
+          this.isSaving = false
         }
       )
     }
