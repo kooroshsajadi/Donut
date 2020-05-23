@@ -14,6 +14,7 @@ import { Time } from '@angular/common';
 import { CreateDialogService } from 'src/app/services/create-dialog.service';
 import { SortDescriptor, orderBy } from '@progress/kendo-data-query';
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-show-tasks',
@@ -103,6 +104,7 @@ export class ShowTasksComponent implements OnInit {
           debugger
           this.serverRes.forEach(row => {
             debugger
+            // Getting total time and correcting the time column.
             this.totalTime.minutes += +row.ActivitesTime
             hour = Math.floor(row.ActivitesTime / 60).toString()
             min = (row.ActivitesTime % 60).toString()
@@ -110,6 +112,14 @@ export class ShowTasksComponent implements OnInit {
               min = "0" + min
             }
             row.ActivitesTime = hour + ":" + min
+
+            // Correcting the data shown in the "محل" column.
+            if(row.PlaceOfAction.toLowerCase() === "other") {
+              row.PlaceOfAction = "محل مشتری"
+            }
+            else {
+              row.PlaceOfAction = "کسرا"
+            }
           })
           this.totalHour = Math.floor(this.totalTime.minutes / 60).toString()
           this.totalMin = (this.totalTime.minutes % 60).toString()
