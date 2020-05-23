@@ -38,6 +38,8 @@ export class ShowTasksComponent implements OnInit {
   events: string[] = [];
   selection = new SelectionModel<Element>(true, []);
   totalTime: Time = {hours: 0, minutes: 0}
+  totalHour: string
+  totalMin: string
   public multiple = false;
     public allowUnsort = true;
     // public sort: SortDescriptor[] = [{
@@ -98,7 +100,9 @@ export class ShowTasksComponent implements OnInit {
           this.totalTime.minutes = 0
           var min: string
           var hour: string
+          debugger
           this.serverRes.forEach(row => {
+            debugger
             this.totalTime.minutes += +row.ActivitesTime
             hour = Math.floor(row.ActivitesTime / 60).toString()
             min = (row.ActivitesTime % 60).toString()
@@ -107,8 +111,11 @@ export class ShowTasksComponent implements OnInit {
             }
             row.ActivitesTime = hour + ":" + min
           })
-          this.totalTime.hours = Math.floor(this.totalTime.minutes / 60)
-          this.totalTime.minutes = this.totalTime.minutes % 60
+          this.totalHour = Math.floor(this.totalTime.minutes / 60).toString()
+          this.totalMin = (this.totalTime.minutes % 60).toString()
+          if(this.totalMin.length === 1) {
+            this.totalMin = "0" + this.totalMin
+          }
           
           this.items = this.serverRes
           this.kendoSource.data = this.items
