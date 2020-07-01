@@ -21,7 +21,6 @@ export class CreateDialogService {
   constructor(private configService: ConfigService) { }
 
   private generateSearchPhaseBody(projectName: string, searchedValue: string): string {
-    debugger
     var projectID = 0
     if(this.projectOptions !== null) {
       if(this.projectOptions.length === 1) {
@@ -40,13 +39,11 @@ export class CreateDialogService {
   }
 
   public searchPhase(projectName: string, serachedValue: string): Observable<any> {
-    debugger
     var body = this.generateSearchPhaseBody(projectName, serachedValue)
     return this.configService.post('ContinuebyEstablishments/SearchPhase', body);
   }
 
   private generateSearchProjectBody(accountName: string, searchedValue: string): string {
-    debugger
     var accountID = ""
     this.accountOptions.forEach(account => {
       if(account.Name === accountName) {
@@ -63,7 +60,6 @@ export class CreateDialogService {
   }
 
   private generateSearchSubphaseBody(phaseName: string, subphaseSearchedValue: string): string {
-    debugger
     var phaseID = 0
     if(this.phaseOptions.length === 1)
       phaseID = this.phaseOptions[0].PhaseId
@@ -79,13 +75,11 @@ export class CreateDialogService {
   }
 
   public searchSubphase(phaseName: string, subphaseSearchedValue: string): Observable<any> {
-    debugger
     var body = this.generateSearchSubphaseBody(phaseName, subphaseSearchedValue)
     return this.configService.post('ContinuebyEstablishments/SearchSubPhase', body);
   }
 
   public createContinuebyEstablishmentsBody(projectName: string, description: string, date: string): string {
-    debugger
     var ActivityID: string = ""
     if(this.projectOptions !== null && this.projectOptions.length > 0){
       var projectID: string = this.projectOptions[0].ProjectId
@@ -107,12 +101,18 @@ export class CreateDialogService {
     var integerTimeArray: Array<number> = [Number.parseInt(stringTimeArray[0]), Number.parseInt(stringTimeArray[1])]
     var duration: number = integerTimeArray[0] * 60 + integerTimeArray[1]
     var personID: string = localStorage.getItem('personCode').replace("\"", "").replace("\"", "")
+    var step;
+    if(this.nextStep == "0")
+      step = 3;
+    else if(this.nextStep == "1")
+      step = 0;
+    else
+      step = 2;
     // var place = (this.selectedPlace === "option1") ? "کسرا" : "محل مشتری"
-    return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'Place':" + +this.selectedPlace + ",'NextStep':" + this.nextStep + "}],'PersonId':'" + personID + "'}"
+    return "{'ActivityList':[{'ActivityId':'" + ActivityID + "','ProjectId':'" + projectID + "','ProjectName':'" + projectName + "','PhaseId':'" + phaseID + "','SubPhaseId':'" + subphaseID + "','Description':'" + description + "','DuDate':'" + dueDate + "','Duration':" + duration + ",'Place':" + +this.selectedPlace + ",'NextStep':" + step + "}],'PersonId':'" + personID + "'}"
   }
 
   public createContinuebyEstablishments(projectName: string, description: string, date: string): Observable<any> {
-    debugger
     var body = this.createContinuebyEstablishmentsBody(projectName, description, date)
     this.projectOptions = []
     this.phaseOptions = []
@@ -121,7 +121,6 @@ export class CreateDialogService {
   }
 
   private generateLoadSubchecklistBody(phaseName: string): string {
-    debugger
     var phaseID = ""
     this.phaseOptions.forEach(element => {
       if(element.Name === phaseName) {
@@ -134,7 +133,6 @@ export class CreateDialogService {
   }
 
   public LoadSubchecklist(phaseName: string): Observable<any> {
-    debugger
     var body = this.generateLoadSubchecklistBody(phaseName)
     return this.configService.post('ContinuebyEstablishments/LoadSubCheckList', body);
   }

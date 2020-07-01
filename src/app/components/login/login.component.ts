@@ -21,14 +21,7 @@ export class LoginComponent implements OnInit {
     private sendRequest: LoginService,
     private commonService: CommonService) { }
 
-  ngOnInit(): void {
-    // this.route.queryParams.subscribe(params => {
-    //   this.commonService.OpportunityId = params['id']
-    //   if (this.commonService.OpportunityId != undefined) {
-    //     this.commonService.OpportunityId=this.commonService.OpportunityId.replace('{',"").replace('}',"")
-    //   }
-    // });
-  }
+  ngOnInit(): void {}
 
   onSubmit(form: NgForm) {
     if(!form.valid) {
@@ -43,12 +36,9 @@ export class LoginComponent implements OnInit {
     authObs.subscribe(
       resData => {
         this.isLoading = false;
-        debugger
         this.router.navigate(['/tasks'])
-        debugger
       },
       errorMessage => {
-        debugger
         this.error = "نام کاربری یا رمز عبور اشتباه است"
         this.isLoading = false
       }

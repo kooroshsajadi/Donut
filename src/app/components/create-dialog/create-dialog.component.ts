@@ -191,10 +191,8 @@ export class CreateDialogComponent implements OnInit {
   }
 
   private accountFilter(value: string): Observable<any> {
-    debugger
     this.createDialogService.accountOptions
     return this.accountSearch(value);
-    debugger
   }
 
   openTimeDialog(content: string): void {

@@ -27,7 +27,6 @@ export class LoginService {
     const body = this.generateLoginBody(username, password)
     return this.configService.post('AuthDonat/LoginKasra', body)
     .pipe(catchError(this.handleError), tap(resData => {
-      debugger
       var readableRes = JSON.parse(resData.message)
       this.handleAuthentication(readableRes.FullName, readableRes.PresonCode);
     }));

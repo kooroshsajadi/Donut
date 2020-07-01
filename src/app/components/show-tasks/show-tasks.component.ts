@@ -43,10 +43,6 @@ export class ShowTasksComponent implements OnInit {
   totalMin: string
   public multiple = false;
     public allowUnsort = true;
-    // public sort: SortDescriptor[] = [{
-    //   field: 'Project',
-    //   dir: 'asc'
-    // }];
     public sort: SortDescriptor[] = [{
       field: 'Project',
       dir: 'asc'
@@ -93,7 +89,6 @@ export class ShowTasksComponent implements OnInit {
     public generateTable(date: string) {
       this.tasksShowService.getActivityData(date).subscribe(
         (success) => {
-          debugger
           this.serverRes = JSON.parse(success.message)
           
           // Performing some operations to fix the time column and to calculate the total time.
@@ -101,9 +96,7 @@ export class ShowTasksComponent implements OnInit {
           this.totalTime.minutes = 0
           var min: string
           var hour: string
-          debugger
           this.serverRes.forEach(row => {
-            debugger
             // Getting total time and correcting the time column.
             this.totalTime.minutes += +row.ActivitesTime
             hour = Math.floor(row.ActivitesTime / 60).toString()
@@ -148,15 +141,12 @@ export class ShowTasksComponent implements OnInit {
     }
 
     openCreateDialog(content: string): void {
-      debugger
       var dialogRef = this.dialog.open(CreateDialogComponent, {
         data: {content: content},
         width: "100%",
         height: "98%"
       });
-      debugger
       dialogRef.afterClosed().subscribe(result => {
-        debugger
         this.generateTable(this.tasksShowService.selectedDate)
         this.createDialogService.projectOptions = []
         this.createDialogService.phaseOptions = []
